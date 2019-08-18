@@ -1,1 +1,1 @@
-export const HELLO_WORLD = 'hello_world';
+export const FAZER_LOGIN = 'fazer_login';

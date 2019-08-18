@@ -1,15 +1,16 @@
 const INITIAL_STATE = {
-  helloWorld: 'Hello, world!'
+  cpf: '',
+  senha: ''
 };
 
 import {
-  HELLO_WORLD
+  FAZER_LOGIN
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case HELLO_WORLD:
-      return {...state, helloWorld: action.payload};
+    case FAZER_LOGIN:
+      return {...state, cpf: true, senha: true};
     default:
       return state;
   }

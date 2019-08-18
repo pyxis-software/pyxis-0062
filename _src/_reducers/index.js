@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
-import PrincipalReducer from './PrincipalReducer';
+import TelaInicialReducer from './TelaInicialReducer';
 
 export default combineReducers({
-  PrincipalReducer
+  TelaInicialReducer
 });

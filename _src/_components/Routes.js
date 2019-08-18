@@ -4,9 +4,9 @@ import {Router, Scene, Stack} from 'react-native-router-flux';
 import TelaInicial from './TelaInicial';
 
 export default props => (
-  <Router navigationBarStyle={{backgroundColor: '#115E54'}} titleStyle={{color: '#fff'}}>
+  <Router>
     <Stack key="root">
-      <Scene key="inicial" component={TelaInicial} title="Tela Inicial" hideNavBar={false} />
+      <Scene key="inicial" component={TelaInicial} title="Tela Inicial" hideNavBar={true} />
     </Stack>
   </Router>
 );
