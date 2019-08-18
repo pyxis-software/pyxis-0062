@@ -4,13 +4,16 @@ const INITIAL_STATE = {
 };
 
 import {
-  FAZER_LOGIN
+  MODIFICA_CPF,
+  MODIFICA_SENHA
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case FAZER_LOGIN:
-      return {...state, cpf: true, senha: true};
+    case MODIFICA_CPF:
+      return {...state, cpf: action.payload};
+    case MODIFICA_SENHA:
+      return {...state, senha: action.payload}
     default:
       return state;
   }

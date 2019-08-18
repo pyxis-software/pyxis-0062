@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TextInput} from 'react-native';
+import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 
-import {modificaHelloWorld} from '../_actions/TelaInicialReducer';
+import {modificaCPF, modificaSenha} from '../_actions/TelaInicialActions';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
@@ -17,22 +17,35 @@ class TelaInicial extends Component{
         <View style={styles.containerInformacoes}>
           <Text style={styles.textoBemVindo}> Bem-vindo! </Text>
 
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            onChangeText={() => false}
-            value={this.props.cpf}
-            placeholder="Digite seu CPF"
-            style={styles.textInput}
-          />
+          <View style={styles.containerInputBotao}>
+            <TextInput
+              onChangeText={(cpf) => this.props.modificaCPF(cpf)}
+              value={this.props.cpf}
+              placeholder="Digite seu CPF"
+              style={styles.textInput}
+            />
 
-          <TextInput
-            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-            onChangeText={() => false}
-            value={this.props.senha}
-            secureTextEntry
-            placeholder="Digite sua Senha"
-            style={styles.textInput}
-          />
+            <TextInput
+              onChangeText={(senha) => this.props.modificaSenha(senha)}
+              value={this.props.senha}
+              secureTextEntry
+              placeholder="Digite sua Senha"
+              style={styles.textInput}
+            />
+
+            <TouchableOpacity
+              style={styles.botaoEntrar}
+              onPress={() => {return false}}
+              underlayColor='#fff'
+            >
+              <Text style={styles.textoEntrar}>Entrar</Text>
+             </TouchableOpacity>
+
+            <Text style={styles.textoEsqueciSenha} onPress={() => {return false}}>
+              Esqueci Minha Senha
+            </Text>
+
+          </View>
         </View>
       </View>
     );
@@ -56,7 +69,8 @@ const styles = StyleSheet.create({
   containerInformacoes: {
     flex: 5,
     alignItems: 'center',
-    backgroundColor: '#3258A4'
+    backgroundColor: '#3258A4',
+    paddingTop: 40
   },
   logo: {
     width: 180,
@@ -67,10 +81,40 @@ const styles = StyleSheet.create({
     fontSize: 25
   },
   textInput: {
-    margin: 25,
+    marginBottom: 20,
     backgroundColor: '#fff',
-    color: 'gray'
+    color: 'gray',
+    height: 40,
+    width: 300,
+    borderColor: 'gray',
+    borderWidth: 1
+  },
+  containerInputBotao: {
+    paddingTop: 50
+  },
+  botaoEntrar: {
+    marginRight:40,
+    marginLeft:40,
+    marginTop:10,
+    paddingTop:10,
+    paddingBottom:10,
+    backgroundColor:'#fff',
+    borderRadius:10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  textoEsqueciSenha: {
+    color: '#fff',
+    fontSize: 15,
+    textAlign: 'center',
+    padding: 65
+  },
+  textoEntrar: {
+    color:'#3258A4',
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
   }
 });
 
-export default connect(mapStateToProps, {modificaHelloWorld})(TelaInicial);
+export default connect(mapStateToProps, {modificaCPF, modificaSenha})(TelaInicial);

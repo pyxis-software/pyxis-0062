@@ -1,10 +1,18 @@
 import {
-  FAZER_LOGIN
+  MODIFICA_CPF,
+  MODIFICA_SENHA
 } from '../_actions/Types';
 
-export const modificaHelloWorld = () => {
+export const modificaCPF = (cpf) => {
   return {
-    type: FAZER_LOGIN,
-    payload: true
+    type: MODIFICA_CPF,
+    payload: cpf
+  }
+}
+
+export const modificaSenha = (senha) => {
+  return {
+    type:   MODIFICA_SENHA,
+    payload: senha
   }
 }
