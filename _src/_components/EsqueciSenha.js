@@ -1,13 +1,23 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
+import {TextInputMask} from 'react-native-masked-text';
+import {Actions} from 'react-native-router-flux';
+
+import {modificaCPFEsqueciSenha} from '../_actions/EsqueciSenhaActions';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
+const Voltar = require('../_imagens/voltar.png');
 
 class EsqueciSenha extends Component{
   render(){
     return(
       <View style={styles.containerPrincipal}>
+
+      <TouchableOpacity onPress={() => {Actions.pop()}} underlayColor='#fff'>
+        <Image source={Voltar} />
+      </TouchableOpacity>
+
         <View style={styles.containerLogo}>
           <Image source={LogoJuniorNet} style={styles.logo} />
         </View>
@@ -16,13 +26,14 @@ class EsqueciSenha extends Component{
           <Text style={styles.textoBemVindo}> Recupere sua Senha! </Text>
 
           <View style={styles.containerInputBotao}>
-            <TextInput
-              onChangeText={() => {return false}}
+            <TextInputMask
+              type={'cpf'}
               value={this.props.cpf}
+              onChangeText={(cpf) => this.props.modificaCPFEsqueciSenha(cpf)}
               placeholder="Digite seu CPF"
               style={styles.textInput}
               keyboardType={'numeric'}
-              maxLength={11}
+              maxLength={14}
             />
 
             <TouchableOpacity
@@ -41,7 +52,7 @@ class EsqueciSenha extends Component{
 }
 
 const mapStateToProps = state => ({
-
+  cpf: state.EsqueciSenhaReducer.cpf
 });
 
 const styles = StyleSheet.create({
@@ -99,4 +110,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, {})(EsqueciSenha);
+export default connect(mapStateToProps, {modificaCPFEsqueciSenha})(EsqueciSenha);

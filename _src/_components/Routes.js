@@ -8,7 +8,7 @@ export default props => (
   <Router>
     <Stack key="root">
       <Scene key="inicial" component={TelaInicial} hideNavBar={true} />
-      <Scene key="esqueciSenha" component={EsqueciSenha} hideNavBar={false} title="Voltar" />
+      <Scene key="esqueciSenha" component={EsqueciSenha} hideNavBar={true} />
     </Stack>
   </Router>
 );

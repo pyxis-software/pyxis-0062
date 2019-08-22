@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
+import {TextInputMask} from 'react-native-masked-text';
 
 import {modificaCPF, modificaSenha} from '../_actions/TelaInicialActions';
 
@@ -19,13 +20,14 @@ class TelaInicial extends Component{
           <Text style={styles.textoBemVindo}> Bem-vindo! </Text>
 
           <View style={styles.containerInputBotao}>
-            <TextInput
-              onChangeText={(cpf) => this.props.modificaCPF(cpf)}
+            <TextInputMask
+              type={'cpf'}
               value={this.props.cpf}
+              onChangeText={(cpf) => this.props.modificaCPF(cpf)}
               placeholder="Digite seu CPF"
               style={styles.textInput}
               keyboardType={'numeric'}
-              maxLength={11}
+              maxLength={14}
             />
 
             <TextInput
