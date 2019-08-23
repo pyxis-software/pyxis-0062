@@ -9,10 +9,11 @@ export default props => (
   <Router>
     <Stack key="root">
 
-      <Scene key="menu" component={Menu} hideNavBar={true} />
+      <Scene key="" component={} hideNavBar={true} />
 
       <Scene key="inicial" component={TelaInicial} hideNavBar={true} />
       <Scene key="esqueciSenha" component={EsqueciSenha} hideNavBar={true} />
+      <Scene key="menu" component={Menu} hideNavBar={true} />
     </Stack>
   </Router>
 );
