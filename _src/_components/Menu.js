@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image, Button, Text} from 'react-native';
+import {View, StyleSheet, Image, Button, Text, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -17,23 +17,29 @@ class Menu extends Component{
 
         <View style={styles.containerTodasOpcoes}>
           <View style={styles.containerOpcoes1}>
-            <View style={styles.opcoes}>
-              <Icon name="person" size={50} color="#fff" style={styles.icones} />
-              <Text style={styles.textoOpcoes}> Meus Dados </Text>
-            </View>
+
+            <TouchableOpacity onPress={() => {Actions.telaUsuario()}} underlayColor="white">
+              <View style={styles.opcoes}>
+                <Icon name="person" size={50} color="#fff" style={styles.icones} />
+                <Text style={styles.textoOpcoes}> Meus Dados </Text>
+              </View>
+            </TouchableOpacity>
+
             <View style={styles.opcoes}>
               <Icon name="attach-money" size={50} color="#fff" style={styles.icones} />
               <Text style={styles.textoOpcoes}> Financeiro</Text>
             </View>
+
             <View style={styles.opcoes}>
               <Icon name="notifications-active" size={50} color="#fff" style={styles.icones} />
               <Text style={styles.textoOpcoes}> Notícias </Text>
             </View>
+
           </View>
 
           <View style={styles.containerOpcoes2}>
             <View style={styles.opcoes}>
-              <Icon name="attach-money" size={50} color="#fff" style={styles.icones} />
+              <Icon name="subject" size={50} color="#fff" style={styles.icones} />
               <Text style={styles.textoOpcoes}> Planos </Text>
             </View>
             <View style={styles.opcoes}>
@@ -56,7 +62,8 @@ const mapStateToProps = state => ({
 
 const styles = StyleSheet.create({
   containerPrincipal: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
   containerLogo: {
     flex: 2,

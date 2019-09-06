@@ -7,16 +7,11 @@ import {Actions} from 'react-native-router-flux';
 import {modificaCPFEsqueciSenha} from '../_actions/EsqueciSenhaActions';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
-const Voltar = require('../_imagens/voltar.png');
 
 class EsqueciSenha extends Component{
   render(){
     return(
       <View style={styles.containerPrincipal}>
-
-      <TouchableOpacity onPress={() => {Actions.pop()}} underlayColor='#fff'>
-        <Image source={Voltar} />
-      </TouchableOpacity>
 
         <View style={styles.containerLogo}>
           <Image source={LogoJuniorNet} style={styles.logo} />
@@ -57,7 +52,8 @@ const mapStateToProps = state => ({
 
 const styles = StyleSheet.create({
   containerPrincipal: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
   containerLogo: {
     flex: 3,
