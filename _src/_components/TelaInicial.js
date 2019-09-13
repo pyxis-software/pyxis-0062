@@ -1,14 +1,45 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import {TextInputMask} from 'react-native-masked-text';
 
-import {modificaCPF, modificaSenha} from '../_actions/TelaInicialActions';
+import {modificaCPF, modificaSenha, fazerLogin} from '../_actions/TelaInicialActions';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
 class TelaInicial extends Component{
+
+  _fazerLogin(){
+    const {cpf, senha} = this.props;
+    this.props.fazerLogin({cpf, senha});
+  }
+
+  renderBotaoAcessar(){
+    if (this.props.carregamentoInicial) {
+      return(
+        <ActivityIndicator size="large" color="#fff" />
+      );
+    }else{
+      return(
+        <TouchableOpacity
+          style={styles.botaoEntrar}
+          onPress={() => this._fazerLogin()}
+          underlayColor='#fff'>
+            <Text style={styles.textoEntrar}>Entrar</Text>
+        </TouchableOpacity>
+      );
+    }
+  }
+
+  renderErro(){
+    if(this.props.erro){
+      return(
+        <Text style={styles.erro}> {this.props.mensagem} </Text>
+      );
+    }
+  }
+
   render(){
     return(
       <View style={styles.containerPrincipal}>
@@ -38,13 +69,13 @@ class TelaInicial extends Component{
               style={styles.textInput}
             />
 
-            <TouchableOpacity
-              style={styles.botaoEntrar}
-              onPress={() => {return false}}
-              underlayColor='#fff'
-            >
-              <Text style={styles.textoEntrar}>Entrar</Text>
-             </TouchableOpacity>
+            <View>
+              {this.renderErro()}
+            </View>
+
+            <View>
+              {this.renderBotaoAcessar()}
+            </View>
 
             <Text style={styles.textoEsqueciSenha} onPress={() => {Actions.esqueciSenha()}}>
               Esqueci Minha Senha
@@ -59,7 +90,10 @@ class TelaInicial extends Component{
 
 const mapStateToProps = state => ({
   cpf: state.TelaInicialReducer.cpf,
-  senha: state.TelaInicialReducer.senha
+  senha: state.TelaInicialReducer.senha,
+  carregamentoInicial: state.TelaInicialReducer.carregamentoInicial,
+  erro: state.TelaInicialReducer.erro,
+  mensagem: state.TelaInicialReducer.mensagem,
 });
 
 const styles = StyleSheet.create({
@@ -120,7 +154,11 @@ const styles = StyleSheet.create({
     textAlign:'center',
     paddingLeft : 10,
     paddingRight : 10
-  }
+  },
+  erro: {
+    color: '#ff0000',
+    fontSize: 12
+    }
 });
 
-export default connect(mapStateToProps, {modificaCPF, modificaSenha})(TelaInicial);
+export default connect(mapStateToProps, {modificaCPF, modificaSenha, fazerLogin})(TelaInicial);

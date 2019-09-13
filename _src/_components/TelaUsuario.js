@@ -9,18 +9,15 @@ class TelaUsuario extends Component{
       <View style={styles.containerPrincipal}>
 
         <View style={styles.containerInformacoesUsuario}>
-          <Text style={styles.textoInformacoesUsuario}> Nome do Cliente </Text>
-          <Text style={styles.textoInformacoesUsuario}> CPF do Cliente </Text>
+          <Text style={styles.textoInformacoesUsuario}> Nome: {this.props.nome} </Text>
+          <Text style={styles.textoInformacoesUsuario}> CPF: {this.props.cpf} </Text>
         </View>
 
         <View style={styles.containerInformacoesAdicionais}>
-          <Text style={styles.textoInformacoesAdicionais}> Rua: </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Número: </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Complemento: </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Bairro:  </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Cidade:  </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Estado:  </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Telefone: </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Endereço: {this.props.endereco} </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Cidade: {this.props.cidade}  </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Telefone: {this.props.telefone1} </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Telefone: {this.props.telefone2} </Text>
 
           <TouchableOpacity
             style={styles.botaoEntrar}
@@ -43,7 +40,12 @@ class TelaUsuario extends Component{
 }
 
 const mapStateToProps = state => ({
-
+  cpf: state.TelaUsuarioReducer.cpf,
+  nome: state.TelaUsuarioReducer.nome,
+  endereco: state.TelaUsuarioReducer.endereco,
+  cidade: state.TelaUsuarioReducer.cidade,
+  telefone1: state.TelaUsuarioReducer.telefone1,
+  telefone2: state.TelaUsuarioReducer.telefone2,
 });
 
 const styles = StyleSheet.create({
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   containerInformacoesUsuario: {
-    flex: 2,
+    flex: 1.1,
     alignItems: 'center',
     backgroundColor: '#3258A4'
   },
@@ -62,8 +64,8 @@ const styles = StyleSheet.create({
   },
   textoInformacoesUsuario: {
     color: '#fff',
-    fontSize: 20,
-    padding: 10,
+    fontSize: 17,
+    padding: 3,
     fontWeight: 'bold'
   },
   textoInformacoesAdicionais: {

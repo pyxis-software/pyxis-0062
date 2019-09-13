@@ -1,22 +1,14 @@
 import React from 'react';
 import {Router, Scene, Stack} from 'react-native-router-flux';
 
+import Menu from './Menu';
 import TelaInicial from './TelaInicial';
 import EsqueciSenha from './EsqueciSenha';
-import Menu from './Menu';
 import TelaUsuario from './TelaUsuario';
 
 export default props => (
   <Router>
     <Stack key="root">
-
-
-
-
-
-
-
-
 
       <Scene
         key="inicial"
@@ -48,7 +40,6 @@ export default props => (
         title="Meus Dados"
         titleStyle={{color: '#fff'}}
       />
-
 
     </Stack>
   </Router>
