@@ -5,6 +5,8 @@ import Menu from './Menu';
 import TelaInicial from './TelaInicial';
 import EsqueciSenha from './EsqueciSenha';
 import TelaUsuario from './TelaUsuario';
+import Noticias from './Noticias';
+import Sobre from './Sobre';
 
 export default props => (
   <Router>
@@ -38,6 +40,26 @@ export default props => (
         navigationBarStyle={{backgroundColor: '#3258A4'}}
         navBarButtonColor="#fff"
         title="Meus Dados"
+        titleStyle={{color: '#fff'}}
+      />
+
+      <Scene
+        key="noticias"
+        component={Noticias}
+        hideNavBar={false}
+        navigationBarStyle={{backgroundColor: '#3258A4'}}
+        navBarButtonColor="#fff"
+        title="Notícias"
+        titleStyle={{color: '#fff'}}
+      />
+
+      <Scene
+        key="sobre"
+        component={Sobre}
+        hideNavBar={false}
+        navigationBarStyle={{backgroundColor: '#3258A4'}}
+        navBarButtonColor="#fff"
+        title="Sobre a Empresa"
         titleStyle={{color: '#fff'}}
       />
 

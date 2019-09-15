@@ -9,15 +9,15 @@ class TelaUsuario extends Component{
       <View style={styles.containerPrincipal}>
 
         <View style={styles.containerInformacoesUsuario}>
-          <Text style={styles.textoInformacoesUsuario}> Nome: {this.props.nome} </Text>
-          <Text style={styles.textoInformacoesUsuario}> CPF: {this.props.cpf} </Text>
+          <Text style={styles.textoInformacoesUsuario}> {this.props.nome} </Text>
+          <Text style={styles.textoInformacoesUsuario}> {this.props.cpf} </Text>
         </View>
 
         <View style={styles.containerInformacoesAdicionais}>
           <Text style={styles.textoInformacoesAdicionais}> Endereço: {this.props.endereco} </Text>
           <Text style={styles.textoInformacoesAdicionais}> Cidade: {this.props.cidade}  </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Telefone: {this.props.telefone1} </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Telefone: {this.props.telefone2} </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Contato: {this.props.telefone1} </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Contato: {this.props.telefone2} </Text>
 
           <TouchableOpacity
             style={styles.botaoEntrar}

@@ -30,23 +30,34 @@ class Menu extends Component{
               <Text style={styles.textoOpcoes}> Financeiro</Text>
             </View>
 
-            <View style={styles.opcoes}>
-              <Icon name="notifications-active" size={50} color="#fff" style={styles.icones} />
-              <Text style={styles.textoOpcoes}> Notícias </Text>
-            </View>
+            <TouchableOpacity onPress={() => {Actions.noticias()}} underlayColor="white">
+              <View style={styles.opcoes}>
+                <Icon name="notifications-active" size={50} color="#fff" style={styles.icones} />
+                <Text style={styles.textoOpcoes}> Notícias </Text>
+              </View>
+            </TouchableOpacity>
 
           </View>
 
           <View style={styles.containerOpcoes2}>
+
             <View style={styles.opcoes}>
               <Icon name="subject" size={50} color="#fff" style={styles.icones} />
               <Text style={styles.textoOpcoes}> Planos </Text>
             </View>
+
             <View style={styles.opcoes}>
               <Icon name="chat" size={50} color="#fff" style={styles.icones} />
               <Text style={styles.textoOpcoes}> Chat </Text>
             </View>
-            <View style={{width: 100, height: 100, opacity: 0, borderRadius: 10}}></View>
+
+            <TouchableOpacity onPress={() => {Actions.sobre()}} underlayColor="white">
+              <View style={styles.opcoes}>
+                <Icon name="info" size={50} color="#fff" style={styles.icones} />
+                <Text style={styles.textoOpcoes}> Sobre </Text>
+              </View>
+            </TouchableOpacity>
+
           </View>
         </View>
         <Button title="Sair" onPress={() => {return false}} color="#3258A4" />
