@@ -7,6 +7,7 @@ import EsqueciSenha from './EsqueciSenha';
 import TelaUsuario from './TelaUsuario';
 import Noticias from './Noticias';
 import Sobre from './Sobre';
+import Planos from './Planos';
 
 export default props => (
   <Router>
@@ -60,6 +61,16 @@ export default props => (
         navigationBarStyle={{backgroundColor: '#3258A4'}}
         navBarButtonColor="#fff"
         title="Sobre a Empresa"
+        titleStyle={{color: '#fff'}}
+      />
+
+      <Scene
+        key="planos"
+        component={Planos}
+        hideNavBar={false}
+        navigationBarStyle={{backgroundColor: '#3258A4'}}
+        navBarButtonColor="#fff"
+        title="Planos"
         titleStyle={{color: '#fff'}}
       />
 

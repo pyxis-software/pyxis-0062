@@ -12,13 +12,11 @@ class Noticias extends Component{
   }
 
   renderizaNoticias({item}){
-
     return(
       <View style={styles.container}>
         <Text style={styles.noticias}> {item} </Text>
       </View>
     );
-
   }
 
   renderNoticias(){
@@ -61,6 +59,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     borderWidth: 2,
+    borderRadius: 5,
     borderColor: "#3258A4",
     backgroundColor: "#E8E8E8"
   }

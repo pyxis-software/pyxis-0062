@@ -41,10 +41,12 @@ class Menu extends Component{
 
           <View style={styles.containerOpcoes2}>
 
-            <View style={styles.opcoes}>
-              <Icon name="subject" size={50} color="#fff" style={styles.icones} />
-              <Text style={styles.textoOpcoes}> Planos </Text>
-            </View>
+            <TouchableOpacity onPress={() => {Actions.planos()}} underlayColor="white">
+              <View style={styles.opcoes}>
+                <Icon name="subject" size={50} color="#fff" style={styles.icones} />
+                <Text style={styles.textoOpcoes}> Planos </Text>
+              </View>
+            </TouchableOpacity>
 
             <View style={styles.opcoes}>
               <Icon name="chat" size={50} color="#fff" style={styles.icones} />
