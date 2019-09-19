@@ -28,7 +28,8 @@ class Chat extends Component {
       if(snapshot.val() == null){
         this.setState({dados: [{tipo: 1, mensagem: "Nenhuma mensagem encontrada."}], carregamento: true});
       }else{
-        this.setState({dados: Object.values(snapshot.val()), carregamento: true});
+        let vetorInvertido = Object.values(snapshot.val()).slice(0).reverse();
+        this.setState({dados: vetorInvertido, carregamento: true});
       }
     });
   }
@@ -67,6 +68,7 @@ class Chat extends Component {
           data={this.state.dados}
           extraData={this.state}
           keyExtractor={this._keyExtractor}
+          inverted
           renderItem={({item}) => this.renderizaMensagens({item})}
         />
       );

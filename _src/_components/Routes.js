@@ -9,6 +9,8 @@ import Noticias from './Noticias';
 import Sobre from './Sobre';
 import Planos from './Planos';
 import Chat from './Chat';
+import Financeiro from './Financeiro';
+import Pagamento from './Pagamento';
 
 export default props => (
   <Router>
@@ -82,6 +84,26 @@ export default props => (
         navigationBarStyle={{backgroundColor: '#3258A4'}}
         navBarButtonColor="#fff"
         title="Suporte JúniorNET"
+        titleStyle={{color: '#fff'}}
+      />
+
+      <Scene
+        key="pagamento"
+        component={Pagamento}
+        hideNavBar={false}
+        navigationBarStyle={{backgroundColor: '#3258A4'}}
+        navBarButtonColor="#fff"
+        title="Aguardando Pagamento"
+        titleStyle={{color: '#fff'}}
+      />
+
+      <Scene
+        key="financeiro"
+        component={Financeiro}
+        hideNavBar={false}
+        navigationBarStyle={{backgroundColor: '#3258A4'}}
+        navBarButtonColor="#fff"
+        title="Financeiro"
         titleStyle={{color: '#fff'}}
       />
 

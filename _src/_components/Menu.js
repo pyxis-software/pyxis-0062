@@ -25,10 +25,12 @@ class Menu extends Component{
               </View>
             </TouchableOpacity>
 
-            <View style={styles.opcoes}>
-              <Icon name="attach-money" size={50} color="#fff" style={styles.icones} />
-              <Text style={styles.textoOpcoes}> Financeiro</Text>
-            </View>
+            <TouchableOpacity onPress={() => {Actions.financeiro()}} underlayColor="white">
+              <View style={styles.opcoes}>
+                <Icon name="attach-money" size={50} color="#fff" style={styles.icones} />
+                <Text style={styles.textoOpcoes}> Financeiro</Text>
+              </View>
+            </TouchableOpacity>
 
             <TouchableOpacity onPress={() => {Actions.noticias()}} underlayColor="white">
               <View style={styles.opcoes}>
