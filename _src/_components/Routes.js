@@ -8,6 +8,7 @@ import TelaUsuario from './TelaUsuario';
 import Noticias from './Noticias';
 import Sobre from './Sobre';
 import Planos from './Planos';
+import Chat from './Chat';
 
 export default props => (
   <Router>
@@ -71,6 +72,16 @@ export default props => (
         navigationBarStyle={{backgroundColor: '#3258A4'}}
         navBarButtonColor="#fff"
         title="Planos"
+        titleStyle={{color: '#fff'}}
+      />
+
+      <Scene
+        key="chat"
+        component={Chat}
+        hideNavBar={false}
+        navigationBarStyle={{backgroundColor: '#3258A4'}}
+        navBarButtonColor="#fff"
+        title="Suporte JúniorNET"
         titleStyle={{color: '#fff'}}
       />
 

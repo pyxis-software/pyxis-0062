@@ -48,10 +48,12 @@ class Menu extends Component{
               </View>
             </TouchableOpacity>
 
-            <View style={styles.opcoes}>
-              <Icon name="chat" size={50} color="#fff" style={styles.icones} />
-              <Text style={styles.textoOpcoes}> Chat </Text>
-            </View>
+            <TouchableOpacity onPress={() => {Actions.chat()}} underlayColor="white">
+              <View style={styles.opcoes}>
+                <Icon name="chat" size={50} color="#fff" style={styles.icones} />
+                <Text style={styles.textoOpcoes}> Chat </Text>
+              </View>
+            </TouchableOpacity>
 
             <TouchableOpacity onPress={() => {Actions.sobre()}} underlayColor="white">
               <View style={styles.opcoes}>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator} from 'react-native';
+
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import {TextInputMask} from 'react-native-masked-text';
@@ -98,7 +99,8 @@ const mapStateToProps = state => ({
 
 const styles = StyleSheet.create({
   containerPrincipal: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   },
   containerLogo: {
     flex: 3,

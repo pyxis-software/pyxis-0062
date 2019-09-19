@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {Actions} from 'react-native-router-flux';
 
 import {
@@ -38,7 +37,7 @@ export const fazerLogin = ({cpf, senha}) => {
       }
     })
     .catch((error) => {
-      autenticacaoErro("Verifique sua conexão com a Internet ou tente novamente mais tarde.", dispatch);
+      autenticacaoErro("Verifique sua conexão ou tente novamente mais tarde.", dispatch);
     })
   }
 }
