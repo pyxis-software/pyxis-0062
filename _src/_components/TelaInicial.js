@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, ScrollView} from 'react-native';
 
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
@@ -49,40 +49,42 @@ class TelaInicial extends Component{
         </View>
 
         <View style={styles.containerInformacoes}>
-          <Text style={styles.textoBemVindo}> Bem-vindo! </Text>
+          <Text style={styles.textoBemVindo}> Seja bem-vindo(a)! </Text>
 
-          <View style={styles.containerInputBotao}>
-            <TextInputMask
-              type={'cpf'}
-              value={this.props.cpf}
-              onChangeText={(cpf) => this.props.modificaCPF(cpf)}
-              placeholder="Digite seu CPF"
-              style={styles.textInput}
-              keyboardType={'numeric'}
-              maxLength={14}
-            />
+          <ScrollView>
+            <View style={styles.containerInputBotao}>
+              <TextInputMask
+                type={'cpf'}
+                value={this.props.cpf}
+                onChangeText={(cpf) => this.props.modificaCPF(cpf)}
+                placeholder="Digite seu CPF"
+                style={styles.textInput}
+                keyboardType={'numeric'}
+                maxLength={14}
+              />
 
-            <TextInput
-              onChangeText={(senha) => this.props.modificaSenha(senha)}
-              value={this.props.senha}
-              secureTextEntry
-              placeholder="Digite sua Senha"
-              style={styles.textInput}
-            />
+              <TextInput
+                onChangeText={(senha) => this.props.modificaSenha(senha)}
+                value={this.props.senha}
+                secureTextEntry
+                placeholder="Digite sua Senha"
+                style={styles.textInput}
+              />
 
-            <View>
-              {this.renderErro()}
+              <View>
+                {this.renderErro()}
+              </View>
+
+              <View>
+                {this.renderBotaoAcessar()}
+              </View>
+
+              <Text style={styles.textoEsqueciSenha} onPress={() => {Actions.esqueciSenha()}}>
+                Esqueci Minha Senha
+              </Text>
             </View>
+          </ScrollView>
 
-            <View>
-              {this.renderBotaoAcessar()}
-            </View>
-
-            <Text style={styles.textoEsqueciSenha} onPress={() => {Actions.esqueciSenha()}}>
-              Esqueci Minha Senha
-            </Text>
-
-          </View>
         </View>
       </View>
     );
@@ -111,7 +113,9 @@ const styles = StyleSheet.create({
     flex: 5,
     alignItems: 'center',
     backgroundColor: '#3258A4',
-    paddingTop: 40
+    paddingTop: 40,
+    borderTopLeftRadius: 65,
+    borderTopRightRadius: 65
   },
   logo: {
     width: 180,
@@ -147,9 +151,9 @@ const styles = StyleSheet.create({
   },
   textoEsqueciSenha: {
     color: '#fff',
-    fontSize: 15,
+    fontSize: 13,
     textAlign: 'center',
-    padding: 65
+    paddingTop: 45
   },
   textoEntrar: {
     color:'#3258A4',
@@ -159,8 +163,9 @@ const styles = StyleSheet.create({
   },
   erro: {
     color: '#ff0000',
-    fontSize: 12
-    }
+    fontSize: 12,
+    textAlign: 'center'
+  }
 });
 
 export default connect(mapStateToProps, {modificaCPF, modificaSenha, fazerLogin})(TelaInicial);

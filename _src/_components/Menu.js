@@ -66,7 +66,7 @@ class Menu extends Component{
 
           </View>
         </View>
-        <Button title="Sair" onPress={() => {return false}} color="#3258A4" />
+        <Button title="Sair" onPress={() => {Actions.popTo("inicial")}} color="#3258A4" />
 
       </View>
     );

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {TextInputMask} from 'react-native-masked-text';
-import {Actions} from 'react-native-router-flux';
 
 import {modificaCPFEsqueciSenha} from '../_actions/EsqueciSenhaActions';
 
@@ -18,7 +17,7 @@ class EsqueciSenha extends Component{
         </View>
 
         <View style={styles.containerInformacoes}>
-          <Text style={styles.textoBemVindo}> Recupere sua Senha! </Text>
+          <Text style={styles.textoBemVindo}> Recupere a sua Senha! </Text>
 
           <View style={styles.containerInputBotao}>
             <TextInputMask
@@ -64,7 +63,9 @@ const styles = StyleSheet.create({
     flex: 5,
     alignItems: 'center',
     backgroundColor: '#3258A4',
-    paddingTop: 40
+    paddingTop: 40,
+    borderTopRightRadius: 65,
+    borderTopLeftRadius: 65
   },
   logo: {
     width: 180,

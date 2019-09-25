@@ -15,9 +15,9 @@ class TelaUsuario extends Component{
 
         <View style={styles.containerInformacoesAdicionais}>
           <Text style={styles.textoInformacoesAdicionais}> Endereço: {this.props.endereco} </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Cidade: {this.props.cidade}  </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Contato: {this.props.telefone1} </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Contato: {this.props.telefone2} </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Cidade/Estado: {this.props.cidade}  </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Telefone: {this.props.telefone1} </Text>
+          <Text style={styles.textoInformacoesAdicionais}> Celular: {this.props.telefone2} </Text>
 
           <TouchableOpacity
             style={styles.botaoEntrar}
@@ -28,7 +28,7 @@ class TelaUsuario extends Component{
 
           <TouchableOpacity
             style={styles.botaoEntrar}
-            onPress={() => {return false}}
+            onPress={() => {Actions.popTo("inicial")}}
             underlayColor='#fff'>
             <Text style={styles.textoEntrar}> Sair </Text>
           </TouchableOpacity>

@@ -6,3 +6,4 @@ export const AUTENTICACAO_SUCESSO = 'autenticacao_sucesso';
 export const LOGIN_ANDAMENTO = 'login_andamento';
 export const MODIFICA_MENSAGEM = 'modifica_mensagem';
 export const ENVIA_MENSAGEM_SUCESSO = 'envia_mensagem_sucesso';
+export const MOSTRAR_PLANOS_SUCESSO = 'mostrar_planos_sucesso';

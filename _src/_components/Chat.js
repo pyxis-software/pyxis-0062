@@ -4,7 +4,6 @@ import {View, Text, StyleSheet, TextInput, TouchableHighlight, FlatList, Activit
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import firebase from 'firebase';
-import _ from 'lodash';
 
 import {modificaMensagem, enviarMensagem} from '../_actions/ChatActions';
 
@@ -36,7 +35,9 @@ class Chat extends Component {
 
   _enviarMensagem(){
     const {mensagem, cpf, nome, email} = this.props;
-    this.props.enviarMensagem(mensagem, cpf, nome, email);
+    if(mensagem != ''){
+      this.props.enviarMensagem(mensagem, cpf, nome, email);
+    }
   }
 
   renderizaMensagens({item}){
@@ -84,7 +85,6 @@ class Chat extends Component {
   render(){
     return(
       <View style={styles.containerPrincipal}>
-
         <View style={styles.containerMensagens}>
           {this.renderPrincipal()}
         </View>
@@ -94,15 +94,15 @@ class Chat extends Component {
           <TextInput
             style={styles.input}
             value={this.props.mensagem}
+            placeholder="Digite aqui..."
             onChangeText={texto => this.props.modificaMensagem(texto)}
           />
 
-          <TouchableHighlight onPress={this._enviarMensagem.bind(this)} underlayColor="#fff">
+          <TouchableHighlight onPress={this._enviarMensagem.bind(this)} underlayColor={'transparent'}>
             <Icon name="send" size={50} color="#3258A4" style={styles.botaoEnviar} />
           </TouchableHighlight>
 
         </View>
-
       </View>
     );
   }

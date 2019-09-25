@@ -1,43 +1,56 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, FlatList} from 'react-native';
+import {View, StyleSheet, Text, FlatList, ActivityIndicator} from 'react-native';
+
 import {connect} from 'react-redux';
+
+import {mostrarPlanos} from '../_actions/PlanosActions';
 
 class Planos extends Component{
 
-  constructor(props){
-    super(props);
-    this.state = {
-      dados: [
-        {id: 1, titulo: "Título do Plano 1", descricao: "Aqui será descrito o tipo de plano e velocidade referente ao mesmo.", valor: "R$ Valor do Plano 1"},
-        {id: 2, titulo: "Título do Plano 2", descricao: "Aqui será descrito o tipo de plano e velocidade referente ao mesmo.", valor: "R$ Valor do Plano 2"},
-        {id: 3, titulo: "Título do Plano 3", descricao: "Aqui será descrito o tipo de plano e velocidade referente ao mesmo.", valor: "R$ Valor do Plano 3"},
-        {id: 4, titulo: "Título do Plano 4", descricao: "Aqui será descrito o tipo de plano e velocidade referente ao mesmo.", valor: "R$ Valor do Plano 4"},
-        {id: 5, titulo: "Título do Plano 5", descricao: "Aqui será descrito o tipo de plano e velocidade referente ao mesmo.", valor: "R$ Valor do Plano 5"},
-      ]
-    }
+  componentWillMount(){
+    const {cpf} = this.props;
+    this.props.mostrarPlanos({cpf});
   }
 
   renderizaPlanos({item}){
-    return(
-      <View style={styles.container}>
-        <Text style={styles.titulo}> {item.titulo} </Text>
-        <Text style={styles.descricao}> {item.descricao} </Text>
-        <Text style={styles.valor}> {item.valor} </Text>
-      </View>
-    );
+    if(item.plano){
+      return(
+        <View style={styles.containerPlanoSelecionado}>
+          <Text style={styles.titulo}> Plano de {item.titulo} </Text>
+          <Text style={styles.descricao}> {item.descricao} </Text>
+          <Text style={styles.valor}> R$ {item.valor} Reais </Text>
+        </View>
+      );
+    }else{
+      return(
+        <View style={styles.container}>
+          <Text style={styles.titulo}> Plano de {item.titulo} </Text>
+          <Text style={styles.descricao}> {item.descricao} </Text>
+          <Text style={styles.valor}> R$ {item.valor} Reais </Text>
+        </View>
+      );
+    }
   }
 
   renderPlanos(){
-    return(
-      <View>
-        <FlatList
-          data={this.state.dados}
-          extraData={this.state}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => this.renderizaPlanos({item})}
-        />
-      </View>
-    );
+    if(this.props.carregamento){
+      return(
+        <View>
+          <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
+        </View>
+      );
+    }else{
+      return(
+        <View>
+          <FlatList
+            data={this.props.dados}
+            extraData={this.state}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => this.renderizaPlanos({item})}
+          />
+        </View>
+      );
+    }
   }
 
   render(){
@@ -48,10 +61,6 @@ class Planos extends Component{
     );
   }
 }
-
-const mapStateToProps = state => ({
-
-});
 
 const styles = StyleSheet.create({
   titulo: {
@@ -88,7 +97,32 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#3258A4",
     backgroundColor: "#3258A4"
-  }
+  },
+  indicador: {
+    marginTop: 25
+  },
+  containerPlanoSelecionado: {
+    flex: 1,
+    height: 150,
+    marginTop: 10,
+    marginBottom: 10,
+    marginLeft: 5,
+    marginRight: 5,
+    borderWidth: 2,
+    borderRadius: 5,
+    borderColor: "#008B00",
+    backgroundColor: "#008B00"
+  },
+  icones: {
+    paddingBottom: 8,
+    paddingTop: 10
+  },
 });
 
-export default connect(mapStateToProps, {})(Planos);
+const mapStateToProps = state => ({
+  cpf: state.PlanosReducer.cpf,
+  dados: state.PlanosReducer.dados,
+  carregamento: state.PlanosReducer.carregamento,
+});
+
+export default connect(mapStateToProps, {mostrarPlanos})(Planos);

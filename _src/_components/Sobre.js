@@ -11,15 +11,13 @@ class Sobre extends Component{
   render(){
     return(
       <View style={styles.containerPrincipal}>
-
         <View style={styles.containerLogo}>
           <Image source={LogoJuniorNet} style={styles.logo} />
         </View>
 
         <View style={styles.containerDescricao}>
-          <Text style={styles.descricao}> Aqui ficará a descrição sobre a empresa. Coisas como: logomarca, objetivos, etc. </Text>
+          <Text style={styles.descricao}> Aqui ficará a descrição sobre a empresa. </Text>
         </View>
-
 
         <View style={styles.containerInformacoesEmpresa}>
 
@@ -39,7 +37,6 @@ class Sobre extends Component{
           </View>
 
         </View>
-
       </View>
     );
   }
