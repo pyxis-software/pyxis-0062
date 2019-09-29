@@ -113,9 +113,7 @@ const styles = StyleSheet.create({
     flex: 5,
     alignItems: 'center',
     backgroundColor: '#3258A4',
-    paddingTop: 40,
-    borderTopLeftRadius: 65,
-    borderTopRightRadius: 65
+    paddingTop: 40
   },
   logo: {
     width: 180,
