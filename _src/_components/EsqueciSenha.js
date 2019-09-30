@@ -1,13 +1,51 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {TextInputMask} from 'react-native-masked-text';
 
-import {modificaCPFEsqueciSenha} from '../_actions/EsqueciSenhaActions';
+import {modificaCPFEsqueciSenha, esqueciMinhaSenha, modificaVisibilidade} from '../_actions/EsqueciSenhaActions';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
 class EsqueciSenha extends Component{
+
+  _esqueciMinhaSenha(){
+    const {cpf} = this.props;
+    if(cpf){
+      this.props.esqueciMinhaSenha({cpf});
+    }
+  }
+
+  renderBotao(){
+    if(this.props.carregamento){
+      return(
+        <TouchableOpacity
+          style={styles.botaoEntrar}
+          onPress={() => {this._esqueciMinhaSenha()}}
+          underlayColor='#fff'
+        >
+          <Text style={styles.textoEntrar}> Recuperar </Text>
+         </TouchableOpacity>
+      );
+    }else{
+      return(
+        <ActivityIndicator size="large" color="#fff" />
+      );
+    }
+  }
+
+  renderMensagem(){
+    if(this.props.mostraMensagem){
+      const {mensagemRecupera} = this.props;
+      Alert.alert(
+        'Redefinir Senha',
+        mensagemRecupera,
+        [{text: 'Fechar', onPress: () => this.props.modificaVisibilidade()}],
+        {cancelable: false},
+      );
+    }
+  }
+
   render(){
     return(
       <View style={styles.containerPrincipal}>
@@ -30,13 +68,13 @@ class EsqueciSenha extends Component{
               maxLength={14}
             />
 
-            <TouchableOpacity
-              style={styles.botaoEntrar}
-              onPress={() => {return false}}
-              underlayColor='#fff'
-            >
-              <Text style={styles.textoEntrar}> Recuperar </Text>
-             </TouchableOpacity>
+            <View>
+              {this.renderBotao()}
+            </View>
+
+            <View>
+              {this.renderMensagem()}
+            </View>
 
           </View>
         </View>
@@ -46,7 +84,10 @@ class EsqueciSenha extends Component{
 }
 
 const mapStateToProps = state => ({
-  cpf: state.EsqueciSenhaReducer.cpf
+  cpf: state.EsqueciSenhaReducer.cpf,
+  mensagemRecupera: state.EsqueciSenhaReducer.mensagemRecupera,
+  carregamento: state.EsqueciSenhaReducer.carregamento,
+  mostraMensagem: state.EsqueciSenhaReducer.mostraMensagem
 });
 
 const styles = StyleSheet.create({
@@ -63,9 +104,7 @@ const styles = StyleSheet.create({
     flex: 5,
     alignItems: 'center',
     backgroundColor: '#3258A4',
-    paddingTop: 40,
-    borderTopRightRadius: 65,
-    borderTopLeftRadius: 65
+    paddingTop: 40
   },
   logo: {
     width: 180,
@@ -107,4 +146,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, {modificaCPFEsqueciSenha})(EsqueciSenha);
+export default connect(mapStateToProps, {modificaCPFEsqueciSenha, esqueciMinhaSenha, modificaVisibilidade})(EsqueciSenha);

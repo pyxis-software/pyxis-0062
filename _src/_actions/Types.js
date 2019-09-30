@@ -7,3 +7,7 @@ export const LOGIN_ANDAMENTO = 'login_andamento';
 export const MODIFICA_MENSAGEM = 'modifica_mensagem';
 export const ENVIA_MENSAGEM_SUCESSO = 'envia_mensagem_sucesso';
 export const MOSTRAR_PLANOS_SUCESSO = 'mostrar_planos_sucesso';
+export const RECUPERA_ANDAMENTO = 'recupera_andamento';
+export const ALTERA_SENHA_ERRO = 'altera_senha_erro';
+export const ALTERA_SENHA_SUCESSO = 'altera_senha_sucesso';
+export const MODIFICA_VISIBILIDADE = 'modifica_visibilidade';

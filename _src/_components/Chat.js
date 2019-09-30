@@ -18,7 +18,6 @@ class Chat extends Component {
   }
 
   componentWillMount(){
-
     cpf = this.props.cpf;
     cpf = cpf.replace(/\./g, "");
     cpf = cpf.replace("-", "");

@@ -83,7 +83,7 @@ export default props => (
         hideNavBar={false}
         navigationBarStyle={{backgroundColor: '#3258A4'}}
         navBarButtonColor="#fff"
-        title="Suporte JúniorNET"
+        title="Suporte JrNET"
         titleStyle={{color: '#fff'}}
       />
 
