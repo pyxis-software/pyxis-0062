@@ -16,24 +16,30 @@ class Sobre extends Component{
         </View>
 
         <View style={styles.containerDescricao}>
-          <Text style={styles.descricao}> Aqui ficará a descrição sobre a empresa. </Text>
+          <Text style={styles.descricao}>
+            Texto é um conjunto de palavras e frases
+            encadeadas que permitem interpretação e
+            transmitem uma mensagem. É qualquer obra escrita
+            em versão original e que constitui um livro ou um documento escrito.
+            Um texto é uma unidade linguística de extensão superior à frase.
+          </Text>
         </View>
 
         <View style={styles.containerInformacoesEmpresa}>
 
           <View style={styles.direcaoItens}>
             <Image source={House} style={styles.logoInformacoesEmpresa} />
-            <Text style={styles.textoInformacoes}> Endereço da empresa </Text>
+            <Text style={styles.textoInformacoes}> Rua São Vicente, 1584, 10º Andar </Text>
           </View>
 
           <View style={styles.direcaoItens}>
             <Image source={Fone} style={styles.logoInformacoesEmpresa} />
-            <Text style={styles.textoInformacoes}> Contato da empresa </Text>
+            <Text style={styles.textoInformacoes}> (87)91234-5678 </Text>
           </View>
 
           <View style={styles.direcaoItens}>
             <Image source={Mail} style={styles.logoInformacoesEmpresa} />
-            <Text style={styles.textoInformacoes}> E-mail da empresa </Text>
+            <Text style={styles.textoInformacoes}> softwarepyxis@gmail.com </Text>
           </View>
 
         </View>

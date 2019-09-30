@@ -18,17 +18,17 @@ export const esqueciMinhaSenha = ({cpf}) => {
 
     dispatch({type: RECUPERA_ANDAMENTO});
 
-    fetch('https://juniornet.padraotorrent.com/recupera?cpf=' + cpf)
+    fetch('https://jrnet.padraotorrent.com/api/recupera?cpf=' + cpf)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.erro){
-        alteraSenhaErro("CPF não cadastrado.", dispatch);
+        alteraSenhaErro("Seu CPF não está cadastrado.", dispatch);
       }else{
         alteraSenhaSucesso("Enviamos sua nova senha para o seu e-mail, verifique-o!", dispatch);
       }
     })
     .catch((error) => {
-      alteraSenhaErro("Erro inesperado. Tente novamente mais tarde!", dispatch);
+      alteraSenhaErro("Verifique sua conexão ou tente novamente mais tarde.", dispatch);
     })
   }
 }

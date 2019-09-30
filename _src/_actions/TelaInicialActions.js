@@ -27,7 +27,7 @@ export const fazerLogin = ({cpf, senha}) => {
 
     dispatch({type: LOGIN_ANDAMENTO});
 
-    fetch('https://juniornet.padraotorrent.com/loginuser?cpf=' + cpf + '&senha=' + senha)
+    fetch('https://jrnet.padraotorrent.com/api/loginuser?cpf=' + cpf + '&senha=' + senha)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.erro){

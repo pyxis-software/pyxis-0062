@@ -79,9 +79,14 @@ class TelaInicial extends Component{
                 {this.renderBotaoAcessar()}
               </View>
 
-              <Text style={styles.textoEsqueciSenha} onPress={() => {Actions.esqueciSenha()}}>
+              <Text style={styles.textoBotoesAdicionais} onPress={() => {Actions.esqueciSenha()}}>
                 Esqueci Minha Senha
               </Text>
+
+              <Text style={styles.textoBotoesAdicionais} onPress={() => {return false}}>
+                Cadastre-se Agora
+              </Text>
+
             </View>
           </ScrollView>
 
@@ -134,7 +139,7 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   containerInputBotao: {
-    paddingTop: 50
+    paddingTop: 35
   },
   botaoEntrar: {
     marginRight: 40,
@@ -147,11 +152,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff'
   },
-  textoEsqueciSenha: {
+  textoBotoesAdicionais: {
     color: '#fff',
     fontSize: 13,
     textAlign: 'center',
-    paddingTop: 45
+    paddingTop: 25
   },
   textoEntrar: {
     color:'#3258A4',
@@ -162,7 +167,8 @@ const styles = StyleSheet.create({
   erro: {
     color: '#ff0000',
     fontSize: 12,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontWeight: 'bold'
   }
 });
 

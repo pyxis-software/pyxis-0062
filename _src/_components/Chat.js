@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
     color: '#000',
     padding: 10,
     backgroundColor: '#dbf5b4',
-    elevation: 1
+    elevation: 1,
+    borderRadius: 5
   },
   containerRecebimento: {
     alignItems: 'flex-start',
@@ -152,7 +153,8 @@ const styles = StyleSheet.create({
     color: '#000',
     padding: 10,
     backgroundColor: '#f7f7f7',
-    elevation: 1
+    elevation: 1,
+    borderRadius: 5
   },
   mensagemVazio: {
     fontSize: 15,

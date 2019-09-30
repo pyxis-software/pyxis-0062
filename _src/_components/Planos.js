@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, FlatList, ActivityIndicator} from 'react-native';
-
+import {View, StyleSheet, Text, FlatList, ActivityIndicator, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
+
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {mostrarPlanos} from '../_actions/PlanosActions';
 
@@ -16,7 +17,7 @@ class Planos extends Component{
     if(item.plano){
       return(
         <View style={styles.containerPlanoSelecionado}>
-          <Text style={styles.titulo}> Plano de {item.titulo} </Text>
+          <Text style={styles.titulo}> {item.titulo} </Text>
           <Text style={styles.descricao}> {item.descricao} </Text>
           <Text style={styles.valor}> R$ {item.valor} Reais </Text>
         </View>
@@ -24,7 +25,7 @@ class Planos extends Component{
     }else{
       return(
         <View style={styles.container}>
-          <Text style={styles.titulo}> Plano de {item.titulo} </Text>
+          <Text style={styles.titulo}> {item.titulo} </Text>
           <Text style={styles.descricao}> {item.descricao} </Text>
           <Text style={styles.valor}> R$ {item.valor} Reais </Text>
         </View>
@@ -41,14 +42,24 @@ class Planos extends Component{
       );
     }else{
       return(
-        <View>
+        <ScrollView>
+
+          <View style={styles.informacoesPlanos}>
+            <Icon name="fiber-manual-record" size={15} color="#3258A4" />
+            <Text style={[styles.informacoesPlanosTexto, {color: '#3258A4'}]}> Disponível </Text>
+
+            <Icon name="fiber-manual-record" size={15} color="#008B00" />
+            <Text style={[styles.informacoesPlanosTexto, {color: '#008B00'}]}> Contratado </Text>
+          </View>
+
           <FlatList
             data={this.props.dados}
             extraData={this.state}
             keyExtractor={item => item.id}
             renderItem={({item}) => this.renderizaPlanos({item})}
           />
-        </View>
+
+        </ScrollView>
       );
     }
   }
@@ -117,6 +128,17 @@ const styles = StyleSheet.create({
     paddingBottom: 8,
     paddingTop: 10
   },
+  informacoesPlanos: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 50,
+    paddingRight: 50
+  },
+  informacoesPlanosTexto: {
+    fontWeight: 'bold'
+  }
 });
 
 const mapStateToProps = state => ({

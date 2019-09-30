@@ -1,35 +1,41 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, FlatList} from 'react-native';
+import {View, StyleSheet, Text, FlatList, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
+
+import {mostrarNoticias} from '../_actions/NoticiasActions';
 
 class Noticias extends Component{
 
-  constructor(props){
-    super(props);
-    this.state = {
-      dados: ["Texto da notícia aqui", "Texto da notícia aqui"]
-    }
+  componentWillMount(){
+    this.props.mostrarNoticias();
   }
 
   renderizaNoticias({item}){
     return(
       <View style={styles.container}>
-        <Text style={styles.noticias}> {item} </Text>
+        <Text style={styles.noticiasTitulo}> {item.titulo} </Text>
+        <Text style={styles.noticiasDescricao}> {item.descricao} </Text>
       </View>
     );
   }
 
   renderNoticias(){
-    return(
-      <View>
+    if(this.props.indicadorNoticias){
+      return(
+        <View>
+          <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
+        </View>
+      );
+    }else{
+      return(
         <FlatList
-          data={this.state.dados}
+          data={this.props.dados}
           extraData={this.state}
           keyExtractor={this._keyExtractor}
           renderItem={({item}) => this.renderizaNoticias({item})}
         />
-      </View>
-    );
+      );
+    }
   }
 
   render(){
@@ -42,14 +48,21 @@ class Noticias extends Component{
 }
 
 const mapStateToProps = state => ({
-
+  dados: state.NoticiasReducer.dados,
+  indicadorNoticias: state.NoticiasReducer.indicadorNoticias,
 });
 
 const styles = StyleSheet.create({
-  noticias: {
-    fontSize: 15,
+  noticiasDescricao: {
+    fontSize: 14,
     paddingTop: 5,
     textAlign: 'center'
+  },
+  noticiasTitulo: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    paddingTop: 10
   },
   container: {
     flex: 1,
@@ -62,7 +75,10 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#3258A4",
     backgroundColor: "#E8E8E8"
-  }
+  },
+  indicador: {
+    marginTop: 25
+  },
 });
 
-export default connect(mapStateToProps, {})(Noticias);
+export default connect(mapStateToProps, {mostrarNoticias})(Noticias);

@@ -10,9 +10,14 @@ class Financeiro extends Component{
     super(props);
     this.state = {
       dados: [
-        {id: 1, data: "Setembro 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 2, data: "Outubro 2019", situacao: "EM ABERTO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 3, data: "Novembro 2019", situacao: "VENCIDO", valor: "R$ 60,00", plano: "120MB"}
+        {id: 1, data: "Janeiro 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
+        {id: 2, data: "Fevereiro 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
+        {id: 3, data: "Março 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
+        {id: 4, data: "Abril 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
+        {id: 5, data: "Maio 2019", situacao: "EM ABERTO", valor: "R$ 60,00", plano: "120MB"},
+        {id: 6, data: "Junho 2019", situacao: "EM ABERTO", valor: "R$ 60,00", plano: "120MB"},
+        {id: 7, data: "Julho 2019", situacao: "VENCIDO", valor: "R$ 60,00", plano: "120MB"},
+        {id: 8, data: "Agosto 2019", situacao: "VENCIDO", valor: "R$ 60,00", plano: "120MB"}
       ]
     }
   }
@@ -128,8 +133,10 @@ const styles = StyleSheet.create({
   informacoesPagamento: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: 20,
-    paddingBottom: 20
+    paddingTop: 15,
+    paddingBottom: 15,
+    paddingLeft: 50,
+    paddingRight: 50
   },
   informacoesPagamentoTexto: {
     fontWeight: 'bold'

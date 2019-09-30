@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert} from 'react-native';
 import {connect} from 'react-redux';
 import {TextInputMask} from 'react-native-masked-text';
+import {Actions} from 'react-native-router-flux';
 
 import {modificaCPFEsqueciSenha, esqueciMinhaSenha, modificaVisibilidade} from '../_actions/EsqueciSenhaActions';
 
@@ -13,6 +14,13 @@ class EsqueciSenha extends Component{
     const {cpf} = this.props;
     if(cpf){
       this.props.esqueciMinhaSenha({cpf});
+    }else{
+      Alert.alert(
+        'Precisamos do seu CPF',
+        'Digite seu CPF no campo de texto para solicitar uma nova senha!',
+        [{text: 'Fechar'}],
+        {cancelable: false},
+      );
     }
   }
 
@@ -24,7 +32,7 @@ class EsqueciSenha extends Component{
           onPress={() => {this._esqueciMinhaSenha()}}
           underlayColor='#fff'
         >
-          <Text style={styles.textoEntrar}> Recuperar </Text>
+          <Text style={styles.textoEntrar}> Solicitar </Text>
          </TouchableOpacity>
       );
     }else{
@@ -40,7 +48,7 @@ class EsqueciSenha extends Component{
       Alert.alert(
         'Redefinir Senha',
         mensagemRecupera,
-        [{text: 'Fechar', onPress: () => this.props.modificaVisibilidade()}],
+        [{text: 'Fechar', onPress: () => {this.props.modificaVisibilidade()}}],
         {cancelable: false},
       );
     }
@@ -55,7 +63,7 @@ class EsqueciSenha extends Component{
         </View>
 
         <View style={styles.containerInformacoes}>
-          <Text style={styles.textoBemVindo}> Recupere a sua Senha! </Text>
+          <Text style={styles.textoBemVindo}> Solicitar nova senha </Text>
 
           <View style={styles.containerInputBotao}>
             <TextInputMask
@@ -68,12 +76,22 @@ class EsqueciSenha extends Component{
               maxLength={14}
             />
 
-            <View>
+            <View style={styles.containerBotoes}>
               {this.renderBotao()}
             </View>
 
             <View>
               {this.renderMensagem()}
+            </View>
+
+            <View style={styles.containerBotoes}>
+              <TouchableOpacity
+                style={styles.botaoVoltar}
+                onPress={() => {Actions.pop()}}
+                underlayColor='#fff'
+              >
+                <Text style={styles.textoVoltar}> Voltar </Text>
+               </TouchableOpacity>
             </View>
 
           </View>
@@ -143,6 +161,26 @@ const styles = StyleSheet.create({
     textAlign:'center',
     paddingLeft : 10,
     paddingRight : 10
+  },
+  botaoVoltar: {
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  textoVoltar: {
+    color:'#3258A4',
+    textAlign:'center',
+    paddingLeft : 10,
+    paddingRight : 10
+  },
+  containerBotoes: {
+    paddingTop: 25
   }
 });
 

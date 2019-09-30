@@ -25,10 +25,7 @@ export default props => (
       <Scene
         key="esqueciSenha"
         component={EsqueciSenha}
-        hideNavBar={false}
-        navigationBarStyle={{backgroundColor: '#fff'}}
-        navBarButtonColor="#000"
-        navTransparent
+        hideNavBar={true}
       />
 
       <Scene

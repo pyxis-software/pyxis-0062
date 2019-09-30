@@ -18,8 +18,7 @@ class Pagamento extends Component{
         <View style={styles.containerInformacoes}>
 
           <View style={styles.containerTextos}>
-
-            <Text style={styles.planoPagamento}> Plano: {this.props.plano} </Text>
+            <Text style={styles.planoPagamento}> Plano Contratado: {this.props.plano} </Text>
 
             <Text style={styles.valorPagamento}> Valor:
               <Text style={styles.valorDestaque}> {this.props.valor} </Text>
@@ -30,12 +29,14 @@ class Pagamento extends Component{
             </Text>
           </View>
 
-          <TouchableOpacity
-            style={styles.botaoEntrar}
-            onPress={() => Actions.pop()}
-            underlayColor='#fff'>
-              <Text style={styles.textoEntrar}>Fechar</Text>
-          </TouchableOpacity>
+          <View style={styles.containerBotaoFechar}>
+            <TouchableOpacity
+              style={styles.botaoEntrar}
+              onPress={() => Actions.pop()}
+              underlayColor='#fff'>
+                <Text style={styles.textoEntrar}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
 
           <TouchableOpacity
             style={styles.botaoBoleto}
@@ -128,6 +129,10 @@ const styles = StyleSheet.create({
   },
   valorDestaque: {
     color: '#228B22'
+  },
+  containerBotaoFechar: {
+    paddingBottom: 25,
+    paddingTop: 25
   }
 });
 

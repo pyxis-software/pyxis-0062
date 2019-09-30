@@ -11,3 +11,4 @@ export const RECUPERA_ANDAMENTO = 'recupera_andamento';
 export const ALTERA_SENHA_ERRO = 'altera_senha_erro';
 export const ALTERA_SENHA_SUCESSO = 'altera_senha_sucesso';
 export const MODIFICA_VISIBILIDADE = 'modifica_visibilidade';
+export const MOSTRAR_NOTICIAS_SUCESSO = 'mostrar_noticias_sucesso';
