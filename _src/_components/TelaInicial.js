@@ -83,7 +83,7 @@ class TelaInicial extends Component{
                 Esqueci Minha Senha
               </Text>
 
-              <Text style={styles.textoBotoesAdicionais} onPress={() => {return false}}>
+              <Text style={styles.textoBotoesAdicionais} onPress={() => {Actions.cadastro()}}>
                 Cadastre-se Agora
               </Text>
 
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 13,
     textAlign: 'center',
-    paddingTop: 25
+    paddingTop: 35
   },
   textoEntrar: {
     color:'#3258A4',

@@ -1,10 +1,12 @@
 import {combineReducers} from 'redux';
+
 import TelaInicialReducer from './TelaInicialReducer';
 import EsqueciSenhaReducer from './EsqueciSenhaReducer';
 import TelaUsuarioReducer from './TelaUsuarioReducer';
 import ChatReducer from './ChatReducer';
 import PlanosReducer from './PlanosReducer';
 import NoticiasReducer from './NoticiasReducer';
+import CadastroReducer from './CadastroReducer';
 
 export default combineReducers({
   TelaInicialReducer,
@@ -12,5 +14,6 @@ export default combineReducers({
   TelaUsuarioReducer,
   ChatReducer,
   PlanosReducer,
-  NoticiasReducer
+  NoticiasReducer,
+  CadastroReducer
 });

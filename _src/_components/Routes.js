@@ -11,6 +11,7 @@ import Planos from './Planos';
 import Chat from './Chat';
 import Financeiro from './Financeiro';
 import Pagamento from './Pagamento';
+import Cadastro from './Cadastro';
 
 export default props => (
   <Router>
@@ -101,6 +102,16 @@ export default props => (
         navigationBarStyle={{backgroundColor: '#3258A4'}}
         navBarButtonColor="#fff"
         title="Financeiro"
+        titleStyle={{color: '#fff'}}
+      />
+
+      <Scene
+        key="cadastro"
+        component={Cadastro}
+        hideNavBar={false}
+        title="Cadastre-se"
+        navigationBarStyle={{backgroundColor: '#3258A4'}}
+        navBarButtonColor="#fff"
         titleStyle={{color: '#fff'}}
       />
 
