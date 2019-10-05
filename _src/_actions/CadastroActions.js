@@ -1,5 +1,3 @@
-import {Actions} from 'react-native-router-flux';
-
 import {
   MODIFICA_NOME_CADASTRO,
   MODIFICA_CPF_CADASTRO,
@@ -10,7 +8,10 @@ import {
   MODIFICA_ENDERECO_CADASTRO,
   MODIFICA_CIDADE_ESTADO_CADASTRO,
   MODIFICA_DIA_PAGAMENTO_CADASTRO,
-  CADASTRO_ANDAMENTO
+  CADASTRO_ANDAMENTO,
+  CADASTRO_ERRO,
+  CADASTRO_SUCESSO,
+  SUCESSO_CADASTRO
 } from '../_actions/Types';
 
 export const modificaNome = (informacao) => {
@@ -76,45 +77,46 @@ export const modificaDiaPagamento = (informacao) => {
   }
 }
 
-
-
-
-
-
-
-
-
-export const fazerCadastro = ({nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento}) => {
+export const fazerCadastro = ({nome, cpf, senha, email, celularPrincipal, celularSecundario,
+  endereco, cidadeEstado, diaPagamento}) => {
   return dispatch => {
 
     dispatch({type: CADASTRO_ANDAMENTO});
 
-    fetch('https://jrnet.padraotorrent.com/api/loginuser?cpf=' + cpf + '&senha=' + senha)
+    fetch('https://jrnet.padraotorrent.com/api/caduser?cpf=' + cpf + '&senha=' + senha + '&nome=' +
+      nome + '&email=' + email + '&celularPrincipal=' + celularPrincipal
+      + '&celularSecundario=' + celularSecundario + '&endereco=' + endereco
+      + '&cidadeEstado=' + cidadeEstado + '&diaPagamento=' + diaPagamento)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.erro){
-        autenticacaoErro(responseJson.msg, dispatch);
+        cadastroErro(responseJson.msg, dispatch);
       }else{
-        autenticacaoSucesso(responseJson, dispatch);
+        cadastroSucesso(responseJson, dispatch);
       }
     })
     .catch((error) => {
-      autenticacaoErro("Verifique sua conexão ou tente novamente mais tarde.", dispatch);
+      cadastroErro("Verifique sua conexão ou tente novamente mais tarde.", dispatch);
     })
   }
 }
 
-const autenticacaoErro = (mensagem, dispatch) => {
+const cadastroErro = (mensagem, dispatch) => {
   dispatch({
-    type: AUTENTICACAO_ERRO,
+    type: CADASTRO_ERRO,
     payload: mensagem
   });
 }
 
-const autenticacaoSucesso = (responseJson, dispatch) => {
+const cadastroSucesso = (responseJson, dispatch) => {
   dispatch({
-    type: AUTENTICACAO_SUCESSO,
+    type: CADASTRO_SUCESSO,
     payload: responseJson
   });
-  Actions.menu();
+}
+
+export const sucessoCadastro = () => {
+  return {
+    type: SUCESSO_CADASTRO
+  }
 }

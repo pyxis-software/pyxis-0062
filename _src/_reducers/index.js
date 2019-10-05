@@ -7,6 +7,7 @@ import ChatReducer from './ChatReducer';
 import PlanosReducer from './PlanosReducer';
 import NoticiasReducer from './NoticiasReducer';
 import CadastroReducer from './CadastroReducer';
+import AlterarSenhaReducer from './AlterarSenhaReducer';
 
 export default combineReducers({
   TelaInicialReducer,
@@ -15,5 +16,6 @@ export default combineReducers({
   ChatReducer,
   PlanosReducer,
   NoticiasReducer,
-  CadastroReducer
+  CadastroReducer,
+  AlterarSenhaReducer
 });

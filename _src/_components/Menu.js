@@ -73,9 +73,7 @@ class Menu extends Component{
   }
 }
 
-const mapStateToProps = state => ({
-
-});
+const mapStateToProps = state => ({});
 
 const styles = StyleSheet.create({
   containerPrincipal: {
@@ -117,7 +115,7 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   containerTodasOpcoes: {
-    flex: 2.5
+    flex: 3
   }
 });
 

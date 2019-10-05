@@ -48,9 +48,7 @@ class Sobre extends Component{
   }
 }
 
-const mapStateToProps = state => ({
-
-});
+const mapStateToProps = state => ({});
 
 const styles = StyleSheet.create({
   containerPrincipal: {
@@ -74,12 +72,13 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 7,
     borderColor: "#fff",
-    backgroundColor: "#E8E8E8"
+    backgroundColor: "#3258A4"
   },
   descricao: {
     fontSize: 15,
     marginTop: 30,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#fff'
   },
   containerInformacoesEmpresa: {
     flex: 1.5

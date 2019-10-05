@@ -67,7 +67,7 @@ class TelaInicial extends Component{
                 onChangeText={(senha) => this.props.modificaSenha(senha)}
                 value={this.props.senha}
                 secureTextEntry
-                placeholder="Digite sua Senha"
+                placeholder="Digite sua senha"
                 style={styles.textInput}
               />
 
@@ -89,7 +89,6 @@ class TelaInicial extends Component{
 
             </View>
           </ScrollView>
-
         </View>
       </View>
     );

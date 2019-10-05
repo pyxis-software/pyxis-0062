@@ -1,39 +1,65 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native';
+
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class TelaUsuario extends Component{
   render(){
     return(
       <View style={styles.containerPrincipal}>
+        <ScrollView style={styles.containerInformacoesAdicionais}>
 
-        <View style={styles.containerInformacoesUsuario}>
-          <Text style={styles.textoInformacoesUsuario}> {this.props.nome} </Text>
-          <Text style={styles.textoInformacoesUsuario}> {this.props.cpf} </Text>
-        </View>
+          <View style={styles.linhasInformacoes}>
+            <Icon name="person" size={30} color="#3258A4" style={styles.icones} />
+            <Text style={styles.textoInformacoesAdicionais}> Nome: {this.props.nome} </Text>
+          </View>
 
-        <View style={styles.containerInformacoesAdicionais}>
-          <Text style={styles.textoInformacoesAdicionais}> Endereço: {this.props.endereco} </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Cidade/Estado: {this.props.cidade}  </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Telefone: {this.props.telefone1} </Text>
-          <Text style={styles.textoInformacoesAdicionais}> Celular: {this.props.telefone2} </Text>
+          <View style={styles.linhasInformacoes}>
+            <Icon name="assignment" size={30} color="#3258A4" style={styles.icones} />
+            <Text style={styles.textoInformacoesAdicionais}> CPF: {this.props.cpf} </Text>
+          </View>
 
-          <TouchableOpacity
-            style={styles.botaoEntrar}
-            onPress={() => {return false}}
-            underlayColor='#fff'>
-            <Text style={styles.textoEntrar}> Alterar Senha </Text>
-          </TouchableOpacity>
+          <View style={styles.linhasInformacoes}>
+            <Icon name="room" size={30} color="#3258A4" style={styles.icones} />
+            <Text style={styles.textoInformacoesAdicionais}> Endereço: {this.props.endereco} </Text>
+          </View>
 
-          <TouchableOpacity
-            style={styles.botaoEntrar}
-            onPress={() => {Actions.popTo("inicial")}}
-            underlayColor='#fff'>
-            <Text style={styles.textoEntrar}> Sair </Text>
-          </TouchableOpacity>
-        </View>
+          <View style={styles.linhasInformacoes}>
+            <Icon name="room" size={30} color="#3258A4" style={styles.icones} />
+            <Text style={styles.textoInformacoesAdicionais}> Cidade/Estado: {this.props.cidade}  </Text>
+          </View>
 
+          <View style={styles.linhasInformacoes}>
+            <Icon name="call" size={30} color="#3258A4" style={styles.icones} />
+            <Text style={styles.textoInformacoesAdicionais}> Contato Primário: {this.props.telefone1} </Text>
+          </View>
+
+          <View style={styles.linhasInformacoes}>
+            <Icon name="call" size={30} color="#3258A4" style={styles.icones} />
+            <Text style={styles.textoInformacoesAdicionais}> Contato Secundário: {this.props.telefone2} </Text>
+          </View>
+
+          <View style={styles.containerBotoes}>
+            <TouchableOpacity
+              style={styles.botaoFuncoes}
+              onPress={() => {Actions.alterarSenha({cpf: this.props.cpf})}}
+              underlayColor='#fff'>
+              <Text style={styles.textoFuncoes}> Alterar Senha </Text>
+            </TouchableOpacity>
+
+            <View style={{paddingTop: 25}}>
+              <TouchableOpacity
+                style={styles.botaoFuncoes}
+                onPress={() => {Actions.popTo("inicial")}}
+                underlayColor='#fff'>
+                <Text style={styles.textoFuncoes}> Sair </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+        </ScrollView>
       </View>
     );
   }
@@ -53,27 +79,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff'
   },
-  containerInformacoesUsuario: {
-    flex: 1.5,
-    alignItems: 'center',
-    backgroundColor: '#3258A4',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   containerInformacoesAdicionais: {
     flex: 8,
     backgroundColor: '#E8E8E8'
   },
-  textoInformacoesUsuario: {
-    color: '#fff',
-    fontSize: 17,
-    padding: 3,
-    fontWeight: 'bold'
-  },
   textoInformacoesAdicionais: {
     padding: 15
   },
-  botaoEntrar: {
+  botaoFuncoes: {
     marginRight: 30,
     marginLeft: 30,
     marginTop: 10,
@@ -84,11 +97,23 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#3258A4'
   },
-  textoEntrar: {
+  textoFuncoes: {
     color:'#fff',
     textAlign:'center',
     paddingLeft : 10,
     paddingRight : 10
+  },
+  containerBotoes: {
+    paddingTop: 20
+  },
+  icones: {
+    paddingBottom: 10,
+    paddingTop: 10,
+    paddingLeft: 15
+  },
+  linhasInformacoes: {
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 });
 

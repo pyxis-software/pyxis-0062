@@ -56,13 +56,15 @@ const styles = StyleSheet.create({
   noticiasDescricao: {
     fontSize: 14,
     paddingTop: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: '#fff'
   },
   noticiasTitulo: {
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-    paddingTop: 10
+    paddingTop: 10,
+    color: '#fff'
   },
   container: {
     flex: 1,
@@ -74,7 +76,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderRadius: 5,
     borderColor: "#3258A4",
-    backgroundColor: "#E8E8E8"
+    backgroundColor: "#3258A4"
   },
   indicador: {
     marginTop: 25

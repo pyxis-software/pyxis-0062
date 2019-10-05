@@ -8,7 +8,9 @@ const INITIAL_STATE = {
   endereco: '',
   cidadeEstado: '',
   diaPagamento: '',
-  carregamentoCadastrar: false
+  carregamentoCadastrar: false,
+  erro: '',
+  sucesso: false
 };
 
 import {
@@ -21,7 +23,10 @@ import {
   MODIFICA_ENDERECO_CADASTRO,
   MODIFICA_CIDADE_ESTADO_CADASTRO,
   MODIFICA_DIA_PAGAMENTO_CADASTRO,
-  CADASTRO_ANDAMENTO
+  CADASTRO_ANDAMENTO,
+  CADASTRO_ERRO,
+  CADASTRO_SUCESSO,
+  SUCESSO_CADASTRO
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
@@ -46,6 +51,23 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, diaPagamento: action.payload};
     case CADASTRO_ANDAMENTO:
       return {...state, carregamentoCadastrar: true}
+    case CADASTRO_ERRO:
+      return {...state, carregamentoCadastrar: false, erro: action.payload}
+    case CADASTRO_SUCESSO:
+      return {...state, carregamentoCadastrar: false, sucesso: true}
+    case SUCESSO_CADASTRO:
+      return {...state,
+        sucesso: false,
+        nome: '',
+        cpf: '',
+        senha: '',
+        email: '',
+        celularPrincipal: '',
+        celularSecundario: '',
+        endereco: '',
+        cidadeEstado: '',
+        diaPagamento: ''
+      }
     default:
       return state;
   }

@@ -12,6 +12,7 @@ import Chat from './Chat';
 import Financeiro from './Financeiro';
 import Pagamento from './Pagamento';
 import Cadastro from './Cadastro';
+import AlterarSenha from './AlterarSenha';
 
 export default props => (
   <Router>
@@ -108,8 +109,14 @@ export default props => (
       <Scene
         key="cadastro"
         component={Cadastro}
+        hideNavBar={true}
+      />
+
+      <Scene
+        key="alterarSenha"
+        component={AlterarSenha}
         hideNavBar={false}
-        title="Cadastre-se"
+        title="Alterar Senha"
         navigationBarStyle={{backgroundColor: '#3258A4'}}
         navBarButtonColor="#fff"
         titleStyle={{color: '#fff'}}

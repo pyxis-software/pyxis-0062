@@ -48,7 +48,10 @@ class EsqueciSenha extends Component{
       Alert.alert(
         'Redefinir Senha',
         mensagemRecupera,
-        [{text: 'Fechar', onPress: () => {this.props.modificaVisibilidade()}}],
+        [{text: 'Fechar', onPress: () => {
+          this.props.modificaVisibilidade();
+          Actions.pop();
+        }}],
         {cancelable: false},
       );
     }

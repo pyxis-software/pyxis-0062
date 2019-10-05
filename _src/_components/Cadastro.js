@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, ScrollView, Image} from 'react-native';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, ScrollView, Image, Alert} from 'react-native';
 
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
@@ -17,7 +17,8 @@ import {
   modificaEndereco,
   modificaCidadeEstado,
   modificaDiaPagamento,
-  fazerCadastro
+  fazerCadastro,
+  sucessoCadastro
 } from '../_actions/CadastroActions';
 
 class Cadastro extends Component{
@@ -31,10 +32,24 @@ class Cadastro extends Component{
 
   _fazerCadastro(){
     const {nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento} = this.props;
-    if(this.state.senhaVerificar === senha){
-      this.props.fazerCadastro({nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento});
+    if (nome != '', cpf != '', senha != '', email != '', celularPrincipal != '', celularSecundario != '', endereco != '', cidadeEstado != '', diaPagamento != ''){
+      if(this.state.senhaVerificar === senha){
+        this.props.fazerCadastro({nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento});
+      }else{
+        Alert.alert(
+          'Verifique suas senhas!',
+          'As senhas que você digitou não batem!',
+          [{text: 'Fechar'}],
+          {cancelable: false},
+        );
+      }
     }else{
-      return false;
+      Alert.alert(
+        'Preencha todos os dados!',
+        'Todos os campos estão em branco!',
+        [{text: 'Fechar'}],
+        {cancelable: false},
+      );
     }
   }
 
@@ -45,12 +60,48 @@ class Cadastro extends Component{
       );
     }else{
       return(
-        <TouchableOpacity
-          style={styles.botaoCadastrar}
-          onPress={() => {this._fazerCadastro()}}
-          underlayColor='#fff'>
-            <Text style={styles.textoCadastrar}> Realizar Cadastro </Text>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            style={styles.botaoFuncoes}
+            onPress={() => {this._fazerCadastro()}}
+            underlayColor='#fff'>
+              <Text style={styles.textoFuncoes}> Cadastrar-se </Text>
+          </TouchableOpacity>
+
+          <View style={{paddingTop: 25}}>
+            <TouchableOpacity
+              style={styles.botaoFuncoes}
+              onPress={() => {Actions.pop()}}
+              underlayColor='#fff'>
+                <Text style={styles.textoFuncoes}> Voltar </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      );
+    }
+  }
+
+  renderErro(){
+    if(this.props.erro != ''){
+      return(
+        <View style={styles.containerErro}>
+          <Text style={styles.erro}> {this.props.erro} </Text>
+        </View>
+      );
+    }
+  }
+
+  mensagemSucesso(){
+    if(this.props.sucesso){
+      Alert.alert(
+        'Cadastro realizado com sucesso!',
+        'Seja bem-vindo(a) à nossa família!',
+        [{text: 'Fechar', onPress: () => {
+          this.props.sucessoCadastro();
+          this.setState({senhaVerificar: ''});
+          Actions.pop();
+        }}],
+        {cancelable: false},
       );
     }
   }
@@ -58,16 +109,18 @@ class Cadastro extends Component{
   render(){
     return(
       <View style={styles.containerPrincipal}>
-        <View style={styles.containerInformacoes}>
+        <View>
           <ScrollView>
 
             <View style={styles.containerLogo}>
               <Image source={LogoJuniorNet} style={styles.logo} />
             </View>
 
-            <Text style={styles.textoInformativo}> Preencha todos os dados! </Text>
-
             <View style={styles.containerInputBotao}>
+
+              <View style={styles.distanciaTextoInformativo}>
+                <Text style={styles.textoInformativo}> Preencha todos os dados! </Text>
+              </View>
 
               <Text style={styles.textoInformativoInputs}> Nome completo </Text>
               <TextInput
@@ -161,20 +214,23 @@ class Cadastro extends Component{
                 maxLength={2}
               />
 
+            </View>
+
+            <View style={styles.containerBotoesErro}>
+              <View>
+                {this.renderErro()}
+              </View>
+
               <View>
                 {this.renderBotaoCadastrar()}
               </View>
 
-
-
-
-
-
-
-
+              <View>
+                {this.mensagemSucesso()}
+              </View>
             </View>
-          </ScrollView>
 
+          </ScrollView>
         </View>
       </View>
     );
@@ -191,37 +247,36 @@ const mapStateToProps = state => ({
   endereco: state.CadastroReducer.endereco,
   cidadeEstado: state.CadastroReducer.cidadeEstado,
   diaPagamento: state.CadastroReducer.diaPagamento,
-  carregamentoCadastrar: state.CadastroReducer.carregamentoCadastrar
+  carregamentoCadastrar: state.CadastroReducer.carregamentoCadastrar,
+  erro: state.CadastroReducer.erro,
+  sucesso: state.CadastroReducer.sucesso
 });
 
 const styles = StyleSheet.create({
   containerPrincipal: {
-    flex: 1
-  },
-  containerInformacoes: {
-    alignItems: 'center',
-    backgroundColor: '#3258A4'
+    flex: 1,
+    backgroundColor: '#fff'
   },
   containerLogo: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingTop: 15,
-    borderRadius: 8
+    paddingTop: 25
   },
   logo: {
-    width: 144,
-    height: 144
+    width: 180,
+    height: 180
   },
   textoInformativo: {
     color: '#fff',
     fontSize: 22,
-    textAlign: 'center',
-    paddingTop: 15
+    textAlign: 'center'
   },
   containerInputBotao: {
-    paddingTop: 25
+    flex: 5,
+    alignItems: 'center',
+    backgroundColor: '#3258A4',
+    paddingTop: 40
   },
   textoInformativoInputs: {
     fontSize: 13,
@@ -239,9 +294,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10
   },
-  botaoCadastrar: {
-    marginRight: 40,
-    marginLeft: 40,
+  botaoFuncoes: {
+    marginRight: 70,
+    marginLeft: 70,
     marginTop: 10,
     paddingTop: 10,
     paddingBottom: 10,
@@ -250,34 +305,29 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#fff'
   },
-  textoCadastrar: {
+  textoFuncoes: {
     color:'#3258A4',
     textAlign:'center',
     paddingLeft : 10,
     paddingRight : 10
   },
-
-
-
-
-
-
-
-
-  textoBotoesAdicionais: {
-    color: '#fff',
-    fontSize: 13,
-    textAlign: 'center',
-    paddingTop: 35
+  containerBotoesErro: {
+    paddingBottom: 25,
+    flex: 2,
+    backgroundColor: '#3258A4'
   },
-
   erro: {
     color: '#ff0000',
     fontSize: 12,
     textAlign: 'center',
     fontWeight: 'bold'
   },
-
+  containerErro: {
+    paddingTop: 10
+  },
+  distanciaTextoInformativo: {
+    paddingBottom: 25
+  }
 });
 
 export default connect(mapStateToProps, {
@@ -290,5 +340,6 @@ export default connect(mapStateToProps, {
   modificaEndereco,
   modificaCidadeEstado,
   modificaDiaPagamento,
-  fazerCadastro
+  fazerCadastro,
+  sucessoCadastro
 })(Cadastro);
