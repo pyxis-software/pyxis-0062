@@ -8,6 +8,7 @@ import PlanosReducer from './PlanosReducer';
 import NoticiasReducer from './NoticiasReducer';
 import CadastroReducer from './CadastroReducer';
 import AlterarSenhaReducer from './AlterarSenhaReducer';
+import FinanceiroReducer from './FinanceiroReducer';
 
 export default combineReducers({
   TelaInicialReducer,
@@ -17,5 +18,6 @@ export default combineReducers({
   PlanosReducer,
   NoticiasReducer,
   CadastroReducer,
-  AlterarSenhaReducer
+  AlterarSenhaReducer,
+  FinanceiroReducer
 });

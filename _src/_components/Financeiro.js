@@ -1,49 +1,72 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, FlatList, TouchableOpacity, ScrollView} from 'react-native';
+import {View, StyleSheet, Text, FlatList, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
+
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import {buscaFinanceiro} from '../_actions/FinanceiroActions';
+
 class Financeiro extends Component{
 
-  constructor(props){
-    super(props);
-    this.state = {
-      dados: [
-        {id: 1, data: "Janeiro 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 2, data: "Fevereiro 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 3, data: "Março 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 4, data: "Abril 2019", situacao: "PAGO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 5, data: "Maio 2019", situacao: "EM ABERTO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 6, data: "Junho 2019", situacao: "EM ABERTO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 7, data: "Julho 2019", situacao: "VENCIDO", valor: "R$ 60,00", plano: "120MB"},
-        {id: 8, data: "Agosto 2019", situacao: "VENCIDO", valor: "R$ 60,00", plano: "120MB"}
-      ]
-    }
+  componentWillMount(){
+    const {cpf} = this.props;
+    this.props.buscaFinanceiro({cpf});
   }
 
   renderizaFinanceiro({item}){
-    if(item.situacao === "PAGO"){
+    if(item.status == "Pago"){
       return(
         <View style={styles.containerPago}>
-            <Text style={styles.data}> {item.data} </Text>
+            <Text style={styles.data}> {item.mes} </Text>
         </View>
       );
-    }else if (item.situacao === "EM ABERTO"){
+    }else if (item.status == "Pendente"){
       return(
         <View style={styles.containerEmAberto}>
-          <TouchableOpacity onPress={() => {Actions.pagamento({title: item.data, situacao: item.situacao, valor: item.valor, plano: item.plano})}}>
-            <Text style={styles.data}> {item.data} </Text>
+          <TouchableOpacity onPress={() => {Actions.pagamento({
+              title: item.mes,
+              situacao: item.status,
+              valor: item.valor,
+              linkBoleto: item.link,
+              vencimento: item.vencimento,
+              codigoBarras: item.barcode
+            })}}>
+            <Text style={styles.data}> {item.mes} </Text>
           </TouchableOpacity>
         </View>
       );
     }else{
       return(
         <View style={styles.containerVencido}>
-          <TouchableOpacity onPress={() => {Actions.pagamento({title: item.data, situacao: item.situacao, valor: item.valor, plano: item.plano})}}>
-            <Text style={styles.data}> {item.data} </Text>
+          <TouchableOpacity onPress={() => {Actions.pagamento({
+              title: item.mes,
+              situacao: item.status,
+              valor: item.valor,
+              linkBoleto: item.link,
+              vencimento: item.vencimento,
+              codigoBarras: item.barcode
+            })}}>
+            <Text style={styles.data}> {item.mes} </Text>
           </TouchableOpacity>
         </View>
+      );
+    }
+  }
+
+  _renderFlatlistOrLoading(){
+    if(this.props.indicadorFinanceiro){
+      return(
+        <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
+      );
+    }else{
+      return(
+        <FlatList
+          data={this.props.dados}
+          extraData={this.state}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => this.renderizaFinanceiro({item})}
+        />
       );
     }
   }
@@ -63,12 +86,10 @@ class Financeiro extends Component{
           <Text style={[styles.informacoesPagamentoTexto, {color: '#EC3C3D'}]}> Vencido </Text>
         </View>
 
-        <FlatList
-          data={this.state.dados}
-          extraData={this.state}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => this.renderizaFinanceiro({item})}
-        />
+        <View>
+          {this._renderFlatlistOrLoading()}
+        </View>
+
       </ScrollView>
     );
   }
@@ -82,7 +103,11 @@ class Financeiro extends Component{
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  cpf: state.FinanceiroReducer.cpf,
+  dados: state.FinanceiroReducer.dados,
+  indicadorFinanceiro: state.FinanceiroReducer.indicadorFinanceiro
+});
 
 const styles = StyleSheet.create({
   data: {
@@ -140,7 +165,10 @@ const styles = StyleSheet.create({
   },
   informacoesPagamentoTexto: {
     fontWeight: 'bold'
-  }
+  },
+  indicador: {
+    marginTop: 25
+  },
 });
 
-export default connect(mapStateToProps, {})(Financeiro);
+export default connect(mapStateToProps, {buscaFinanceiro})(Financeiro);

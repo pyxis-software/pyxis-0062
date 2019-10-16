@@ -1,11 +1,28 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity, Image} from 'react-native';
+import {View, StyleSheet, Text, TouchableOpacity, Image, Clipboard, Alert, Linking} from 'react-native';
+
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
 class Pagamento extends Component{
+
+  renderStatus(){
+    if(this.props.situacao == "Vencido ou Cancelado"){
+      return(
+        <Text style={styles.tituloInformacoes}> Situação:
+          <Text style={styles.situacaoVencido}> {this.props.situacao} </Text>
+        </Text>
+      );
+    }else{
+      return(
+        <Text style={styles.tituloInformacoes}> Situação:
+          <Text style={styles.situacaoEmAberto}> {this.props.situacao} </Text>
+        </Text>
+      );
+    }
+  }
 
   render(){
     return(
@@ -18,16 +35,41 @@ class Pagamento extends Component{
         <View style={styles.containerInformacoes}>
 
           <View style={styles.containerTextos}>
-            <Text style={styles.planoPagamento}> Plano Contratado: {this.props.plano} </Text>
-
-            <Text style={styles.valorPagamento}> Valor:
-              <Text style={styles.valorDestaque}> {this.props.valor} </Text>
+            <Text style={styles.tituloInformacoes}> Vencimento:
+              <Text> {this.props.vencimento} </Text>
             </Text>
 
-            <Text style={styles.situacaoPagamento}> Situação:
-              <Text style={styles.situacaoDestaque}> {this.props.situacao} </Text>
+            <View>
+              {this.renderStatus()}
+            </View>
+
+            <Text style={styles.tituloInformacoes}> Valor:
+              <Text style={styles.valorDestaque}> R$ {this.props.valor} </Text>
             </Text>
+
           </View>
+
+          <TouchableOpacity
+            style={styles.botaoPagamento}
+            onPress={() => {Linking.openURL(this.props.linkBoleto)}}
+            underlayColor='#fff'>
+              <Text style={styles.textoBoleto}>Baixar Boleto</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.botaoPagamento}
+            onPress={() => {
+              Clipboard.setString(this.props.codigoBarras);
+              Alert.alert(
+                'Código Copiado com Sucesso',
+                'Agora abra o aplicativo do seu banco ou financeira e efetue o pagamento!',
+                [{text: 'Fechar'}],
+                {cancelable: false},
+              );
+            }}
+            underlayColor='#fff'>
+              <Text style={styles.textoBoleto}>Copiar Código de Barras</Text>
+          </TouchableOpacity>
 
           <View style={styles.containerBotaoFechar}>
             <TouchableOpacity
@@ -38,13 +80,6 @@ class Pagamento extends Component{
             </TouchableOpacity>
           </View>
 
-          <TouchableOpacity
-            style={styles.botaoBoleto}
-            onPress={() => {return false}}
-            underlayColor='#fff'>
-              <Text style={styles.textoBoleto}>Gerar Boleto</Text>
-          </TouchableOpacity>
-
         </View>
 
       </View>
@@ -52,9 +87,7 @@ class Pagamento extends Component{
   }
 }
 
-const mapStateToProps = state => ({
-
-});
+const mapStateToProps = state => ({});
 
 const styles = StyleSheet.create({
   containerPrincipal: {
@@ -89,7 +122,7 @@ const styles = StyleSheet.create({
     paddingLeft : 10,
     paddingRight : 10
   },
-  botaoBoleto: {
+  botaoPagamento: {
     marginRight: 40,
     marginLeft: 40,
     marginTop: 10,
@@ -106,18 +139,16 @@ const styles = StyleSheet.create({
     paddingLeft : 10,
     paddingRight : 10
   },
-  valorPagamento: {
+  tituloInformacoes: {
     fontSize: 18,
     fontWeight: 'bold',
     paddingBottom: 20
   },
-  situacaoPagamento: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    paddingBottom: 20
-  },
-  situacaoDestaque: {
+  situacaoVencido: {
     color: '#FF4500'
+  },
+  situacaoEmAberto: {
+    color: '#F7AA34'
   },
   planoPagamento: {
     fontSize: 18,
@@ -131,7 +162,6 @@ const styles = StyleSheet.create({
     color: '#228B22'
   },
   containerBotaoFechar: {
-    paddingBottom: 25,
     paddingTop: 25
   }
 });
