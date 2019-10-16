@@ -24,31 +24,10 @@ class Pagamento extends Component{
     }
   }
 
-  render(){
-    return(
-      <View style={styles.containerPrincipal}>
-
-        <View style={styles.containerLogo}>
-          <Image source={LogoJuniorNet} style={styles.logo} />
-        </View>
-
-        <View style={styles.containerInformacoes}>
-
-          <View style={styles.containerTextos}>
-            <Text style={styles.tituloInformacoes}> Vencimento:
-              <Text> {this.props.vencimento} </Text>
-            </Text>
-
-            <View>
-              {this.renderStatus()}
-            </View>
-
-            <Text style={styles.tituloInformacoes}> Valor:
-              <Text style={styles.valorDestaque}> R$ {this.props.valor} </Text>
-            </Text>
-
-          </View>
-
+  renderBotoesBoleto(){
+    if(this.props.situacao != "Vencido ou Cancelado"){
+      return(
+        <View>
           <TouchableOpacity
             style={styles.botaoPagamento}
             onPress={() => {Linking.openURL(this.props.linkBoleto)}}
@@ -70,6 +49,54 @@ class Pagamento extends Component{
             underlayColor='#fff'>
               <Text style={styles.textoBoleto}>Copiar Código de Barras</Text>
           </TouchableOpacity>
+        </View>
+      );
+    }else{
+      return(
+        <View>
+          <View style={styles.containerBoletoVencido}>
+            <Text style={styles.textoBoletoVencido}> O seu boleto está vencido! Entre em contato com o suporte para resolver o problema. </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.botaoPagamento}
+            onPress={() => {Actions.chat()}}
+            underlayColor='#fff'>
+              <Text style={styles.textoBoleto}>Contactar o Suporte</Text>
+          </TouchableOpacity>
+        </View>
+      );
+    }
+  }
+
+  render(){
+    return(
+      <View style={styles.containerPrincipal}>
+
+        <View style={styles.containerLogo}>
+          <Image source={LogoJuniorNet} style={styles.logo} />
+        </View>
+
+        <View style={styles.containerInformacoes}>
+
+          <View style={styles.containerTextos}>
+            <Text style={styles.tituloInformacoes}> Vencimento:
+              <Text style={styles.destaque}> {this.props.vencimento} </Text>
+            </Text>
+
+            <View>
+              {this.renderStatus()}
+            </View>
+
+            <Text style={styles.tituloInformacoes}> Valor:
+              <Text style={styles.destaque}> R$ {this.props.valor} </Text>
+            </Text>
+
+          </View>
+
+          <View>
+            {this.renderBotoesBoleto()}
+          </View>
 
           <View style={styles.containerBotaoFechar}>
             <TouchableOpacity
@@ -158,11 +185,19 @@ const styles = StyleSheet.create({
   containerTextos: {
     alignItems: 'center'
   },
-  valorDestaque: {
+  destaque: {
     color: '#228B22'
   },
   containerBotaoFechar: {
     paddingTop: 25
+  },
+  containerBoletoVencido: {
+    padding: 10
+  },
+  textoBoletoVencido: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#EC3C3D'
   }
 });
 

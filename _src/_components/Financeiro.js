@@ -43,9 +43,7 @@ class Financeiro extends Component{
               title: item.mes,
               situacao: item.status,
               valor: item.valor,
-              linkBoleto: item.link,
-              vencimento: item.vencimento,
-              codigoBarras: item.barcode
+              vencimento: item.vencimento
             })}}>
             <Text style={styles.data}> {item.mes} </Text>
           </TouchableOpacity>
