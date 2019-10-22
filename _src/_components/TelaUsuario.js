@@ -13,32 +13,32 @@ class TelaUsuario extends Component{
 
           <View style={styles.linhasInformacoes}>
             <Icon name="person" size={30} color="#3258A4" style={styles.icones} />
-            <Text style={styles.textoInformacoesAdicionais}> Nome: {this.props.nome} </Text>
+            <Text style={styles.textoInformacoesAdicionais}> {this.props.nome} </Text>
           </View>
 
           <View style={styles.linhasInformacoes}>
             <Icon name="assignment" size={30} color="#3258A4" style={styles.icones} />
-            <Text style={styles.textoInformacoesAdicionais}> CPF: {this.props.cpf} </Text>
+            <Text style={styles.textoInformacoesAdicionais}> {this.props.cpf} </Text>
           </View>
 
           <View style={styles.linhasInformacoes}>
             <Icon name="room" size={30} color="#3258A4" style={styles.icones} />
-            <Text style={styles.textoInformacoesAdicionais}> Endereço: {this.props.endereco} </Text>
+            <Text style={styles.textoInformacoesAdicionais}> {this.props.endereco} </Text>
           </View>
 
           <View style={styles.linhasInformacoes}>
             <Icon name="room" size={30} color="#3258A4" style={styles.icones} />
-            <Text style={styles.textoInformacoesAdicionais}> Cidade/Estado: {this.props.cidade}  </Text>
+            <Text style={styles.textoInformacoesAdicionais}> {this.props.cidade}  </Text>
           </View>
 
           <View style={styles.linhasInformacoes}>
             <Icon name="call" size={30} color="#3258A4" style={styles.icones} />
-            <Text style={styles.textoInformacoesAdicionais}> Contato Primário: {this.props.telefone1} </Text>
+            <Text style={styles.textoInformacoesAdicionais}> {this.props.telefone1} </Text>
           </View>
 
           <View style={styles.linhasInformacoes}>
             <Icon name="call" size={30} color="#3258A4" style={styles.icones} />
-            <Text style={styles.textoInformacoesAdicionais}> Contato Secundário: {this.props.telefone2} </Text>
+            <Text style={styles.textoInformacoesAdicionais}> {this.props.telefone2} </Text>
           </View>
 
           <View style={styles.containerBotoes}>

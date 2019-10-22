@@ -51,7 +51,13 @@ class AlterarSenha extends Component{
   renderBotaoAlterar(){
     if (this.props.carregamento) {
       return(
-        <ActivityIndicator size="large" color="#3258A4" />
+        <View>
+          <ActivityIndicator size="large" color="#3258A4" />
+
+          <View style={styles.containerValidacao}>
+            <Text style={{color: '#3258A4'}}> Validando informações... </Text>
+          </View>
+        </View>
       );
     }else{
       return(
@@ -189,6 +195,10 @@ const styles = StyleSheet.create({
   },
   containerErro: {
     paddingTop: 10
+  },
+  containerValidacao: {
+    alignItems: 'center',
+    paddingTop: 15
   }
 });
 

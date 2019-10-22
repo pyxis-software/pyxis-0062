@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image, Text} from 'react-native';
+import {View, StyleSheet, Image, Text, Linking} from 'react-native';
 import {connect} from 'react-redux';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
@@ -32,10 +32,10 @@ class Sobre extends Component{
             <Text style={styles.textoInformacoes}> Rua São Vicente, 1584, 10º Andar </Text>
           </View>
 
-          <View style={styles.direcaoItens}>
+          <TouchableOpacity style={styles.direcaoItens} onPress={() => {/*Linking.openURL(`tel:${this.props.telefone}`)*/}}>
             <Image source={Fone} style={styles.logoInformacoesEmpresa} />
             <Text style={styles.textoInformacoes}> (87)91234-5678 </Text>
-          </View>
+          </TouchableOpacity>
 
           <View style={styles.direcaoItens}>
             <Image source={Mail} style={styles.logoInformacoesEmpresa} />
