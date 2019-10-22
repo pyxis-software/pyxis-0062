@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndicator, ScrollView, Alert} from 'react-native';
 
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
@@ -13,22 +13,51 @@ class TelaInicial extends Component{
 
   _fazerLogin(){
     const {cpf, senha} = this.props;
-    this.props.fazerLogin({cpf, senha});
+    if(cpf, senha){
+      this.props.fazerLogin({cpf, senha});
+    }else{
+      Alert.alert(
+        'Dados insuficientes',
+        'Digite suas informações para ter acesso ao sistema!',
+        [{text: 'Fechar'}],
+        {cancelable: false},
+      );
+    }
   }
 
   renderBotaoAcessar(){
     if (this.props.carregamentoInicial) {
       return(
-        <ActivityIndicator size="large" color="#fff" />
+        <View>
+          <ActivityIndicator size="large" color="#fff" />
+
+          <View style={styles.containerValidacao}>
+            <Text style={{color: '#fff'}}> Validando informações... </Text>
+          </View>
+        </View>
       );
     }else{
       return(
-        <TouchableOpacity
-          style={styles.botaoEntrar}
-          onPress={() => this._fazerLogin()}
-          underlayColor='#fff'>
-            <Text style={styles.textoEntrar}>Entrar</Text>
-        </TouchableOpacity>
+        <View>
+          <View>
+            {this.renderErro()}
+          </View>
+
+          <TouchableOpacity
+            style={styles.botaoEntrar}
+            onPress={() => this._fazerLogin()}
+            underlayColor='#fff'>
+              <Text style={styles.textoEntrar}>Entrar</Text>
+          </TouchableOpacity>
+
+          <Text style={styles.textoBotoesAdicionais} onPress={() => {Actions.esqueciSenha()}}>
+            Esqueci minha senha
+          </Text>
+
+          <Text style={styles.textoBotoesAdicionais} onPress={() => {Actions.cadastro()}}>
+            Cadastre-se agora
+          </Text>
+        </View>
       );
     }
   }
@@ -36,7 +65,9 @@ class TelaInicial extends Component{
   renderErro(){
     if(this.props.erro){
       return(
-        <Text style={styles.erro}> {this.props.mensagem} </Text>
+        <View style={{paddingBottom: 10}}>
+          <Text style={styles.erro}> {this.props.mensagem} </Text>
+        </View>
       );
     }
   }
@@ -49,10 +80,12 @@ class TelaInicial extends Component{
         </View>
 
         <View style={styles.containerInformacoes}>
-          <Text style={styles.textoBemVindo}> Seja bem-vindo(a)! </Text>
-
           <ScrollView>
-            <View style={styles.containerInputBotao}>
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.textoBemVindo}> Seja bem-vindo(a)! </Text>
+            </View>
+
+            <View style={{paddingTop: 35}}>
               <TextInputMask
                 type={'cpf'}
                 value={this.props.cpf}
@@ -72,20 +105,8 @@ class TelaInicial extends Component{
               />
 
               <View>
-                {this.renderErro()}
-              </View>
-
-              <View>
                 {this.renderBotaoAcessar()}
               </View>
-
-              <Text style={styles.textoBotoesAdicionais} onPress={() => {Actions.esqueciSenha()}}>
-                Esqueci Minha Senha
-              </Text>
-
-              <Text style={styles.textoBotoesAdicionais} onPress={() => {Actions.cadastro()}}>
-                Cadastre-se Agora
-              </Text>
 
             </View>
           </ScrollView>
@@ -109,15 +130,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   containerLogo: {
-    flex: 3,
+    flex: 2.5,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: 10
   },
   containerInformacoes: {
     flex: 5,
     alignItems: 'center',
     backgroundColor: '#3258A4',
-    paddingTop: 40
+    paddingTop: 30
   },
   logo: {
     width: 180,
@@ -125,7 +147,7 @@ const styles = StyleSheet.create({
   },
   textoBemVindo: {
     color: '#fff',
-    fontSize: 25
+    fontSize: 22
   },
   textInput: {
     marginBottom: 20,
@@ -136,9 +158,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     borderWidth: 1,
     borderRadius: 10
-  },
-  containerInputBotao: {
-    paddingTop: 35
   },
   botaoEntrar: {
     marginRight: 40,
@@ -168,6 +187,10 @@ const styles = StyleSheet.create({
     fontSize: 12,
     textAlign: 'center',
     fontWeight: 'bold'
+  },
+  containerValidacao: {
+    alignItems: 'center',
+    paddingTop: 15
   }
 });
 

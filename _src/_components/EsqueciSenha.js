@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Alert, ScrollView} from 'react-native';
+
 import {connect} from 'react-redux';
 import {TextInputMask} from 'react-native-masked-text';
 import {Actions} from 'react-native-router-flux';
@@ -27,17 +28,35 @@ class EsqueciSenha extends Component{
   renderBotao(){
     if(this.props.carregamento){
       return(
-        <TouchableOpacity
-          style={styles.botaoEntrar}
-          onPress={() => {this._esqueciMinhaSenha()}}
-          underlayColor='#fff'
-        >
-          <Text style={styles.textoEntrar}> Solicitar </Text>
-         </TouchableOpacity>
+        <View>
+          <TouchableOpacity
+            style={styles.botaoEntrar}
+            onPress={() => {this._esqueciMinhaSenha()}}
+            underlayColor='#fff'
+          >
+            <Text style={styles.textoEntrar}> Solicitar </Text>
+           </TouchableOpacity>
+
+           <View style={styles.containerBotoes}>
+             <TouchableOpacity
+               style={styles.botaoVoltar}
+               onPress={() => {Actions.pop()}}
+               underlayColor='#fff'
+             >
+               <Text style={styles.textoVoltar}> Voltar </Text>
+              </TouchableOpacity>
+           </View>
+         </View>
       );
     }else{
       return(
-        <ActivityIndicator size="large" color="#fff" />
+        <View>
+          <ActivityIndicator size="large" color="#fff" />
+
+          <View style={styles.containerValidacao}>
+            <Text style={{color: '#fff'}}> Validando informações... </Text>
+          </View>
+        </View>
       );
     }
   }
@@ -50,7 +69,6 @@ class EsqueciSenha extends Component{
         mensagemRecupera,
         [{text: 'Fechar', onPress: () => {
           this.props.modificaVisibilidade();
-          Actions.pop();
         }}],
         {cancelable: false},
       );
@@ -66,38 +84,38 @@ class EsqueciSenha extends Component{
         </View>
 
         <View style={styles.containerInformacoes}>
-          <Text style={styles.textoBemVindo}> Solicitar nova senha </Text>
 
-          <View style={styles.containerInputBotao}>
-            <TextInputMask
-              type={'cpf'}
-              value={this.props.cpf}
-              onChangeText={(cpf) => this.props.modificaCPFEsqueciSenha(cpf)}
-              placeholder="Digite seu CPF"
-              style={styles.textInput}
-              keyboardType={'numeric'}
-              maxLength={14}
-            />
+          <ScrollView>
 
-            <View style={styles.containerBotoes}>
-              {this.renderBotao()}
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.textoBemVindo}> Solicitar nova senha </Text>
             </View>
 
-            <View>
-              {this.renderMensagem()}
+            <View style={styles.containerInputBotao}>
+              <TextInputMask
+                type={'cpf'}
+                value={this.props.cpf}
+                onChangeText={(cpf) => this.props.modificaCPFEsqueciSenha(cpf)}
+                placeholder="Digite seu CPF"
+                style={styles.textInput}
+                keyboardType={'numeric'}
+                maxLength={14}
+              />
+
+              <View style={styles.containerBotoes}>
+                {this.renderBotao()}
+              </View>
+
+              <View>
+                {this.renderMensagem()}
+              </View>
+
+
+
             </View>
 
-            <View style={styles.containerBotoes}>
-              <TouchableOpacity
-                style={styles.botaoVoltar}
-                onPress={() => {Actions.pop()}}
-                underlayColor='#fff'
-              >
-                <Text style={styles.textoVoltar}> Voltar </Text>
-               </TouchableOpacity>
-            </View>
+          </ScrollView>
 
-          </View>
         </View>
       </View>
     );
@@ -117,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   containerLogo: {
-    flex: 3,
+    flex: 2.5,
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -125,7 +143,7 @@ const styles = StyleSheet.create({
     flex: 5,
     alignItems: 'center',
     backgroundColor: '#3258A4',
-    paddingTop: 40
+    paddingTop: 30
   },
   logo: {
     width: 180,
@@ -133,7 +151,7 @@ const styles = StyleSheet.create({
   },
   textoBemVindo: {
     color: '#fff',
-    fontSize: 25
+    fontSize: 22
   },
   textInput: {
     marginBottom: 20,
@@ -184,7 +202,11 @@ const styles = StyleSheet.create({
   },
   containerBotoes: {
     paddingTop: 25
-  }
+  },
+  containerValidacao: {
+    alignItems: 'center',
+    paddingTop: 15
+  }  
 });
 
 export default connect(mapStateToProps, {modificaCPFEsqueciSenha, esqueciMinhaSenha, modificaVisibilidade})(EsqueciSenha);

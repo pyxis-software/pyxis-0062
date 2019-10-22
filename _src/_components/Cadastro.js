@@ -32,7 +32,7 @@ class Cadastro extends Component{
 
   _fazerCadastro(){
     const {nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento} = this.props;
-    if (nome != '', cpf != '', senha != '', email != '', celularPrincipal != '', celularSecundario != '', endereco != '', cidadeEstado != '', diaPagamento != ''){
+    if (nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento){
       if(this.state.senhaVerificar === senha){
         this.props.fazerCadastro({nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento});
       }else{
@@ -56,7 +56,13 @@ class Cadastro extends Component{
   renderBotaoCadastrar(){
     if (this.props.carregamentoCadastrar) {
       return(
-        <ActivityIndicator size="large" color="#fff" />
+        <View>
+          <ActivityIndicator size="large" color="#fff" />
+
+          <View style={styles.containerValidacao}>
+            <Text style={{color: '#fff'}}> Validando informações... </Text>
+          </View>
+        </View>
       );
     }else{
       return(
@@ -122,7 +128,6 @@ class Cadastro extends Component{
                 <Text style={styles.textoInformativo}> Preencha todos os dados! </Text>
               </View>
 
-              <Text style={styles.textoInformativoInputs}> Nome completo </Text>
               <TextInput
                 onChangeText={(nome) => {this.props.modificaNome(nome)}}
                 value={this.props.nome}
@@ -130,7 +135,6 @@ class Cadastro extends Component{
                 style={styles.textInput}
               />
 
-              <Text style={styles.textoInformativoInputs}> CPF (Somente números) </Text>
               <TextInputMask
                 type={'cpf'}
                 value={this.props.cpf}
@@ -141,7 +145,6 @@ class Cadastro extends Component{
                 maxLength={14}
               />
 
-              <Text style={styles.textoInformativoInputs}> Digite uma senha </Text>
               <TextInput
                 onChangeText={(senha) => {this.props.modificaSenha(senha)}}
                 value={this.props.senha}
@@ -150,7 +153,6 @@ class Cadastro extends Component{
                 style={styles.textInput}
               />
 
-              <Text style={styles.textoInformativoInputs}> Digite novamente sua senha </Text>
               <TextInput
                 onChangeText={(senhaVerificar) => {this.setState({senhaVerificar})}}
                 value={this.state.senhaVerificar}
@@ -159,7 +161,6 @@ class Cadastro extends Component{
                 style={styles.textInput}
               />
 
-              <Text style={styles.textoInformativoInputs}> Digite seu e-mail </Text>
               <TextInput
                 onChangeText={(email) => {this.props.modificaEmail(email)}}
                 value={this.props.email}
@@ -168,7 +169,6 @@ class Cadastro extends Component{
                 autoCapitalize="none"
               />
 
-              <Text style={styles.textoInformativoInputs}> Número para contato principal (Somente números) </Text>
               <TextInputMask
                 type={'cel-phone'}
                 options={{maskType: 'BRL', withDDD: true, dddMask: '(99)'}}
@@ -178,7 +178,6 @@ class Cadastro extends Component{
                 style={styles.textInput}
               />
 
-              <Text style={styles.textoInformativoInputs}> Número para contato reserva (Somente números) </Text>
               <TextInputMask
                 type={'cel-phone'}
                 options={{maskType: 'BRL', withDDD: true, dddMask: '(99)'}}
@@ -188,7 +187,6 @@ class Cadastro extends Component{
                 style={styles.textInput}
               />
 
-              <Text style={styles.textoInformativoInputs}> Digite seu endereço completo </Text>
               <TextInput
                 onChangeText={(endereco) => {this.props.modificaEndereco(endereco)}}
                 value={this.props.endereco}
@@ -196,7 +194,6 @@ class Cadastro extends Component{
                 style={styles.textInput}
               />
 
-              <Text style={styles.textoInformativoInputs}> Digite sua cidade e estado ex: Salgueiro-PE </Text>
               <TextInput
                 onChangeText={(cidadeEstado) => {this.props.modificaCidadeEstado(cidadeEstado)}}
                 value={this.props.cidadeEstado}
@@ -204,7 +201,6 @@ class Cadastro extends Component{
                 style={styles.textInput}
               />
 
-              <Text style={styles.textoInformativoInputs}> Escolha o melhor dia para o pagamento da fatura </Text>
               <TextInput
                 onChangeText={(diaPagamento) => {this.props.modificaDiaPagamento(diaPagamento)}}
                 value={this.props.diaPagamento}
@@ -261,7 +257,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    paddingTop: 25
+    paddingTop: 15
   },
   logo: {
     width: 180,
@@ -277,12 +273,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#3258A4',
     paddingTop: 40
-  },
-  textoInformativoInputs: {
-    fontSize: 13,
-    color: '#fff',
-    fontWeight: 'bold',
-    paddingBottom: 5
   },
   textInput: {
     marginBottom: 20,
@@ -327,6 +317,10 @@ const styles = StyleSheet.create({
   },
   distanciaTextoInformativo: {
     paddingBottom: 25
+  },
+  containerValidacao: {
+    alignItems: 'center',
+    paddingTop: 15
   }
 });
 
