@@ -19,7 +19,7 @@ class Planos extends Component{
         <View style={styles.containerPlanoSelecionado}>
           <Text style={styles.titulo}> {item.titulo} </Text>
           <Text style={styles.descricao}> {item.descricao} </Text>
-          <Text style={styles.valor}> R$ {item.valor} Reais </Text>
+          <Text style={styles.valor}> R$ {item.valor} </Text>
         </View>
       );
     }else{
@@ -27,7 +27,7 @@ class Planos extends Component{
         <View style={styles.container}>
           <Text style={styles.titulo}> {item.titulo} </Text>
           <Text style={styles.descricao}> {item.descricao} </Text>
-          <Text style={styles.valor}> R$ {item.valor} Reais </Text>
+          <Text style={styles.valor}> R$ {item.valor} </Text>
         </View>
       );
     }
@@ -43,7 +43,6 @@ class Planos extends Component{
     }else{
       return(
         <ScrollView>
-
           <View style={styles.informacoesPlanos}>
             <Icon name="fiber-manual-record" size={15} color="#3258A4" />
             <Text style={[styles.informacoesPlanosTexto, {color: '#3258A4'}]}> Disponível </Text>
@@ -58,7 +57,6 @@ class Planos extends Component{
             keyExtractor={item => item.id}
             renderItem={({item}) => this.renderizaPlanos({item})}
           />
-
         </ScrollView>
       );
     }

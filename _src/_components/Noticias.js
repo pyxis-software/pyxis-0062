@@ -55,8 +55,7 @@ const mapStateToProps = state => ({
 const styles = StyleSheet.create({
   noticiasDescricao: {
     fontSize: 14,
-    paddingTop: 5,
-    textAlign: 'center',
+    padding: 10,
     color: '#fff'
   },
   noticiasTitulo: {

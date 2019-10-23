@@ -86,7 +86,6 @@ class EsqueciSenha extends Component{
         <View style={styles.containerInformacoes}>
 
           <ScrollView>
-
             <View style={{alignItems: 'center'}}>
               <Text style={styles.textoBemVindo}> Solicitar nova senha </Text>
             </View>
@@ -110,12 +109,8 @@ class EsqueciSenha extends Component{
                 {this.renderMensagem()}
               </View>
 
-
-
             </View>
-
           </ScrollView>
-
         </View>
       </View>
     );
@@ -206,7 +201,7 @@ const styles = StyleSheet.create({
   containerValidacao: {
     alignItems: 'center',
     paddingTop: 15
-  }  
+  }
 });
 
 export default connect(mapStateToProps, {modificaCPFEsqueciSenha, esqueciMinhaSenha, modificaVisibilidade})(EsqueciSenha);

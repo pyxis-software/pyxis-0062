@@ -11,15 +11,17 @@ class Pagamento extends Component{
   renderStatus(){
     if(this.props.situacao == "Vencido ou Cancelado"){
       return(
-        <Text style={styles.tituloInformacoes}> Situação:
+        <View style={styles.containerTitulos}>
+          <Text style={styles.tituloInformacoes}> Situação: </Text>
           <Text style={styles.situacaoVencido}> {this.props.situacao} </Text>
-        </Text>
+        </View>
       );
     }else{
       return(
-        <Text style={styles.tituloInformacoes}> Situação:
+        <View style={styles.containerTitulos}>
+          <Text style={styles.tituloInformacoes}> Situação: </Text>
           <Text style={styles.situacaoEmAberto}> {this.props.situacao} </Text>
-        </Text>
+        </View>
       );
     }
   }
@@ -55,7 +57,7 @@ class Pagamento extends Component{
       return(
         <View>
           <View style={styles.containerBoletoVencido}>
-            <Text style={styles.textoBoletoVencido}> O seu boleto está vencido! Entre em contato com o suporte para resolver o problema. </Text>
+            <Text style={styles.textoBoletoVencido}> Este boleto está vencido! Entre em contato com o nosso suporte para resolver o problema. </Text>
           </View>
 
           <TouchableOpacity
@@ -72,26 +74,26 @@ class Pagamento extends Component{
   render(){
     return(
       <View style={styles.containerPrincipal}>
-
         <View style={styles.containerLogo}>
           <Image source={LogoJuniorNet} style={styles.logo} />
         </View>
 
         <View style={styles.containerInformacoes}>
 
-          <View style={styles.containerTextos}>
-            <Text style={styles.tituloInformacoes}> Vencimento:
-              <Text style={styles.destaque}> {this.props.vencimento} </Text>
-            </Text>
+          <View>
+            <View style={styles.containerTitulos}>
+              <Text style={styles.tituloInformacoes}> Vencimento: </Text>
+              <Text style={{fontWeight: 'bold'}}> {this.props.vencimento} </Text>
+            </View>
 
             <View>
               {this.renderStatus()}
             </View>
 
-            <Text style={styles.tituloInformacoes}> Valor:
-              <Text style={styles.destaque}> R$ {this.props.valor} </Text>
-            </Text>
-
+            <View style={styles.containerTitulos}>
+              <Text style={styles.tituloInformacoes}> Valor: </Text>
+              <Text style={{fontWeight: 'bold'}}> R$ {this.props.valor} </Text>
+            </View>
           </View>
 
           <View>
@@ -108,7 +110,6 @@ class Pagamento extends Component{
           </View>
 
         </View>
-
       </View>
     );
   }
@@ -168,28 +169,23 @@ const styles = StyleSheet.create({
   },
   tituloInformacoes: {
     fontSize: 18,
-    fontWeight: 'bold',
-    paddingBottom: 20
+    fontWeight: 'bold'
   },
   situacaoVencido: {
-    color: '#FF4500'
+    color: '#FF4500',
+    fontWeight: 'bold'
   },
   situacaoEmAberto: {
-    color: '#F7AA34'
+    color: '#F7AA34',
+    fontWeight: 'bold'
   },
   planoPagamento: {
     fontSize: 18,
     fontWeight: 'bold',
     paddingBottom: 20
   },
-  containerTextos: {
-    alignItems: 'center'
-  },
-  destaque: {
-    color: '#228B22'
-  },
   containerBotaoFechar: {
-    paddingTop: 25
+    paddingTop: 10
   },
   containerBoletoVencido: {
     padding: 10
@@ -198,6 +194,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: '#EC3C3D'
+  },
+  containerTitulos: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 5,
+    paddingBottom: 5
   }
 });
 

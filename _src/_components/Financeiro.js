@@ -59,12 +59,25 @@ class Financeiro extends Component{
       );
     }else{
       return(
-        <FlatList
-          data={this.props.dados}
-          extraData={this.state}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => this.renderizaFinanceiro({item})}
-        />
+        <View>
+          <View style={styles.informacoesPagamento}>
+            <Icon name="fiber-manual-record" size={15} color="#49BD78" />
+            <Text style={[styles.informacoesPagamentoTexto, {color: '#49BD78'}]}> Pago </Text>
+
+            <Icon name="fiber-manual-record" size={15} color="#F7AA34" />
+            <Text style={[styles.informacoesPagamentoTexto, {color: '#F7AA34'}]}> Em aberto </Text>
+
+            <Icon name="fiber-manual-record" size={15} color="#EC3C3D" />
+            <Text style={[styles.informacoesPagamentoTexto, {color: '#EC3C3D'}]}> Vencido </Text>
+          </View>
+
+          <FlatList
+            data={this.props.dados}
+            extraData={this.state}
+            keyExtractor={item => item.id}
+            renderItem={({item}) => this.renderizaFinanceiro({item})}
+          />
+        </View>
       );
     }
   }
@@ -72,22 +85,9 @@ class Financeiro extends Component{
   renderFinanceiro(){
     return(
       <ScrollView>
-
-        <View style={styles.informacoesPagamento}>
-          <Icon name="fiber-manual-record" size={15} color="#49BD78" />
-          <Text style={[styles.informacoesPagamentoTexto, {color: '#49BD78'}]}> Pago </Text>
-
-          <Icon name="fiber-manual-record" size={15} color="#F7AA34" />
-          <Text style={[styles.informacoesPagamentoTexto, {color: '#F7AA34'}]}> Em aberto </Text>
-
-          <Icon name="fiber-manual-record" size={15} color="#EC3C3D" />
-          <Text style={[styles.informacoesPagamentoTexto, {color: '#EC3C3D'}]}> Vencido </Text>
-        </View>
-
         <View>
           {this._renderFlatlistOrLoading()}
         </View>
-
       </ScrollView>
     );
   }
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   indicador: {
-    marginTop: 25
+    marginTop: 30
   },
 });
 

@@ -84,6 +84,8 @@ class AlterarSenha extends Component{
             <Text style={styles.textoInformativo}> Preencha todos os dados! </Text>
           </View>
 
+          <Text style={styles.textoInformativoRecuperacao}> Em caso de recuperação de senha, no campo de senha antiga, informe a mesma recebida por e-mail! </Text>
+
           <Text style={styles.textoInformativoInputs}> Digite sua senha antiga </Text>
           <TextInput
             onChangeText={(senha) => this.props.modificaSenhaAntiga(senha)}
@@ -106,7 +108,7 @@ class AlterarSenha extends Component{
             {this.renderErro()}
           </View>
 
-          <View>
+          <View style={{paddingBottom: 30}}>
             {this.renderBotaoAlterar()}
           </View>
 
@@ -169,6 +171,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingBottom: 5,
     color: '#3258A4'
+  },
+  textoInformativoRecuperacao: {
+    fontSize: 13,
+    fontWeight: 'bold',
+    paddingBottom: 30,
+    paddingLeft: 30,
+    paddingRight: 30,
+    color: '#3258A4',
+    textAlign: 'center'
   },
   botaoAlterar: {
     marginRight: 30,

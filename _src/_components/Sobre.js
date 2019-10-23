@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image, Text, Linking} from 'react-native';
+import {View, StyleSheet, Image, Text, Linking, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
@@ -26,7 +26,6 @@ class Sobre extends Component{
         </View>
 
         <View style={styles.containerInformacoesEmpresa}>
-
           <View style={styles.direcaoItens}>
             <Image source={House} style={styles.logoInformacoesEmpresa} />
             <Text style={styles.textoInformacoes}> Rua São Vicente, 1584, 10º Andar </Text>
@@ -41,7 +40,6 @@ class Sobre extends Component{
             <Image source={Mail} style={styles.logoInformacoesEmpresa} />
             <Text style={styles.textoInformacoes}> softwarepyxis@gmail.com </Text>
           </View>
-
         </View>
       </View>
     );
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   containerLogo: {
-    flex: 1,
+    flex: .8,
     alignItems: 'center'
   },
   logo: {
@@ -65,7 +63,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   containerDescricao: {
-    flex: 1,
+    flex: .8,
     height: 50,
     marginLeft: 5,
     marginRight: 5,
@@ -76,8 +74,7 @@ const styles = StyleSheet.create({
   },
   descricao: {
     fontSize: 15,
-    marginTop: 30,
-    textAlign: 'center',
+    padding: 10,
     color: '#fff'
   },
   containerInformacoesEmpresa: {

@@ -46,7 +46,7 @@ class Cadastro extends Component{
     }else{
       Alert.alert(
         'Preencha todos os dados!',
-        'Todos os campos estão em branco!',
+        'Um ou mais campos estão em branco!',
         [{text: 'Fechar'}],
         {cancelable: false},
       );
