@@ -6,7 +6,6 @@ import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class TelaUsuario extends Component{
-
   render(){
     return(
       <View style={styles.containerPrincipal}>
@@ -49,6 +48,15 @@ class TelaUsuario extends Component{
               underlayColor='#fff'>
               <Text style={styles.textoFuncoes}> Alterar Senha </Text>
             </TouchableOpacity>
+
+            <View style={{paddingTop: 25}}>
+              <TouchableOpacity
+                style={styles.botaoFuncoes}
+                onPress={() => {Actions.popTo("inicial")}}
+                underlayColor='#fff'>
+                <Text style={styles.textoFuncoes}> Sair </Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
         </ScrollView>

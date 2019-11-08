@@ -4,7 +4,6 @@ import {View, Text, StyleSheet, Image, TextInput, TouchableOpacity, ActivityIndi
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import {TextInputMask} from 'react-native-masked-text';
-import AsyncStorage from '@react-native-community/async-storage';
 
 import {modificaCPF, modificaSenha, fazerLogin} from '../_actions/TelaInicialActions';
 
@@ -12,49 +11,9 @@ const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
 class TelaInicial extends Component{
 
-  constructor(props){
-    super(props);
-    this.state = {
-      carregamentoTela: true
-    }
-  }
-
-  _fazerLoginInformacoesArmazenadas(cpfLogado, senhaLogado){
-    this.props.fazerLogin({cpf: cpfLogado, senha: senhaLogado});
-  }
-
-  async componentWillMount(){
-    await AsyncStorage.getItem('usuarioLogado').then(usuarioLogado => {
-        if(usuarioLogado){
-          AsyncStorage.getItem('cpfLogado').then(cpfLogado => {
-            if(cpfLogado){
-              AsyncStorage.getItem('senhaLogado').then(senhaLogado => {
-                if(senhaLogado){
-                  this._fazerLoginInformacoesArmazenadas(cpfLogado, senhaLogado);
-                }else{
-                  this.setState({carregamentoTela: false});
-                }
-              });
-            }else{
-              this.setState({carregamentoTela: false});
-            }
-          });
-        }else{
-          this.setState({carregamentoTela: false});
-        }
-    });
-  }
-
-  async armazenaUsuarioLogado(cpf, senha){
-    await AsyncStorage.setItem('usuarioLogado', 'logado');
-    await AsyncStorage.setItem('cpfLogado', cpf);
-    await AsyncStorage.setItem('senhaLogado', senha);
-  }
-
   _fazerLogin(){
     const {cpf, senha} = this.props;
     if(cpf, senha){
-      this.armazenaUsuarioLogado(cpf, senha);
       this.props.fazerLogin({cpf, senha});
     }else{
       Alert.alert(
@@ -114,58 +73,46 @@ class TelaInicial extends Component{
   }
 
   render(){
-    if(this.state.carregamentoTela){
-      return(
-        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color="#3258A4" />
-
-          <View style={styles.containerValidacao}>
-            <Text style={{color: '#3258A4'}}> Buscando informações. Aguarde... </Text>
-          </View>
+    return(
+      <View style={styles.containerPrincipal}>
+        <View style={styles.containerLogo}>
+          <Image source={LogoJuniorNet} style={styles.logo} />
         </View>
-      );
-    }else{
-      return(
-        <View style={styles.containerPrincipal}>
-          <View style={styles.containerLogo}>
-            <Image source={LogoJuniorNet} style={styles.logo} />
-          </View>
 
-          <View style={styles.containerInformacoes}>
-            <ScrollView>
-              <View style={{alignItems: 'center'}}>
-                <Text style={styles.textoBemVindo}> Seja bem-vindo(a)! </Text>
+        <View style={styles.containerInformacoes}>
+          <ScrollView>
+            <View style={{alignItems: 'center'}}>
+              <Text style={styles.textoBemVindo}> Seja bem-vindo(a)! </Text>
+            </View>
+
+            <View style={{paddingTop: 35}}>
+              <TextInputMask
+                type={'cpf'}
+                value={this.props.cpf}
+                onChangeText={(cpf) => this.props.modificaCPF(cpf)}
+                placeholder="Digite seu CPF"
+                style={styles.textInput}
+                keyboardType={'numeric'}
+                maxLength={14}
+              />
+
+              <TextInput
+                onChangeText={(senha) => this.props.modificaSenha(senha)}
+                value={this.props.senha}
+                secureTextEntry
+                placeholder="Digite sua senha"
+                style={styles.textInput}
+              />
+
+              <View>
+                {this.renderBotaoAcessar()}
               </View>
 
-              <View style={{paddingTop: 35}}>
-                <TextInputMask
-                  type={'cpf'}
-                  value={this.props.cpf}
-                  onChangeText={(cpf) => this.props.modificaCPF(cpf)}
-                  placeholder="Digite seu CPF"
-                  style={styles.textInput}
-                  keyboardType={'numeric'}
-                  maxLength={14}
-                />
-
-                <TextInput
-                  onChangeText={(senha) => this.props.modificaSenha(senha)}
-                  value={this.props.senha}
-                  secureTextEntry
-                  placeholder="Digite sua senha"
-                  style={styles.textInput}
-                />
-
-                <View>
-                  {this.renderBotaoAcessar()}
-                </View>
-
-              </View>
-            </ScrollView>
-          </View>
+            </View>
+          </ScrollView>
         </View>
-      );
-    }
+      </View>
+    );
   }
 }
 
