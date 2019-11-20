@@ -2,10 +2,8 @@
 
 buildscript {
     ext {
-        googlePlayServicesVersion = "+"
-        firebaseVersion = "+"
         buildToolsVersion = "28.0.3"
-        minSdkVersion = 21
+        minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 28
         supportLibVersion = "28.0.0"
@@ -15,7 +13,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath('com.android.tools.build:gradle:3.4.2')
+        classpath('com.android.tools.build:gradle:3.5.2')
+        classpath('com.google.gms:google-services:4.3.2')
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

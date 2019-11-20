@@ -1,7 +1,6 @@
 package com.pyxis0062;
 
 import com.facebook.react.ReactActivity;
-import android.os.Bundle;
 
 public class MainActivity extends ReactActivity {
 

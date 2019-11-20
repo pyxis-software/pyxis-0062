@@ -24,12 +24,23 @@ export const enviarMensagem = (mensagem, cpf, nome, email) => {
           .then(() => dispatch ({type: ENVIA_MENSAGEM_SUCESSO}))
       })
       .then(() => {
+        
         firebase.database().ref("/usuario_conversas/" + cpf + "/juniorNet/").set({nome: "JuniorNet"})
           .then(() => {
             firebase.database().ref("/contatos/" + cpf).once("value").then(snapshot => {
               firebase.database().ref("/usuario_conversas/" + cpf + "/juniorNet").set({nome, email, cpf})
+              .then(() =>{
+                firebase.database().ref("/notificacoes").push({
+                  mensagem: 'Nova mensagem de ' + nome,
+                  para: 'JRNET',
+                  tipo: 'Chat',
+                  title: 'Chat'
+                })
+              })
             })
           })
-      })
+      });
+    
+      
   }
 }

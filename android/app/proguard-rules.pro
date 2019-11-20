@@ -8,3 +8,12 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+    # Add this global rule
+    -keepattributes Signature
+
+    # This rule will properly ProGuard all the model classes in
+    # the package com.yourcompany.models. Modify to fit the structure
+    # of your app.
+    -keepclassmembers class com.pyxis0062.models.** {
+      *;
+    }

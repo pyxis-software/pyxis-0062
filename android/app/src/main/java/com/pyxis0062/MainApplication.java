@@ -1,23 +1,26 @@
 package com.pyxis0062;
 
 import android.app.Application;
+import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 
-import android.os.Bundle;
-
 import com.facebook.react.PackageList;
-import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
-import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.HeadlessJsTaskService;
 import com.facebook.soloader.SoLoader;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
-import android.content.Intent;
+import com.reactnativecommunity.asyncstorage.AsyncLocalStorageUtil;
+import com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier;
+
 import java.util.List;
 
 public class MainApplication extends Application implements ReactApplication {
+
+
 
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
@@ -31,7 +34,6 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
-      new ReactNativePushNotificationPackage();
       return packages;
     }
 
@@ -50,17 +52,25 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
 
-  
-    Intent service = new Intent(getApplicationContext(), MyTaskService.class);
-    Bundle bundle = new Bundle();
 
-    bundle.putString("foo", "bar");
-    service.putExtras(bundle);
+    //Criando a intent do serviço
+    Intent service = new Intent(getApplicationContext(), ServiceNotificacao.class);
+    //Buscando se o cliente já entrou no aplicativo
+    SQLiteDatabase readableDatabase = null;
+    readableDatabase = ReactDatabaseSupplier.getInstance(this.getApplicationContext()).getReadableDatabase();
+    String impl = null;
+    if (readableDatabase != null) {
 
-    getApplicationContext().startService(service);
+      impl = AsyncLocalStorageUtil.getItemImpl(readableDatabase, "cpfLogado");
+      Log.d("CORE", "CPF encontrado: " + impl);
+    }
+    if(impl != null){
 
-    HeadlessJsTaskService.acquireWakeLockNow(getApplicationContext());
-    
+      if(!ServiceNotificacao.active){
+        getApplicationContext().startService(service);
+      }
+    }
+
     SoLoader.init(this, /* native exopackage */ false);
   }
 }

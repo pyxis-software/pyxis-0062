@@ -1,12 +1,23 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Image, Button, Text, TouchableOpacity} from 'react-native';
+
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
 class Menu extends Component{
+
+  async sairDoSistema(){
+    await AsyncStorage.setItem('usuarioLogado', '');
+    await AsyncStorage.setItem('cpfLogado', '');
+    await AsyncStorage.setItem('senhaLogado', '');
+    Actions.pop();
+    Actions.inicial();
+  }
+
   render(){
     return(
       <View style={styles.containerPrincipal}>
@@ -66,7 +77,7 @@ class Menu extends Component{
 
           </View>
         </View>
-        <Button title="Sair" onPress={() => {Actions.popTo("inicial")}} color="#3258A4" />
+        <Button title="Sair" onPress={() => {this.sairDoSistema()}} color="#3258A4" />
 
       </View>
     );
