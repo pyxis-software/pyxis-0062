@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image, Button, Text, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Image, Button, Text, TouchableOpacity, AppState} from 'react-native';
 
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
@@ -23,12 +23,77 @@ class Menu extends Component{
   }
   componentDidMount(){
     cpf = this.props.cpf;
+<<<<<<< Updated upstream
     console.log(cpf);
     firebase.database().ref("/users/" + cpf + "/").push().set({
+=======
+    cpf = cpf.replace(/\./g, "");
+    cpf = cpf.replace("-", "");
+    
+    console.log(cpf);
+    firebase.database().ref("/users/" + cpf + "/").set({
+>>>>>>> Stashed changes
       cpf: cpf,
       status: 'online'
     });
   }
+<<<<<<< Updated upstream
+=======
+  componentWillMount() {
+    AppState.addEventListener('change', this.backPressed);
+  }
+  
+  componentWillUnmount() {
+    AppState.removeEventListener('change', this.backPressed);
+  }
+
+  backPressed = (nextAppState) => {
+    console.log("Alteranção...");
+
+    if (nextAppState === 'background') {
+
+      cpf = this.props.cpf;
+      cpf = cpf.replace(/\./g, "");
+      cpf = cpf.replace("-", "");
+      
+      console.log(cpf);
+      firebase.database().ref("/users/" + cpf + "/").set({
+        cpf: cpf,
+        status: 'offline'
+      });
+    }
+
+    if (nextAppState === 'active') {
+
+      // Do something here on app active foreground mode.
+      console.log("App is in Active Foreground Mode.")
+      cpf = this.props.cpf;
+      cpf = cpf.replace(/\./g, "");
+      cpf = cpf.replace("-", "");
+      
+      console.log(cpf);
+      firebase.database().ref("/users/" + cpf + "/").set({
+        cpf: cpf,
+        status: 'online'
+      });
+    }
+
+    if (nextAppState === 'inactive') {
+
+      // Do something here on app inactive mode.
+      console.log("App is in inactive Mode.")
+      cpf = this.props.cpf;
+      cpf = cpf.replace(/\./g, "");
+      cpf = cpf.replace("-", "");
+      
+      console.log(cpf);
+      firebase.database().ref("/users/" + cpf + "/").set({
+        cpf: cpf,
+        status: 'offline'
+      });
+    }
+  }
+>>>>>>> Stashed changes
 
   render(){
     return(

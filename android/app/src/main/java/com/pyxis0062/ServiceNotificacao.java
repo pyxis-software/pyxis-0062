@@ -66,12 +66,13 @@ public class ServiceNotificacao extends Service {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    String para, mensagem, tipo, title;
+                    String para, mensagem, tipo, title, clientes, notId;
                     for (DataSnapshot s : dataSnapshot.getChildren()) {
                         mensagem = s.child("mensagem").getValue().toString();
                         para = s.child("para").getValue().toString();
                         tipo = s.child("tipo").getValue().toString();
                         title = s.child("title").getValue().toString();
+                        notId = s.getKey();
 
                         Log.d("CORE", "Para: " + para);
 
@@ -79,12 +80,28 @@ public class ServiceNotificacao extends Service {
                             Log.d("CORE", "Criando a notificação");
                             Notificacao(title, tipo, mensagem);
                             //Removendo...
-                            dataSnapshot.getRef().setValue(null);
+                            myRef.child(notId).setValue(null);
                         }
 
                         if(para.equals("*")){
-                            Log.d("CORE", "Criando a notificação");
-                            Notificacao(title, tipo, mensagem);
+                            //Verifica os clientes
+                            clientes = s.child("clientes").getValue().toString();
+                            String[] c = clientes.split(";");
+                            String nova = "";
+
+                            for (int a = 0; a < c.length; a++){
+                                Log.d("CORE", c[a]);
+                                if(c[a].equals(CPF)){
+                                    Log.d("CORE", "Criando a notificação");
+                                    Notificacao(title, tipo, mensagem);
+                                }else{
+                                    nova += c[a]+";";
+                                }
+                            }
+
+                            //Aatualiza o firebase
+                            Log.d("CORE", nova);
+                            myRef.child(notId).child("clientes").setValue(nova);
                         }
                     }
                 }
@@ -100,12 +117,13 @@ public class ServiceNotificacao extends Service {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Log.d("CORE", "Nova");
                 if(dataSnapshot.exists()){
-                    String para, mensagem, tipo, title;
+                    String para, mensagem, tipo, title, clientes, notId;
                     for (DataSnapshot s : dataSnapshot.getChildren()) {
                         mensagem = s.child("mensagem").getValue().toString();
                         para = s.child("para").getValue().toString();
                         tipo = s.child("tipo").getValue().toString();
                         title = s.child("title").getValue().toString();
+                        notId = s.getKey();
 
                         Log.d("CORE", "Para: " + para);
 
@@ -113,16 +131,34 @@ public class ServiceNotificacao extends Service {
                             Log.d("CORE", "Criando a notificação");
                             Notificacao(title, tipo, mensagem);
                             //Removendo...
-                            dataSnapshot.getRef().setValue(null);
+                            myRef.child(notId).setValue(null);
                         }
 
                         if(para.equals("*")){
-                            Log.d("CORE", "Criando a notificação");
-                            Notificacao(title, tipo, mensagem);
+
+                            //Verifica os clientes
+                            clientes = s.child("clientes").getValue().toString();
+                            String[] c = clientes.split(";");
+                            String nova = "";
+
+                            for (int a = 0; a < c.length; a++){
+                                if(c[a].equals(CPF)){
+                                    Log.d("CORE", "Criando a notificação");
+                                    Notificacao(title, tipo, mensagem);
+                                }else{
+                                    nova += c[a]+";";
+                                }
+                            }
+
+                            String[] b = nova.split(";");
+                            if(b.length != c.length){
+                                //Aatualiza o firebase
+                                myRef.child(notId).child("clientes").setValue(nova);
+                            }
+
+
                         }
                     }
-
-                    //Removendo...
                 }
             }
 
