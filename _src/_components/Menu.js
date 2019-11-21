@@ -96,7 +96,9 @@ class Menu extends Component{
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  cpf: state.MenuReducer.cpf,
+});
 
 const styles = StyleSheet.create({
   containerPrincipal: {
