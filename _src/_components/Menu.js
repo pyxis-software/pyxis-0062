@@ -5,10 +5,14 @@ import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-community/async-storage';
+import firebase from 'firebase';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
 class Menu extends Component{
+  constructor(props){
+    super(props);
+  }
 
   async sairDoSistema(){
     await AsyncStorage.setItem('usuarioLogado', '');
@@ -16,6 +20,14 @@ class Menu extends Component{
     await AsyncStorage.setItem('senhaLogado', '');
     Actions.pop();
     Actions.inicial();
+  }
+  componentDidMount(){
+    cpf = this.props.cpf;
+    console.log(cpf);
+    firebase.database().ref("/users/" + cpf + "/").push().set({
+      cpf: cpf,
+      status: 'online'
+    });
   }
 
   render(){
