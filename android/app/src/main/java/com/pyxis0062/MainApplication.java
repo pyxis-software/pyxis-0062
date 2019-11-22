@@ -65,7 +65,6 @@ public class MainApplication extends Application implements ReactApplication {
       Log.d("CORE", "CPF encontrado: " + impl);
     }
     if(impl != null){
-
       if(!ServiceNotificacao.active){
         getApplicationContext().startService(service);
       }

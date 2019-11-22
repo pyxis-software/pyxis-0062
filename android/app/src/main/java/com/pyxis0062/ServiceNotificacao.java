@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -30,6 +31,7 @@ import com.reactnativecommunity.asyncstorage.ReactDatabaseSupplier;
 
 public class ServiceNotificacao extends Service {
     private String CPF;
+    String CHANNEL_ID = "my_channel_01";
 
     static boolean active = false;
     FirebaseDatabase database;
@@ -44,8 +46,8 @@ public class ServiceNotificacao extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        active = true;
 
+        active = true;
         SQLiteDatabase readableDatabase = null;
         readableDatabase = ReactDatabaseSupplier.getInstance(this.getApplicationContext()).getReadableDatabase();
         if (readableDatabase != null) {
@@ -171,10 +173,31 @@ public class ServiceNotificacao extends Service {
         Log.d("CORE", "Serviço Criado");
     }
 
+
+    @Override
+    public ComponentName startForegroundService(Intent service) {
+        return super.startForegroundService(service);
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel serviceChannel = new NotificationChannel(
+                    CHANNEL_ID,
+                    "Foreground Service Channel",
+                    NotificationManager.IMPORTANCE_DEFAULT
+            );
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(serviceChannel);
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         Log.d("CORE", "Serviço Destruido");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            stopForeground(true);
+        }
         active = false;
     }
 
@@ -186,64 +209,26 @@ public class ServiceNotificacao extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        return super.onStartCommand(intent, flags, startId);
+        createNotificationChannel();
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0, notificationIntent, 0);
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Buscando Notificações")
+                .setSmallIcon(R.drawable.logo)
+                .setContentIntent(pendingIntent)
+                .build();
+
+        startForeground(1, notification);
+
+        //do heavy work on a background thread
+        return Service.START_STICKY;
     }
 
-    public static class Notifi {
-
-        public String mensagem;
-        public String para;
-        public String tipo;
-        public String title;
-
-        public Notifi() {
-        }
-
-        public Notifi(String mensagem, String para, String tipo, String titulo) {
-            this.mensagem = mensagem;
-            this.para = para;
-            this.tipo = tipo;
-            this.title = titulo;
-        }
-
-        public String getMensagem() {
-            return mensagem;
-        }
-
-        public void setMensagem(String mensagem) {
-            this.mensagem = mensagem;
-        }
-
-        public String getPara() {
-            return para;
-        }
-
-        public void setPara(String para) {
-            this.para = para;
-        }
-
-        public String getTipo() {
-            return tipo;
-        }
-
-        public void setTipo(String tipo) {
-            this.tipo = tipo;
-        }
-
-        public String getTitulo() {
-            return title;
-        }
-
-        public void setTitulo(String titulo) {
-            this.title = titulo;
-        }
-    }
-
-    //Apaga notificacao
-    private void deleteNot(){
+    private void startInForeground(){
 
     }
-
 
     //Notificação
     private void Notificacao(String titulo, String tipo, String mensagem){
@@ -253,7 +238,7 @@ public class ServiceNotificacao extends Service {
         int NOTIFICATION_ID = 234;
         NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        String CHANNEL_ID = "my_channel_01";
+
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             CharSequence name = "my_channel_1";
             String description = "Meu canal";

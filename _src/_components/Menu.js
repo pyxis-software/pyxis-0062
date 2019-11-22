@@ -23,22 +23,15 @@ class Menu extends Component{
   }
   componentDidMount(){
     cpf = this.props.cpf;
-<<<<<<< Updated upstream
-    console.log(cpf);
-    firebase.database().ref("/users/" + cpf + "/").push().set({
-=======
     cpf = cpf.replace(/\./g, "");
     cpf = cpf.replace("-", "");
     
     console.log(cpf);
     firebase.database().ref("/users/" + cpf + "/").set({
->>>>>>> Stashed changes
       cpf: cpf,
       status: 'online'
     });
   }
-<<<<<<< Updated upstream
-=======
   componentWillMount() {
     AppState.addEventListener('change', this.backPressed);
   }
@@ -93,7 +86,6 @@ class Menu extends Component{
       });
     }
   }
->>>>>>> Stashed changes
 
   render(){
     return(
