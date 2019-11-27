@@ -28,12 +28,16 @@
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BATTERY_CHANGED"/>
                 <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
                 <action android:name="com.pyxis0062.MY_NOTIFICATION" />
+                <action android:name="ac.in.ActivityRecognition.RestartSensor" />
                 <action android:name="com.whatsapp.messaging.MessageService.START" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
+                <action android:name="com.sofascore.results" />
                 <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="com.bgoogle.android.gms.gcm.ACTION_TASK_READY" />
             </intent-filter>
         </receiver>
     </application>

@@ -86,24 +86,32 @@ public class ServiceNotificacao extends Service {
                         }
 
                         if(para.equals("*")){
+
                             //Verifica os clientes
                             clientes = s.child("clientes").getValue().toString();
-                            String[] c = clientes.split(";");
-                            String nova = "";
+                            Log.d("CORE", clientes);
+                            if(verificaExiste(clientes)){
+                                String[] c = clientes.split(";");
+                                String nova = "";
 
-                            for (int a = 0; a < c.length; a++){
-                                Log.d("CORE", c[a]);
-                                if(c[a].equals(CPF)){
-                                    Log.d("CORE", "Criando a notificação");
-                                    Notificacao(title, tipo, mensagem);
-                                }else{
-                                    nova += c[a]+";";
+                                for (int a = 0; a < c.length; a++){
+                                    if(c[a].equals(CPF)){
+                                        Log.d("CORE", "Criando a notificação");
+                                        Notificacao(title, tipo, mensagem);
+                                    }else{
+                                        nova += c[a]+";";
+                                    }
                                 }
-                            }
 
-                            //Aatualiza o firebase
-                            Log.d("CORE", nova);
-                            myRef.child(notId).child("clientes").setValue(nova);
+                                String[] b = nova.split(";");
+                                if(b.length != c.length){
+                                    //Aatualiza o firebase
+                                    myRef.child(notId).child("clientes").setValue(nova);
+                                }
+                            }else{
+                                Log.d("CORE", "Removendo já lido");
+                                myRef.child(notId).setValue(null);
+                            }
                         }
                     }
                 }
@@ -140,25 +148,28 @@ public class ServiceNotificacao extends Service {
 
                             //Verifica os clientes
                             clientes = s.child("clientes").getValue().toString();
-                            String[] c = clientes.split(";");
-                            String nova = "";
+                            if(verificaExiste(clientes)){
+                                String[] c = clientes.split(";");
+                                String nova = "";
 
-                            for (int a = 0; a < c.length; a++){
-                                if(c[a].equals(CPF)){
-                                    Log.d("CORE", "Criando a notificação");
-                                    Notificacao(title, tipo, mensagem);
-                                }else{
-                                    nova += c[a]+";";
+                                for (int a = 0; a < c.length; a++){
+                                    if(c[a].equals(CPF)){
+                                        Log.d("CORE", "Criando a notificação");
+                                        Notificacao(title, tipo, mensagem);
+                                    }else{
+                                        nova += c[a]+";";
+                                    }
                                 }
+
+                                String[] b = nova.split(";");
+                                if(b.length != c.length){
+                                    //Aatualiza o firebase
+                                    myRef.child(notId).child("clientes").setValue(nova);
+                                }
+                            }else{
+                                Log.d("CORE", "Removendo já lido");
+                                myRef.child(notId).setValue(null);
                             }
-
-                            String[] b = nova.split(";");
-                            if(b.length != c.length){
-                                //Aatualiza o firebase
-                                myRef.child(notId).child("clientes").setValue(nova);
-                            }
-
-
                         }
                     }
                 }
@@ -171,6 +182,15 @@ public class ServiceNotificacao extends Service {
         });
 
         Log.d("CORE", "Serviço Criado");
+    }
+
+    private boolean verificaExiste(String dados){
+        String procura = ";";
+        if(dados.toLowerCase().contains(procura.toLowerCase())){
+            return true;
+        }else{
+            return false;
+        }
     }
 
 
@@ -198,29 +218,40 @@ public class ServiceNotificacao extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             stopForeground(true);
         }
+        Intent i = new Intent("com.pyxis0062.MY_NOTIFICATION");
+        sendBroadcast(i);
         active = false;
     }
 
     @Override
     public void onTaskRemoved(Intent rootIntent) {
         super.onTaskRemoved(rootIntent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            stopForeground(true);
+        }
+        Intent i = new Intent("com.pyxis0062.MY_NOTIFICATION");
+        sendBroadcast(i);
         active = false;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         createNotificationChannel();
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this,
-                0, notificationIntent, 0);
 
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Buscando Notificações")
-                .setSmallIcon(R.drawable.logo)
-                .setContentIntent(pendingIntent)
-                .build();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                    0, notificationIntent, 0);
 
-        startForeground(1, notification);
+            Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+                    .setContentTitle("Buscando Notificações")
+                    .setSmallIcon(R.drawable.logo)
+                    .setContentIntent(pendingIntent)
+                    .build();
+
+            startForeground(1, notification);
+        }
+
 
         //do heavy work on a background thread
         return Service.START_STICKY;
@@ -265,7 +296,11 @@ public class ServiceNotificacao extends Service {
                     .setTicker(titulo)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
 
+            Notification n = builder.build();
+            n.vibrate = new long[]{150, 300, 150, 600};
+            n.defaults = Notification.DEFAULT_SOUND;
 
+            notificationManager.notify(NOTIFICATION_ID,n);
         }else if(tipo.equals("chat")){
             builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(titulo)
@@ -274,15 +309,16 @@ public class ServiceNotificacao extends Service {
                     .setContentIntent(pIntent)
                     .setAutoCancel(true)
                     .setTicker(titulo)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo))
-                    .addAction(R.drawable.logo, "Ver", pIntent);
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+
+            Notification n = builder.build();
+            n.vibrate = new long[]{150, 300, 150, 600};
+            n.defaults = Notification.DEFAULT_SOUND;
+
+            notificationManager.notify(NOTIFICATION_ID,n);
         }else{
             Log.d("CORE", "Erro na notificação");
         }
-        Notification n = builder.build();
-        n.vibrate = new long[]{150, 300, 150, 600};
-        n.defaults = Notification.DEFAULT_SOUND;
 
-        notificationManager.notify(NOTIFICATION_ID,n);
     }
 }
