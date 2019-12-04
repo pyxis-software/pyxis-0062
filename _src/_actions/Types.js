@@ -32,3 +32,5 @@ export const ALTERA_SENHA_USUARIO_ERRO = 'altera_senha_usuario_erro';
 export const ALTERA_SENHA_USUARIO_SUCESSO = 'altera_senha_usuario_sucesso';
 export const SUCESSO_PROCESSO = 'sucesso_processo';
 export const MOSTRAR_FINANCEIRO_SUCESSO = 'mostrar_financeiro_sucesso';
+export const SAIR = 'sair';
+export const MOSTRAR_INFORMACOES_EMPRESA = 'mostrar_informacoes_empresa';

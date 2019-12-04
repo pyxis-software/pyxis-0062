@@ -27,12 +27,13 @@ export const fazerLogin = ({cpf, senha}) => {
 
     dispatch({type: LOGIN_ANDAMENTO});
 
-    fetch('https://jrnet.padraotorrent.com/api/loginuser?cpf=' + cpf + '&senha=' + senha)
+    fetch('https://jrnet.pyxissoftware.com.br/api/loginuser?cpf=' + cpf + '&senha=' + senha)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.erro){
         autenticacaoErro(responseJson.msg, dispatch);
       }else{
+        responseJson["senha"] = senha;
         autenticacaoSucesso(responseJson, dispatch);
       }
     })

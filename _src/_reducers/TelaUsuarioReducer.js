@@ -8,7 +8,8 @@ const INITIAL_STATE = {
 };
 
 import {
-  AUTENTICACAO_SUCESSO
+  AUTENTICACAO_SUCESSO,
+  SAIR
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
@@ -22,6 +23,8 @@ export default (state = INITIAL_STATE, action) => {
         telefone1: action.payload.result.telefones[0],
         telefone2: action.payload.result.telefones[1]
       }
+    case SAIR:
+      return INITIAL_STATE;
     default:
       return state;
   }

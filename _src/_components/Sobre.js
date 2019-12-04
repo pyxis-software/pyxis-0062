@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Image, Text, Linking, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, Image, Text, Linking, TouchableOpacity, ActivityIndicator} from 'react-native';
 import {connect} from 'react-redux';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
@@ -7,46 +7,62 @@ const Fone = require('../_imagens/Fone.png');
 const House = require('../_imagens/House.png');
 const Mail = require('../_imagens/Mail.png');
 
+import {mostrarInformacoesEmpresa} from '../_actions/SobreActions';
+
 class Sobre extends Component{
+
+  componentWillMount(){
+    this.props.mostrarInformacoesEmpresa();
+  }
+
   render(){
-    return(
-      <View style={styles.containerPrincipal}>
-        <View style={styles.containerLogo}>
-          <Image source={LogoJuniorNet} style={styles.logo} />
+    if(this.props.carregamento){
+      return(
+        <View>
+          <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
         </View>
-
-        <View style={styles.containerDescricao}>
-          <Text style={styles.descricao}>
-            Texto é um conjunto de palavras e frases
-            encadeadas que permitem interpretação e
-            transmitem uma mensagem. É qualquer obra escrita
-            em versão original e que constitui um livro ou um documento escrito.
-            Um texto é uma unidade linguística de extensão superior à frase.
-          </Text>
-        </View>
-
-        <View style={styles.containerInformacoesEmpresa}>
-          <View style={styles.direcaoItens}>
-            <Image source={House} style={styles.logoInformacoesEmpresa} />
-            <Text style={styles.textoInformacoes}> Rua São Vicente, 1584, 10º Andar </Text>
+      );
+    }else{
+      return(
+        <View style={styles.containerPrincipal}>
+          <View style={styles.containerLogo}>
+            <Image source={LogoJuniorNet} style={styles.logo} />
           </View>
 
-          <TouchableOpacity style={styles.direcaoItens} onPress={() => {/*Linking.openURL(`tel:${this.props.telefone}`)*/}}>
-            <Image source={Fone} style={styles.logoInformacoesEmpresa} />
-            <Text style={styles.textoInformacoes}> (87)91234-5678 </Text>
-          </TouchableOpacity>
+          <View style={styles.containerDescricao}>
+            <Text style={styles.descricao}> {this.props.dados.descricao} </Text>
+          </View>
 
-          <View style={styles.direcaoItens}>
-            <Image source={Mail} style={styles.logoInformacoesEmpresa} />
-            <Text style={styles.textoInformacoes}> softwarepyxis@gmail.com </Text>
+          <View style={styles.containerInformacoesEmpresa}>
+            <TouchableOpacity style={styles.direcaoItens} onPress={() => {Linking.openURL('google.navigation:q=' + this.props.dados.endereco)}}>
+              <Image source={House} style={styles.logoInformacoesEmpresa} />
+              <Text style={styles.textoInformacoes}> {this.props.dados.endereco} </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.direcaoItens} onPress={() => {Linking.openURL(`tel:${this.props.dados.telefone}`)}}>
+              <Image source={Fone} style={styles.logoInformacoesEmpresa} />
+              <Text style={styles.textoInformacoes}> {this.props.dados.telefone} </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.direcaoItens} onPress={() => {Linking.openURL('mailto:' + this.props.dados.email)}}>
+              <Image source={Mail} style={styles.logoInformacoesEmpresa} />
+              <Text style={styles.textoInformacoes}> {this.props.dados.email} </Text>
+            </TouchableOpacity>
+
+            <View style={{alignItems: 'center', justifyContent: 'center', paddingTop: 25}}>
+              <Text style={{fontWeight: 'bold', color: '#3258A4'}}> Clique para mais informações! </Text>
+            </View>
           </View>
         </View>
-      </View>
-    );
+      );
+    }
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  dados: state.SobreReducer.dados,
+  carregamento: state.SobreReducer.carregamento
+});
 
 const styles = StyleSheet.create({
   containerPrincipal: {
@@ -95,4 +111,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, {})(Sobre);
+export default connect(mapStateToProps, {mostrarInformacoesEmpresa})(Sobre);

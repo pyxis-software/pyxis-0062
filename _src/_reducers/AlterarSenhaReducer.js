@@ -12,7 +12,8 @@ import {
   ALTERA_SENHA_USUARIO_ANDAMENTO,
   ALTERA_SENHA_USUARIO_ERRO,
   ALTERA_SENHA_USUARIO_SUCESSO,
-  SUCESSO_PROCESSO
+  SUCESSO_PROCESSO,
+  SAIR
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
@@ -29,6 +30,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, carregamento: false, erro: action.payload}
     case SUCESSO_PROCESSO:
       return {...state, sucesso: false, erro: ''}
+    case SAIR:
+      return INITIAL_STATE;
     default:
       return state;
   }

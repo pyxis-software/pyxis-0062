@@ -6,7 +6,8 @@ const INITIAL_STATE = {
 
 import {
   AUTENTICACAO_SUCESSO,
-  MOSTRAR_PLANOS_SUCESSO
+  MOSTRAR_PLANOS_SUCESSO,
+  SAIR
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
@@ -15,6 +16,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, cpf: action.payload.result.cpf}
     case MOSTRAR_PLANOS_SUCESSO:
       return {...state, dados: action.payload.planos, carregamento: false}
+    case SAIR:
+      return INITIAL_STATE;
     default:
       return state
   }

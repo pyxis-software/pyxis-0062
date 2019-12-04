@@ -27,14 +27,20 @@ class Noticias extends Component{
         </View>
       );
     }else{
-      return(
-        <FlatList
-          data={this.props.dados}
-          extraData={this.state}
-          keyExtractor={this._keyExtractor}
-          renderItem={({item}) => this.renderizaNoticias({item})}
-        />
-      );
+      if(this.props.dados.length == 0){
+        return(
+          <Text> Não há nada aqui! </Text>
+        );
+      }else{
+        return(
+          <FlatList
+            data={this.props.dados}
+            extraData={this.state}
+            keyExtractor={this._keyExtractor}
+            renderItem={({item}) => this.renderizaNoticias({item})}
+          />
+        );
+      }
     }
   }
 

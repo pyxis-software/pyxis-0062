@@ -11,7 +11,8 @@ import {
   MODIFICA_SENHA,
   AUTENTICACAO_ERRO,
   AUTENTICACAO_SUCESSO,
-  LOGIN_ANDAMENTO
+  LOGIN_ANDAMENTO,
+  SAIR
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
@@ -26,6 +27,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, ...INITIAL_STATE, erro: false}
     case LOGIN_ANDAMENTO:
       return {...state, carregamentoInicial: true}
+    case SAIR:
+      return INITIAL_STATE;
     default:
       return state;
   }

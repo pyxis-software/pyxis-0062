@@ -8,7 +8,8 @@ const INITIAL_STATE = {
 import {
   MODIFICA_MENSAGEM,
   ENVIA_MENSAGEM_SUCESSO,
-  AUTENTICACAO_SUCESSO
+  AUTENTICACAO_SUCESSO,
+  SAIR
 } from '../_actions/Types';
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,6 +24,8 @@ export default (state = INITIAL_STATE, action) => {
         nome: action.payload.result.nome,
         email: action.payload.result.email
       }
+    case SAIR:
+      return INITIAL_STATE;
     default:
       return state
   }

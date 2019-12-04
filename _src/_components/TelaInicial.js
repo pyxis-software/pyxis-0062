@@ -45,16 +45,9 @@ class TelaInicial extends Component{
     });
   }
 
-  async armazenaUsuarioLogado(cpf, senha){
-    await AsyncStorage.setItem('usuarioLogado', 'logado');
-    await AsyncStorage.setItem('cpfLogado', cpf);
-    await AsyncStorage.setItem('senhaLogado', senha);
-  }
-
   _fazerLogin(){
     const {cpf, senha} = this.props;
-    if(cpf, senha){
-      this.armazenaUsuarioLogado(cpf, senha);
+    if(cpf && senha){
       this.props.fazerLogin({cpf, senha});
     }else{
       Alert.alert(
@@ -70,11 +63,13 @@ class TelaInicial extends Component{
     if (this.props.carregamentoInicial) {
       return(
         <View>
-          <ActivityIndicator size="large" color="#fff" />
 
-          <View style={styles.containerValidacao}>
-            <Text style={{color: '#fff'}}> Validando informações... </Text>
-          </View>
+        <View style={{alignItems: 'center', paddingBottom: 20, paddingTop: 20}}>
+          <Text style={{color: '#fff'}}> Validando informações... </Text>
+        </View>
+        <ActivityIndicator size="large" color="#fff" />
+
+
         </View>
       );
     }else{
@@ -117,10 +112,9 @@ class TelaInicial extends Component{
     if(this.state.carregamentoTela){
       return(
         <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <ActivityIndicator size="large" color="#3258A4" />
-
           <View style={styles.containerValidacao}>
-            <Text style={{color: '#3258A4'}}> Buscando informações. Aguarde... </Text>
+            <Image source={LogoJuniorNet} style={styles.logo} />
+            <ActivityIndicator size="large" color="#3258A4" />
           </View>
         </View>
       );
@@ -137,7 +131,7 @@ class TelaInicial extends Component{
                 <Text style={styles.textoBemVindo}> Seja bem-vindo(a)! </Text>
               </View>
 
-              <View style={{paddingTop: 35}}>
+              <View style={{paddingTop: 35, paddingBottom: 35}}>
                 <TextInputMask
                   type={'cpf'}
                   value={this.props.cpf}
@@ -174,7 +168,7 @@ const mapStateToProps = state => ({
   senha: state.TelaInicialReducer.senha,
   carregamentoInicial: state.TelaInicialReducer.carregamentoInicial,
   erro: state.TelaInicialReducer.erro,
-  mensagem: state.TelaInicialReducer.mensagem,
+  mensagem: state.TelaInicialReducer.mensagem
 });
 
 const styles = StyleSheet.create({
@@ -186,7 +180,7 @@ const styles = StyleSheet.create({
     flex: 2.5,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 10
+    paddingTop: 20
   },
   containerInformacoes: {
     flex: 5,

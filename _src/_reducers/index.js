@@ -10,6 +10,7 @@ import CadastroReducer from './CadastroReducer';
 import AlterarSenhaReducer from './AlterarSenhaReducer';
 import FinanceiroReducer from './FinanceiroReducer';
 import MenuReducer from './MenuReducer';
+import SobreReducer from './SobreReducer';
 
 export default combineReducers({
   TelaInicialReducer,
@@ -21,5 +22,6 @@ export default combineReducers({
   CadastroReducer,
   AlterarSenhaReducer,
   FinanceiroReducer,
-  MenuReducer
+  MenuReducer,
+  SobreReducer
 });

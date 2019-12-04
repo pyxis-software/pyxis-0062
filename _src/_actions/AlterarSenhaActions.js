@@ -26,7 +26,7 @@ export const btnAlterarSenha = ({cpf, senhaAntiga, senhaNova}) => {
 
     dispatch({type: ALTERA_SENHA_USUARIO_ANDAMENTO});
 
-    fetch('https://jrnet.padraotorrent.com/api/alterasenha?cpf=' + cpf + '&senhaNova=' + senhaNova + '&senhaAntiga=' + senhaAntiga)
+    fetch('https://jrnet.pyxissoftware.com.br/api/alterasenha?cpf=' + cpf + '&senhaNova=' + senhaNova + '&senhaAntiga=' + senhaAntiga)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.erro){

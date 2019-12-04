@@ -9,24 +9,34 @@ import firebase from 'firebase';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
+import {sairDoSistema} from '../_actions/SairActions.js';
+
 class Menu extends Component{
   constructor(props){
     super(props);
+  }
+
+  async armazenaUsuarioLogado(cpf, senha){
+    await AsyncStorage.setItem('usuarioLogado', 'logado');
+    await AsyncStorage.setItem('cpfLogado', cpf);
+    await AsyncStorage.setItem('senhaLogado', senha);
   }
 
   async sairDoSistema(){
     await AsyncStorage.setItem('usuarioLogado', '');
     await AsyncStorage.setItem('cpfLogado', '');
     await AsyncStorage.setItem('senhaLogado', '');
+    this.props.sairDoSistema();
     Actions.pop();
     Actions.inicial();
   }
+
   componentDidMount(){
+    this.armazenaUsuarioLogado(this.props.cpf, this.props.senha);
     cpf = this.props.cpf;
     cpf = cpf.replace(/\./g, "");
     cpf = cpf.replace("-", "");
-    
-    console.log(cpf);
+
     firebase.database().ref("/users/" + cpf + "/").set({
       cpf: cpf,
       status: 'online'
@@ -35,20 +45,19 @@ class Menu extends Component{
   componentWillMount() {
     AppState.addEventListener('change', this.backPressed);
   }
-  
+
   componentWillUnmount() {
     AppState.removeEventListener('change', this.backPressed);
   }
 
   backPressed = (nextAppState) => {
-    console.log("Alteranção...");
 
     if (nextAppState === 'background') {
 
       cpf = this.props.cpf;
       cpf = cpf.replace(/\./g, "");
       cpf = cpf.replace("-", "");
-      
+
       console.log(cpf);
       firebase.database().ref("/users/" + cpf + "/").set({
         cpf: cpf,
@@ -58,12 +67,10 @@ class Menu extends Component{
 
     if (nextAppState === 'active') {
 
-      // Do something here on app active foreground mode.
-      console.log("App is in Active Foreground Mode.")
       cpf = this.props.cpf;
       cpf = cpf.replace(/\./g, "");
       cpf = cpf.replace("-", "");
-      
+
       console.log(cpf);
       firebase.database().ref("/users/" + cpf + "/").set({
         cpf: cpf,
@@ -73,13 +80,10 @@ class Menu extends Component{
 
     if (nextAppState === 'inactive') {
 
-      // Do something here on app inactive mode.
-      console.log("App is in inactive Mode.")
       cpf = this.props.cpf;
       cpf = cpf.replace(/\./g, "");
       cpf = cpf.replace("-", "");
-      
-      console.log(cpf);
+
       firebase.database().ref("/users/" + cpf + "/").set({
         cpf: cpf,
         status: 'offline'
@@ -155,6 +159,7 @@ class Menu extends Component{
 
 const mapStateToProps = state => ({
   cpf: state.MenuReducer.cpf,
+  senha: state.MenuReducer.senha
 });
 
 const styles = StyleSheet.create({
@@ -201,4 +206,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps, {})(Menu);
+export default connect(mapStateToProps, {sairDoSistema})(Menu);

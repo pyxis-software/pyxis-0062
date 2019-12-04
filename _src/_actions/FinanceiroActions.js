@@ -4,7 +4,7 @@ import {
 
 export const buscaFinanceiro = ({cpf}) => {
   return dispatch => {
-    fetch('https://jrnet.padraotorrent.com/api/boletos?cpf=' + cpf)
+    fetch('https://jrnet.pyxissoftware.com.br/api/boletos?cpf=' + cpf)
     .then((response) => response.json())
     .then((responseJson) => {
       if(!responseJson.erro){

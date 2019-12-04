@@ -4,7 +4,7 @@ import {
 
 export const mostrarNoticias = () => {
   return dispatch => {
-    fetch('https://jrnet.padraotorrent.com/api/murais')
+    fetch('https://jrnet.pyxissoftware.com.br/api/murais')
     .then((response) => response.json())
     .then((responseJson) => {
       if(!responseJson.erro){

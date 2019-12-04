@@ -18,7 +18,7 @@ export const esqueciMinhaSenha = ({cpf}) => {
 
     dispatch({type: RECUPERA_ANDAMENTO});
 
-    fetch('https://jrnet.padraotorrent.com/api/recupera?cpf=' + cpf)
+    fetch('https://jrnet.pyxissoftware.com.br/api/recupera?cpf=' + cpf)
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.erro){

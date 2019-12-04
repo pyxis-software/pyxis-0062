@@ -83,7 +83,7 @@ export const fazerCadastro = ({nome, cpf, senha, email, celularPrincipal, celula
 
     dispatch({type: CADASTRO_ANDAMENTO});
 
-    fetch('https://jrnet.padraotorrent.com/api/caduser?cpf=' + cpf + '&senha=' + senha + '&nome=' +
+    fetch('https://jrnet.pyxissoftware.com.br/api/caduser?cpf=' + cpf + '&senha=' + senha + '&nome=' +
       nome + '&email=' + email + '&celularPrincipal=' + celularPrincipal
       + '&celularSecundario=' + celularSecundario + '&endereco=' + endereco
       + '&cidadeEstado=' + cidadeEstado + '&diaPagamento=' + diaPagamento)
