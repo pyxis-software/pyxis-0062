@@ -29,7 +29,9 @@ class Noticias extends Component{
     }else{
       if(this.props.dados.length == 0){
         return(
-          <Text> Não há nada aqui! </Text>
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontWeight: 'bold', color: '#3258A4'}}> Nenhuma notícia encontrada. </Text>
+          </View>
         );
       }else{
         return(
@@ -45,8 +47,9 @@ class Noticias extends Component{
   }
 
   render(){
+
     return(
-      <View>
+      <View style={{flex: 1}}>
         {this.renderNoticias()}
       </View>
     );

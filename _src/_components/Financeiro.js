@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   indicador: {
-    marginTop: 30
+    marginTop: 25
   },
 });
 

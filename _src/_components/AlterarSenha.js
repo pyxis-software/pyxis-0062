@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, ScrollView, Image, Alert} from 'react-native';
 
 import {connect} from 'react-redux';
-import {Actions} from 'react-native-router-flux';
+import AsyncStorage from '@react-native-community/async-storage';
+import RNRestart from 'react-native-restart';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
@@ -16,8 +17,8 @@ class AlterarSenha extends Component{
       this.props.btnAlterarSenha({cpf, senhaAntiga, senhaNova});
     }else{
       Alert.alert(
-        'Preencha todos os dados!',
-        'Todos os campos estão em branco!',
+        'Preencha Todos os Campos',
+        'Um ou mais campos estão em branco!',
         [{text: 'Fechar'}],
         {cancelable: false},
       );
@@ -25,23 +26,23 @@ class AlterarSenha extends Component{
   }
 
   renderErro(){
-    if(true){
-      return(
-        <View style={styles.containerErro}>
-          <Text style={styles.erro}> {this.props.erro} </Text>
-        </View>
-      );
-    }
+    return(
+      <View style={styles.containerErro}>
+        <Text style={styles.erro}> {this.props.erro} </Text>
+      </View>
+    );
   }
 
   renderMensagemSucesso(){
     if(this.props.sucesso){
       Alert.alert(
-        'Senha alterada com sucesso!',
-        'Faça login agora com a nova senha para acessar o nosso sistema.',
+        'Senha Alterada com Sucesso',
+        'Entre com a nova senha para ter acesso ao sistema.',
         [{text: 'Fechar', onPress: () => {
-          this.props.sucessoProcesso();
-          Actions.popTo("inicial");
+          AsyncStorage.setItem('usuarioLogado', '');
+          AsyncStorage.setItem('cpfLogado', '');
+          AsyncStorage.setItem('senhaLogado', '');
+          RNRestart.Restart();
         }}],
         {cancelable: false},
       );
@@ -52,11 +53,10 @@ class AlterarSenha extends Component{
     if (this.props.carregamento) {
       return(
         <View>
-          <ActivityIndicator size="large" color="#3258A4" />
-
-          <View style={styles.containerValidacao}>
+          <View style={{alignItems: 'center', paddingBottom: 20, paddingTop: 20}}>
             <Text style={{color: '#3258A4'}}> Validando informações... </Text>
           </View>
+          <ActivityIndicator size="large" color="#3258A4" />
         </View>
       );
     }else{
@@ -74,19 +74,15 @@ class AlterarSenha extends Component{
   render(){
     return(
       <ScrollView style={styles.containerPrincipal}>
-
         <View style={styles.containerLogo}>
           <Image source={LogoJuniorNet} style={styles.logo} />
         </View>
 
         <View style={styles.containerInputs}>
-          <View style={styles.containerInformativo}>
-            <Text style={styles.textoInformativo}> Preencha todos os dados! </Text>
-          </View>
+          <Text style={styles.textoInformativoRecuperacao}>
+            Em caso de recuperação de senha, no campo de senha antiga, informe a mesma recebida por e-mail!
+          </Text>
 
-          <Text style={styles.textoInformativoRecuperacao}> Em caso de recuperação de senha, no campo de senha antiga, informe a mesma recebida por e-mail! </Text>
-
-          <Text style={styles.textoInformativoInputs}> Digite sua senha antiga </Text>
           <TextInput
             onChangeText={(senha) => this.props.modificaSenhaAntiga(senha)}
             value={this.props.senhaAntiga}
@@ -95,7 +91,6 @@ class AlterarSenha extends Component{
             style={styles.textInput}
           />
 
-          <Text style={styles.textoInformativoInputs}> Digite sua nova senha </Text>
           <TextInput
             onChangeText={(senha) => this.props.modificaSenhaNova(senha)}
             value={this.props.senhaNova}
@@ -137,6 +132,7 @@ const styles = StyleSheet.create({
   containerLogo: {
     paddingTop: 15,
     marginTop: 10,
+    paddingBottom: 15,
     alignItems: 'center'
   },
   textoInformativo: {
@@ -165,12 +161,6 @@ const styles = StyleSheet.create({
   },
   containerInformativo: {
     paddingBottom: 25
-  },
-  textoInformativoInputs: {
-    fontSize: 13,
-    fontWeight: 'bold',
-    paddingBottom: 5,
-    color: '#3258A4'
   },
   textoInformativoRecuperacao: {
     fontSize: 13,
@@ -206,10 +196,6 @@ const styles = StyleSheet.create({
   },
   containerErro: {
     paddingTop: 10
-  },
-  containerValidacao: {
-    alignItems: 'center',
-    paddingTop: 15
   }
 });
 

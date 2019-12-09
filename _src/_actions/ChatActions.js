@@ -24,7 +24,6 @@ export const enviarMensagem = (mensagem, cpf, nome, email) => {
           .then(() => dispatch ({type: ENVIA_MENSAGEM_SUCESSO}))
       })
       .then(() => {
-        
         firebase.database().ref("/usuario_conversas/" + cpf + "/juniorNet/").set({nome: "JuniorNet"})
           .then(() => {
             firebase.database().ref("/contatos/" + cpf).once("value").then(snapshot => {
@@ -40,7 +39,5 @@ export const enviarMensagem = (mensagem, cpf, nome, email) => {
             })
           })
       });
-    
-      
   }
 }

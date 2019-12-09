@@ -51,7 +51,7 @@ class TelaInicial extends Component{
       this.props.fazerLogin({cpf, senha});
     }else{
       Alert.alert(
-        'Dados insuficientes',
+        'Dados Insuficientes',
         'Digite suas informações para ter acesso ao sistema!',
         [{text: 'Fechar'}],
         {cancelable: false},
@@ -63,13 +63,10 @@ class TelaInicial extends Component{
     if (this.props.carregamentoInicial) {
       return(
         <View>
-
-        <View style={{alignItems: 'center', paddingBottom: 20, paddingTop: 20}}>
-          <Text style={{color: '#fff'}}> Validando informações... </Text>
-        </View>
-        <ActivityIndicator size="large" color="#fff" />
-
-
+          <View style={{alignItems: 'center', paddingBottom: 20, paddingTop: 20}}>
+            <Text style={{color: '#fff'}}> Validando informações... </Text>
+          </View>
+          <ActivityIndicator size="large" color="#fff" />
         </View>
       );
     }else{

@@ -108,7 +108,10 @@ const styles = StyleSheet.create({
   },
   textoInformacoes: {
     paddingLeft: 10
-  }
+  },
+  indicador: {
+    marginTop: 25
+  },  
 });
 
 export default connect(mapStateToProps, {mostrarInformacoesEmpresa})(Sobre);

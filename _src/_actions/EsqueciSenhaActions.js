@@ -22,9 +22,9 @@ export const esqueciMinhaSenha = ({cpf}) => {
     .then((response) => response.json())
     .then((responseJson) => {
       if(responseJson.erro){
-        alteraSenhaErro("Seu CPF não está cadastrado.", dispatch);
+        alteraSenhaErro("CPF inválido ou não cadastrado.", dispatch);
       }else{
-        alteraSenhaSucesso("Enviamos sua nova senha para o seu e-mail, verifique-o!", dispatch);
+        alteraSenhaSucesso("Enviamos uma nova senha para o seu e-mail. Verifique-o!", dispatch);
       }
     })
     .catch((error) => {

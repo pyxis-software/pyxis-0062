@@ -6,6 +6,7 @@ import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'firebase';
+import RNRestart from 'react-native-restart';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
@@ -27,8 +28,7 @@ class Menu extends Component{
     await AsyncStorage.setItem('cpfLogado', '');
     await AsyncStorage.setItem('senhaLogado', '');
     this.props.sairDoSistema();
-    Actions.pop();
-    Actions.inicial();
+    RNRestart.Restart();
   }
 
   componentDidMount(){

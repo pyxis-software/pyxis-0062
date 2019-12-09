@@ -72,7 +72,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   containerInformacoesAdicionais: {
-    flex: 8,
     backgroundColor: '#E8E8E8'
   },
   textoInformacoesAdicionais: {
@@ -105,7 +104,8 @@ const styles = StyleSheet.create({
   },
   linhasInformacoes: {
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 15
   }
 });
 

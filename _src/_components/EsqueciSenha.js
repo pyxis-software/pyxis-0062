@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, Image, TouchableOpacity, ActivityIndicator, Aler
 import {connect} from 'react-redux';
 import {TextInputMask} from 'react-native-masked-text';
 import {Actions} from 'react-native-router-flux';
+import RNRestart from 'react-native-restart';
 
 import {modificaCPFEsqueciSenha, esqueciMinhaSenha, modificaVisibilidade} from '../_actions/EsqueciSenhaActions';
 
@@ -18,7 +19,7 @@ class EsqueciSenha extends Component{
     }else{
       Alert.alert(
         'Precisamos do seu CPF',
-        'Digite seu CPF no campo de texto para solicitar uma nova senha!',
+        'Digite o seu CPF no campo de texto para solicitar uma nova senha!',
         [{text: 'Fechar'}],
         {cancelable: false},
       );
@@ -51,11 +52,10 @@ class EsqueciSenha extends Component{
     }else{
       return(
         <View>
-          <ActivityIndicator size="large" color="#fff" />
-
-          <View style={styles.containerValidacao}>
+          <View style={{alignItems: 'center', paddingBottom: 20, paddingTop: 20}}>
             <Text style={{color: '#fff'}}> Validando informações... </Text>
           </View>
+          <ActivityIndicator size="large" color="#fff" />
         </View>
       );
     }
@@ -69,6 +69,7 @@ class EsqueciSenha extends Component{
         mensagemRecupera,
         [{text: 'Fechar', onPress: () => {
           this.props.modificaVisibilidade();
+          RNRestart.Restart();
         }}],
         {cancelable: false},
       );
@@ -78,13 +79,11 @@ class EsqueciSenha extends Component{
   render(){
     return(
       <View style={styles.containerPrincipal}>
-
         <View style={styles.containerLogo}>
           <Image source={LogoJuniorNet} style={styles.logo} />
         </View>
 
         <View style={styles.containerInformacoes}>
-
           <ScrollView>
             <View style={{alignItems: 'center'}}>
               <Text style={styles.textoBemVindo}> Solicitar nova senha </Text>
@@ -197,10 +196,6 @@ const styles = StyleSheet.create({
   },
   containerBotoes: {
     paddingTop: 25
-  },
-  containerValidacao: {
-    alignItems: 'center',
-    paddingTop: 15
   }
 });
 

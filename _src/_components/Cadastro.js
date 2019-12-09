@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, 
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
 import {TextInputMask} from 'react-native-masked-text';
+import RNRestart from 'react-native-restart';
 
 const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 
@@ -37,7 +38,7 @@ class Cadastro extends Component{
         this.props.fazerCadastro({nome, cpf, senha, email, celularPrincipal, celularSecundario, endereco, cidadeEstado, diaPagamento});
       }else{
         Alert.alert(
-          'Verifique suas senhas!',
+          'Verifique suas Senhas',
           'As senhas que você digitou não batem!',
           [{text: 'Fechar'}],
           {cancelable: false},
@@ -45,7 +46,7 @@ class Cadastro extends Component{
       }
     }else{
       Alert.alert(
-        'Preencha todos os dados!',
+        'Preencha Todos os Dados',
         'Um ou mais campos estão em branco!',
         [{text: 'Fechar'}],
         {cancelable: false},
@@ -57,11 +58,10 @@ class Cadastro extends Component{
     if (this.props.carregamentoCadastrar) {
       return(
         <View>
-          <ActivityIndicator size="large" color="#fff" />
-
-          <View style={styles.containerValidacao}>
+          <View style={{alignItems: 'center', paddingBottom: 20, paddingTop: 20}}>
             <Text style={{color: '#fff'}}> Validando informações... </Text>
           </View>
+          <ActivityIndicator size="large" color="#fff" />
         </View>
       );
     }else{
@@ -100,12 +100,12 @@ class Cadastro extends Component{
   mensagemSucesso(){
     if(this.props.sucesso){
       Alert.alert(
-        'Cadastro realizado com sucesso!',
+        'Cadastro realizado com sucesso',
         'Seja bem-vindo(a) à nossa família!',
         [{text: 'Fechar', onPress: () => {
           this.props.sucessoCadastro();
           this.setState({senhaVerificar: ''});
-          Actions.pop();
+          RNRestart.Restart();
         }}],
         {cancelable: false},
       );
@@ -117,7 +117,6 @@ class Cadastro extends Component{
       <View style={styles.containerPrincipal}>
         <View>
           <ScrollView>
-
             <View style={styles.containerLogo}>
               <Image source={LogoJuniorNet} style={styles.logo} />
             </View>
@@ -157,7 +156,7 @@ class Cadastro extends Component{
                 onChangeText={(senhaVerificar) => {this.setState({senhaVerificar})}}
                 value={this.state.senhaVerificar}
                 secureTextEntry
-                placeholder="Digite novamente a senha"
+                placeholder="Digite novamente a sua senha"
                 style={styles.textInput}
               />
 
@@ -204,7 +203,7 @@ class Cadastro extends Component{
               <TextInput
                 onChangeText={(diaPagamento) => {this.props.modificaDiaPagamento(diaPagamento)}}
                 value={this.props.diaPagamento}
-                placeholder="Escolha o melhor dia entre 1 e 31"
+                placeholder="Vencimento da fatura entre 1 e 31"
                 keyboardType={'numeric'}
                 style={styles.textInput}
                 maxLength={2}
@@ -225,7 +224,6 @@ class Cadastro extends Component{
                 {this.mensagemSucesso()}
               </View>
             </View>
-
           </ScrollView>
         </View>
       </View>
@@ -317,10 +315,6 @@ const styles = StyleSheet.create({
   },
   distanciaTextoInformativo: {
     paddingBottom: 25
-  },
-  containerValidacao: {
-    alignItems: 'center',
-    paddingTop: 15
   }
 });
 
