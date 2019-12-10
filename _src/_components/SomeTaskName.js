@@ -1,4 +1,1 @@
-
-module.exports = async (taskData) => {
-   console.log('Ok');
-}
+module.exports = async (taskData) => {}

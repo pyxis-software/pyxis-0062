@@ -83,7 +83,7 @@ class Pagamento extends Component{
           <View>
             <View style={styles.containerTitulos}>
               <Text style={styles.tituloInformacoes}> Vencimento: </Text>
-              <Text style={{fontWeight: 'bold'}}> {this.props.vencimento} </Text>
+              <Text style={{fontWeight: 'bold', fontSize: 18}}> {this.props.vencimento} </Text>
             </View>
 
             <View>
@@ -92,7 +92,7 @@ class Pagamento extends Component{
 
             <View style={styles.containerTitulos}>
               <Text style={styles.tituloInformacoes}> Valor: </Text>
-              <Text style={{fontWeight: 'bold'}}> R$ {this.props.valor} </Text>
+              <Text style={{fontWeight: 'bold', fontSize: 18}}> R$ {this.props.valor} </Text>
             </View>
           </View>
 
@@ -168,16 +168,18 @@ const styles = StyleSheet.create({
     paddingRight : 10
   },
   tituloInformacoes: {
-    fontSize: 18,
+    fontSize: 13,
     fontWeight: 'bold'
   },
   situacaoVencido: {
     color: '#FF4500',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 18
   },
   situacaoEmAberto: {
     color: '#F7AA34',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 18
   },
   planoPagamento: {
     fontSize: 18,

@@ -15,7 +15,6 @@ export const modificaCPFEsqueciSenha = (cpfEsqueciSenha) => {
 
 export const esqueciMinhaSenha = ({cpf}) => {
   return dispatch => {
-
     dispatch({type: RECUPERA_ANDAMENTO});
 
     fetch('https://jrnet.pyxissoftware.com.br/api/recupera?cpf=' + cpf)

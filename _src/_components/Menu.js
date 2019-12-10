@@ -51,14 +51,11 @@ class Menu extends Component{
   }
 
   backPressed = (nextAppState) => {
-
     if (nextAppState === 'background') {
-
       cpf = this.props.cpf;
       cpf = cpf.replace(/\./g, "");
       cpf = cpf.replace("-", "");
 
-      console.log(cpf);
       firebase.database().ref("/users/" + cpf + "/").set({
         cpf: cpf,
         status: 'offline'
@@ -66,12 +63,10 @@ class Menu extends Component{
     }
 
     if (nextAppState === 'active') {
-
       cpf = this.props.cpf;
       cpf = cpf.replace(/\./g, "");
       cpf = cpf.replace("-", "");
 
-      console.log(cpf);
       firebase.database().ref("/users/" + cpf + "/").set({
         cpf: cpf,
         status: 'online'
@@ -79,7 +74,6 @@ class Menu extends Component{
     }
 
     if (nextAppState === 'inactive') {
-
       cpf = this.props.cpf;
       cpf = cpf.replace(/\./g, "");
       cpf = cpf.replace("-", "");

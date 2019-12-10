@@ -24,7 +24,6 @@ export const modificaSenha = (senha) => {
 
 export const fazerLogin = ({cpf, senha}) => {
   return dispatch => {
-
     dispatch({type: LOGIN_ANDAMENTO});
 
     fetch('https://jrnet.pyxissoftware.com.br/api/loginuser?cpf=' + cpf + '&senha=' + senha)

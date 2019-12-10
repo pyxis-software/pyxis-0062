@@ -10,7 +10,6 @@ const Mail = require('../_imagens/Mail.png');
 import {mostrarInformacoesEmpresa} from '../_actions/SobreActions';
 
 class Sobre extends Component{
-
   componentWillMount(){
     this.props.mostrarInformacoesEmpresa();
   }
@@ -111,7 +110,7 @@ const styles = StyleSheet.create({
   },
   indicador: {
     marginTop: 25
-  },  
+  },
 });
 
 export default connect(mapStateToProps, {mostrarInformacoesEmpresa})(Sobre);

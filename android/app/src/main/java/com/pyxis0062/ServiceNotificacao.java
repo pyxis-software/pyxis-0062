@@ -244,7 +244,7 @@ public class ServiceNotificacao extends Service {
                     0, notificationIntent, 0);
 
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
-                    .setContentTitle("Buscando Notificações")
+                    .setContentTitle("Buscando Notificações...")
                     .setSmallIcon(R.drawable.logo)
                     .setContentIntent(pendingIntent)
                     .build();
