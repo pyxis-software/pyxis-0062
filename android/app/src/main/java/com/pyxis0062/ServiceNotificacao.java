@@ -245,7 +245,7 @@ public class ServiceNotificacao extends Service {
 
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle("Buscando Notificações...")
-                    .setSmallIcon(R.drawable.logo)
+                    .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pendingIntent)
                     .build();
 
@@ -290,11 +290,11 @@ public class ServiceNotificacao extends Service {
             builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(titulo)
                     .setContentText(mensagem)
-                    .setSmallIcon(R.drawable.logo)
+                    .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pIntent)
                     .setAutoCancel(true)
                     .setTicker(titulo)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon));
 
             Notification n = builder.build();
             n.vibrate = new long[]{150, 300, 150, 600};
@@ -305,11 +305,11 @@ public class ServiceNotificacao extends Service {
             builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(titulo)
                     .setContentText(mensagem)
-                    .setSmallIcon(R.drawable.logo)
+                    .setSmallIcon(R.drawable.icon)
                     .setContentIntent(pIntent)
                     .setAutoCancel(true)
                     .setTicker(titulo)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.logo));
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon));
 
             Notification n = builder.build();
             n.vibrate = new long[]{150, 300, 150, 600};
