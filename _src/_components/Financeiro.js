@@ -58,44 +58,42 @@ class Financeiro extends Component{
         <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
       );
     }else{
-      return(
-        <View>
-          <View style={styles.informacoesPagamento}>
-            <Icon name="fiber-manual-record" size={15} color="#49BD78" />
-            <Text style={[styles.informacoesPagamentoTexto, {color: '#49BD78'}]}> Pago </Text>
-
-            <Icon name="fiber-manual-record" size={15} color="#F7AA34" />
-            <Text style={[styles.informacoesPagamentoTexto, {color: '#F7AA34'}]}> Em aberto </Text>
-
-            <Icon name="fiber-manual-record" size={15} color="#EC3C3D" />
-            <Text style={[styles.informacoesPagamentoTexto, {color: '#EC3C3D'}]}> Vencido </Text>
+      if(this.props.dados.length == 0){
+        return(
+          <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontWeight: 'bold', color: '#3258A4'}}> Nenhuma fatura encontrada. </Text>
           </View>
+        );
+      }else{
+        return(
+          <ScrollView>
+            <View style={styles.informacoesPagamento}>
+              <Icon name="fiber-manual-record" size={15} color="#49BD78" />
+              <Text style={[styles.informacoesPagamentoTexto, {color: '#49BD78'}]}> Pago </Text>
 
-          <FlatList
-            data={this.props.dados}
-            extraData={this.state}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => this.renderizaFinanceiro({item})}
-          />
-        </View>
-      );
+              <Icon name="fiber-manual-record" size={15} color="#F7AA34" />
+              <Text style={[styles.informacoesPagamentoTexto, {color: '#F7AA34'}]}> Em aberto </Text>
+
+              <Icon name="fiber-manual-record" size={15} color="#EC3C3D" />
+              <Text style={[styles.informacoesPagamentoTexto, {color: '#EC3C3D'}]}> Vencido </Text>
+            </View>
+
+            <FlatList
+              data={this.props.dados}
+              extraData={this.state}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => this.renderizaFinanceiro({item})}
+            />
+          </ScrollView>
+        );
+      }
     }
-  }
-
-  renderFinanceiro(){
-    return(
-      <ScrollView>
-        <View>
-          {this._renderFlatlistOrLoading()}
-        </View>
-      </ScrollView>
-    );
   }
 
   render(){
     return(
-      <View>
-        {this.renderFinanceiro()}
+      <View style={{flex: 1}}>
+        {this._renderFlatlistOrLoading()}
       </View>
     );
   }
@@ -165,7 +163,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   indicador: {
-    marginTop: 25
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
 });
 

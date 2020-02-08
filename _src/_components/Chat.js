@@ -74,8 +74,8 @@ class Chat extends Component {
       );
     }else{
       return(
-        <View>
-          <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color="#3258A4" />
         </View>
       );
     }
@@ -164,9 +164,6 @@ const styles = StyleSheet.create({
   },
   botaoEnviar: {
     marginLeft: 5
-  },
-  indicador: {
-    marginTop: 25
   }
 });
 

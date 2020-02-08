@@ -22,8 +22,8 @@ class Noticias extends Component{
   renderNoticias(){
     if(this.props.indicadorNoticias){
       return(
-        <View>
-          <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color="#3258A4" />
         </View>
       );
     }else{
@@ -47,7 +47,6 @@ class Noticias extends Component{
   }
 
   render(){
-
     return(
       <View style={{flex: 1}}>
         {this.renderNoticias()}
@@ -85,10 +84,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#3258A4",
     backgroundColor: "#3258A4"
-  },
-  indicador: {
-    marginTop: 25
-  },
+  }
 });
 
 export default connect(mapStateToProps, {mostrarNoticias})(Noticias);

@@ -36,8 +36,8 @@ class Planos extends Component{
   renderPlanos(){
     if(this.props.carregamento){
       return(
-        <View>
-          <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color="#3258A4" />
         </View>
       );
     }else{
@@ -64,7 +64,7 @@ class Planos extends Component{
 
   render(){
     return(
-      <View>
+      <View style={{flex: 1}}>
         {this.renderPlanos()}
       </View>
     );
@@ -106,9 +106,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderColor: "#3258A4",
     backgroundColor: "#3258A4"
-  },
-  indicador: {
-    marginTop: 25
   },
   containerPlanoSelecionado: {
     flex: 1,

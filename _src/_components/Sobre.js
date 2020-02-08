@@ -17,8 +17,8 @@ class Sobre extends Component{
   render(){
     if(this.props.carregamento){
       return(
-        <View>
-          <ActivityIndicator size="large" color="#3258A4" style={styles.indicador} />
+        <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+          <ActivityIndicator size="large" color="#3258A4" />
         </View>
       );
     }else{
@@ -107,10 +107,7 @@ const styles = StyleSheet.create({
   },
   textoInformacoes: {
     paddingLeft: 10
-  },
-  indicador: {
-    marginTop: 25
-  },
+  }
 });
 
 export default connect(mapStateToProps, {mostrarInformacoesEmpresa})(Sobre);
