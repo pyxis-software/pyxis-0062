@@ -1,4 +1,4 @@
-package com.pyxis0062;
+package com.jrnet;
 
 import android.app.Notification;
 import android.app.NotificationChannel;

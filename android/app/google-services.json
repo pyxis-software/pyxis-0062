@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:253846926898:android:9d45581905293b76c52e2b",
         "android_client_info": {
-          "package_name": "com.pyxis0062"
+          "package_name": "com.jrnet"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "253846926898-n9inmpf9fvamujau00qr1o75b4gffc4n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.pyxis0062",
+            "package_name": "com.jrnet",
             "certificate_hash": "bc61035c1365772b7058d4afd365bd7c7a743481"
           }
         },

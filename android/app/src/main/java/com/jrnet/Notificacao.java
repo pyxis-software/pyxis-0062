@@ -1,4 +1,4 @@
-package com.pyxis0062;
+package com.jrnet;
 
 public class Notificacao {
     private int id;

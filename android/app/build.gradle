@@ -128,7 +128,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.pyxis0062"
+        applicationId "com.jrnet"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
