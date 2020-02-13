@@ -10,7 +10,6 @@ const LogoJuniorNet = require('../_imagens/JuniorNET.png');
 import {modificaSenhaAntiga, modificaSenhaNova, btnAlterarSenha, sucessoProcesso} from '../_actions/AlterarSenhaActions';
 
 class AlterarSenha extends Component{
-
   _alterarSenha(){
     const {cpf, senhaAntiga, senhaNova} = this.props;
     if(senhaAntiga != '' && senhaNova != ''){
@@ -158,9 +157,6 @@ const styles = StyleSheet.create({
   containerInputs: {
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  containerInformativo: {
-    paddingBottom: 25
   },
   textoInformativoRecuperacao: {
     fontSize: 13,

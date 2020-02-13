@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, StyleSheet, Text, FlatList, ActivityIndicator, ScrollView} from 'react-native';
-import {connect} from 'react-redux';
 
+import {connect} from 'react-redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import {mostrarPlanos} from '../_actions/PlanosActions';
@@ -81,14 +81,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   descricao: {
-    fontSize: 15,
+    fontSize: 18,
     paddingTop: 5,
     color: '#fff',
     paddingLeft: 10,
     paddingRight: 10
   },
   valor: {
-    fontSize: 15,
+    fontSize: 18,
     paddingTop: 15,
     color: '#fff',
     paddingLeft: 10,

@@ -6,7 +6,6 @@ import {Actions} from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 class TelaUsuario extends Component{
-
   render(){
     return(
       <View style={styles.containerPrincipal}>
@@ -42,7 +41,7 @@ class TelaUsuario extends Component{
             <Text style={styles.textoInformacoesAdicionais}> {this.props.telefone2} </Text>
           </View>
 
-          <View style={styles.containerBotoes}>
+          <View>
             <TouchableOpacity
               style={styles.botaoFuncoes}
               onPress={() => {Actions.alterarSenha({cpf: this.props.cpf})}}
@@ -94,9 +93,6 @@ const styles = StyleSheet.create({
     paddingLeft : 10,
     paddingRight : 10
   },
-  containerBotoes: {
-    paddingTop: 20
-  },
   icones: {
     paddingBottom: 10,
     paddingTop: 10,
@@ -105,7 +101,8 @@ const styles = StyleSheet.create({
   linhasInformacoes: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingBottom: 15
+    paddingBottom: 15,
+    paddingTop: 5
   }
 });
 

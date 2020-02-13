@@ -12,15 +12,14 @@ export const modificaMensagem = texto => {
   })
 }
 
-export const enviarMensagem = (mensagem, cpf, nome, email) => {
-
+export const enviarMensagem = (mensagem, cpf, nome, email, horario) => {
   cpf = cpf.replace(/\./g, "");
   cpf = cpf.replace("-", "");
 
   return dispatch => {
-    firebase.database().ref("/mensagens/" + cpf + "/juniorNet").push({mensagem, tipo: 'envio'})
+    firebase.database().ref("/mensagens/" + cpf + "/juniorNet").push({mensagem, tipo: 'envio', horario, lido: false})
       .then(() => {
-        firebase.database().ref("/mensagens/juniorNet/" + cpf).push({mensagem, tipo: 'recebimento'})
+        firebase.database().ref("/mensagens/juniorNet/" + cpf).push({mensagem, tipo: 'recebimento', horario})
           .then(() => dispatch ({type: ENVIA_MENSAGEM_SUCESSO}))
       })
       .then(() => {

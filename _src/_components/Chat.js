@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, TextInput, TouchableHighlight, FlatList, Activit
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {connect} from 'react-redux';
 import firebase from 'firebase';
+import moment from 'moment';
 
 import {modificaMensagem, enviarMensagem} from '../_actions/ChatActions';
 
@@ -35,7 +36,8 @@ class Chat extends Component {
   _enviarMensagem(){
     const {mensagem, cpf, nome, email} = this.props;
     if(mensagem != ''){
-      this.props.enviarMensagem(mensagem, cpf, nome, email);
+      let horario = moment().utcOffset('-03:00').format('HH:mm');
+      this.props.enviarMensagem(mensagem, cpf, nome, email, horario);
     }
   }
 
@@ -44,12 +46,14 @@ class Chat extends Component {
       return(
         <View style={styles.containerEnvio}>
           <Text style={styles.textoEnvio}> {item.mensagem} </Text>
+          <Text style={{fontSize: 12, color: '#696969'}}> {item.horario} </Text>
         </View>
       );
     }else if(item.tipo === 'recebimento'){
       return(
         <View style={styles.containerRecebimento}>
           <Text style={styles.textoRecebimento}> {item.mensagem} </Text>
+          <Text style={{fontSize: 12, color: '#696969'}}> {item.horario} </Text>
         </View>
       );
     }else if(item.tipo === 1){
@@ -130,8 +134,8 @@ const styles = StyleSheet.create({
   },
   containerEnvio: {
     alignItems: 'flex-end',
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 10,
+    marginBottom: 10,
     marginLeft: 40
   },
   textoEnvio: {
@@ -144,8 +148,8 @@ const styles = StyleSheet.create({
   },
   containerRecebimento: {
     alignItems: 'flex-start',
-    marginTop: 5,
-    marginBottom: 5,
+    marginTop: 10,
+    marginBottom: 10,
     marginRight: 40
   },
   textoRecebimento: {

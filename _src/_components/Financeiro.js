@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, StyleSheet, Text, FlatList, TouchableOpacity, ScrollView, ActivityIndicator} from 'react-native';
+import {View, StyleSheet, Text, FlatList, TouchableOpacity, ScrollView, ActivityIndicator, Picker} from 'react-native';
 
 import {connect} from 'react-redux';
 import {Actions} from 'react-native-router-flux';
@@ -9,46 +9,95 @@ import {buscaFinanceiro} from '../_actions/FinanceiroActions';
 
 class Financeiro extends Component{
 
+  constructor(props){
+    super(props);
+    this.state = {
+      selected: ''
+    }
+  }
+
   componentWillMount(){
     const {cpf} = this.props;
     this.props.buscaFinanceiro({cpf});
   }
 
   renderizaFinanceiro({item}){
-    if(item.status == "Pago"){
-      return(
-        <View style={styles.containerPago}>
-            <Text style={styles.data}> {item.mes} </Text>
-        </View>
-      );
-    }else if (item.status == "Pendente"){
-      return(
-        <View style={styles.containerEmAberto}>
-          <TouchableOpacity onPress={() => {Actions.pagamento({
-              title: item.mes,
-              situacao: item.status,
-              valor: item.valor,
-              linkBoleto: item.link,
-              vencimento: item.vencimento,
-              codigoBarras: item.barcode
-            })}}>
-            <Text style={styles.data}> {item.mes} </Text>
-          </TouchableOpacity>
-        </View>
-      );
+    if(this.state.selected == "pago"){
+      if(item.status == "Pago"){
+        return(
+          <View style={styles.containerPago}>
+              <Text style={styles.data}> {item.mes} </Text>
+          </View>
+        );
+      }
+    }else if(this.state.selected == "em aberto"){
+      if(item.status == "Pendente"){
+          return(
+            <View style={styles.containerEmAberto}>
+              <TouchableOpacity onPress={() => {Actions.pagamento({
+                  title: item.mes,
+                  situacao: item.status,
+                  valor: item.valor,
+                  linkBoleto: item.link,
+                  vencimento: item.vencimento,
+                  codigoBarras: item.barcode
+                })}}>
+                <Text style={styles.data}> {item.mes} </Text>
+              </TouchableOpacity>
+            </View>
+          );
+        }
+    }else if(this.state.selected == "vencido"){
+      if(item.status == "Vencido"){
+        return(
+          <View style={styles.containerVencido}>
+            <TouchableOpacity onPress={() => {Actions.pagamento({
+                title: item.mes,
+                situacao: item.status,
+                valor: item.valor,
+                vencimento: item.vencimento
+              })}}>
+              <Text style={styles.data}> {item.mes} </Text>
+            </TouchableOpacity>
+          </View>
+        );
+      }
     }else{
-      return(
-        <View style={styles.containerVencido}>
-          <TouchableOpacity onPress={() => {Actions.pagamento({
-              title: item.mes,
-              situacao: item.status,
-              valor: item.valor,
-              vencimento: item.vencimento
-            })}}>
-            <Text style={styles.data}> {item.mes} </Text>
-          </TouchableOpacity>
-        </View>
-      );
+      if(item.status == "Pago"){
+        return(
+          <View style={styles.containerPago}>
+              <Text style={styles.data}> {item.mes} </Text>
+          </View>
+        );
+      }else if (item.status == "Pendente"){
+        return(
+          <View style={styles.containerEmAberto}>
+            <TouchableOpacity onPress={() => {Actions.pagamento({
+                title: item.mes,
+                situacao: item.status,
+                valor: item.valor,
+                linkBoleto: item.link,
+                vencimento: item.vencimento,
+                codigoBarras: item.barcode
+              })}}>
+              <Text style={styles.data}> {item.mes} </Text>
+            </TouchableOpacity>
+          </View>
+        );
+      }else{
+        return(
+          <View style={styles.containerVencido}>
+            <TouchableOpacity onPress={() => {Actions.pagamento({
+                title: item.mes,
+                situacao: item.status,
+                valor: item.valor,
+                vencimento: item.vencimento
+              })}}>
+              <Text style={styles.data}> {item.mes} </Text>
+            </TouchableOpacity>
+          </View>
+        );
+      }
     }
   }
 
@@ -76,6 +125,20 @@ class Financeiro extends Component{
 
               <Icon name="fiber-manual-record" size={15} color="#EC3C3D" />
               <Text style={[styles.informacoesPagamentoTexto, {color: '#EC3C3D'}]}> Vencido </Text>
+            </View>
+
+            <View style={{paddingLeft: 15, paddingRight: 15}}>
+              <Picker
+                selectedValue={this.state.selected}
+                style={{height: 50, width: 330}}
+                onValueChange={(itemValue, itemIndex) => {
+                  this.setState({selected: itemValue});
+                }}>
+                  <Picker.Item label="Mostrar todos os boletos..." value="todos" />
+                  <Picker.Item label="Boleto Pago" value="pago" />
+                  <Picker.Item label="Boleto Em aberto" value="em aberto" />
+                  <Picker.Item label="Boleto Vencido" value="vencido" />
+              </Picker>
             </View>
 
             <FlatList
