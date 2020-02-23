@@ -79,7 +79,7 @@ class AlterarSenha extends Component{
 
         <View style={styles.containerInputs}>
           <Text style={styles.textoInformativoRecuperacao}>
-            Em caso de recuperação de senha, no campo de senha antiga, informe a mesma recebida por e-mail!
+            * Em caso de recuperação de senha, no campo de senha antiga, informe a mesma recebida por e-mail!
           </Text>
 
           <TextInput

@@ -48,7 +48,7 @@ class Financeiro extends Component{
           );
         }
     }else if(this.state.selected == "vencido"){
-      if(item.status == "Vencido"){
+      if(item.status == "Vencido ou Cancelado"){
         return(
           <View style={styles.containerVencido}>
             <TouchableOpacity onPress={() => {Actions.pagamento({
@@ -135,9 +135,9 @@ class Financeiro extends Component{
                   this.setState({selected: itemValue});
                 }}>
                   <Picker.Item label="Mostrar todos os boletos..." value="todos" />
-                  <Picker.Item label="Boleto Pago" value="pago" />
-                  <Picker.Item label="Boleto Em aberto" value="em aberto" />
-                  <Picker.Item label="Boleto Vencido" value="vencido" />
+                  <Picker.Item label="Boleto(s) Pago(s)" value="pago" />
+                  <Picker.Item label="Boleto(s) Em aberto" value="em aberto" />
+                  <Picker.Item label="Boleto(s) Vencido(s)" value="vencido" />
               </Picker>
             </View>
 

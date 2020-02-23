@@ -19,7 +19,10 @@ class Planos extends Component{
         <View style={styles.containerPlanoSelecionado}>
           <Text style={styles.titulo}> {item.titulo} </Text>
           <Text style={styles.descricao}> {item.descricao} </Text>
-          <Text style={styles.valor}> R$ {item.valor} </Text>
+          <Text style={styles.valor}> R$ {item.valor} <Text style={{fontSize: 13}}> Mensais </Text> </Text>
+          <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10, paddingRight: 10, paddingTop: 5, paddingBottom: 5}}>
+            * Para mais informações, contacte-nos através do chat!
+          </Text>
         </View>
       );
     }else{
@@ -27,7 +30,10 @@ class Planos extends Component{
         <View style={styles.container}>
           <Text style={styles.titulo}> {item.titulo} </Text>
           <Text style={styles.descricao}> {item.descricao} </Text>
-          <Text style={styles.valor}> R$ {item.valor} </Text>
+          <Text style={styles.valor}> R$ {item.valor} <Text style={{fontSize: 12}}> Mensais </Text> </Text>
+          <Text style={{fontSize: 12, color: '#fff', paddingLeft: 10, paddingRight: 10, paddingTop: 5, paddingBottom: 5}}>
+            * Para mais informações, contacte-nos através do chat!
+          </Text>
         </View>
       );
     }
