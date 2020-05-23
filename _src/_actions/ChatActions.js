@@ -15,6 +15,7 @@ export const modificaMensagem = texto => {
 export const enviarMensagem = (mensagem, cpf, nome, email, horario) => {
   cpf = cpf.replace(/\./g, "");
   cpf = cpf.replace("-", "");
+  time = Date.parse(new Date());
 
   return dispatch => {
     firebase.database().ref("/mensagens/" + cpf + "/juniorNet").push({mensagem, tipo: 'envio', horario, lido: false})
@@ -26,7 +27,7 @@ export const enviarMensagem = (mensagem, cpf, nome, email, horario) => {
         firebase.database().ref("/usuario_conversas/" + cpf + "/juniorNet/").set({nome: "JuniorNet"})
           .then(() => {
             firebase.database().ref("/contatos/" + cpf).once("value").then(snapshot => {
-              firebase.database().ref("/usuario_conversas/" + cpf + "/juniorNet").set({nome, email, cpf})
+              firebase.database().ref("/usuario_conversas/" + cpf + "/juniorNet").set({nome, email, cpf, time})
               .then(() =>{
                 firebase.database().ref("/notificacoes").push({
                   mensagem: 'Nova mensagem de ' + nome,
