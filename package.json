@@ -8,9 +8,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/async-storage": "^1.6.2",
-    "firebase": "^6.6.1",
+    "@react-native-community/async-storage": "1.6.2",
     "react": "16.8.6",
+    "firebase": "6.6.1",
     "react-native": "0.60.5",
     "react-native-masked-text": "^1.13.0",
     "react-native-restart": "^0.0.13",
